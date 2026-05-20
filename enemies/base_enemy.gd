@@ -1,7 +1,7 @@
 extends CharacterBody2D
 class_name BaseEnemy
 
-
+@export_enum("left", "right") var facing_direction: String = "right"
 @export var speed := 100.0
 var player: Node2D
 
@@ -9,7 +9,10 @@ var player: Node2D
 
 func _ready():
 	player = get_tree().get_first_node_in_group("player")
-
+	if facing_direction == "left":
+		scale.x = -1
+	else:
+		scale.x = 1
 func get_player_direction() -> Vector2:
 	if player == null:
 		return Vector2.ZERO

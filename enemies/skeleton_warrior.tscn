@@ -8,6 +8,7 @@
 [ext_resource type="Texture2D" uid="uid://b776g6p3orb7u" path="res://assets/enemies/skeleton/Skeleton_Warrior/Run.png" id="3_bvagy"]
 [ext_resource type="Texture2D" uid="uid://d1pa1f7xk38it" path="res://assets/enemies/skeleton/Skeleton_Warrior/Walk.png" id="4_s2ccf"]
 [ext_resource type="Texture2D" uid="uid://dxe0gum8dsb0d" path="res://assets/enemies/skeleton/Skeleton_Warrior/Protect.png" id="4_xymra"]
+[ext_resource type="PackedScene" uid="uid://cw607pj3kwspx" path="res://enemies/vision.tscn" id="9_q30jv"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_kvgax"]
 size = Vector2(33, 56)
@@ -598,7 +599,7 @@ graph_offset = Vector2(-6, -62)
 [node name="SkeletonWarrior" type="CharacterBody2D" unique_id=847308812]
 visibility_layer = 2
 collision_layer = 16
-collision_mask = 7
+collision_mask = 6
 script = ExtResource("1_jkiek")
 
 [node name="BodyShape" type="CollisionShape2D" parent="." unique_id=917348603]
@@ -619,7 +620,8 @@ tree_root = SubResource("AnimationNodeStateMachine_3m0pe")
 advance_expression_base_node = NodePath("../AnimationPlayer")
 anim_player = NodePath("../AnimationPlayer")
 
-[node name="RayCast2D" type="RayCast2D" parent="." unique_id=341369481]
-position = Vector2(4, 12)
-target_position = Vector2(192, 0)
-collision_mask = 3
+[node name="Vision" parent="." unique_id=1749653016 instance=ExtResource("9_q30jv")]
+position = Vector2(5, 13)
+
+[connection signal="player_detected" from="Vision" to="." method="_on_vision_player_detected"]
+[connection signal="player_lost" from="Vision" to="." method="_on_vision_player_lost"]
