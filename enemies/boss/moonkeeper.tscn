@@ -1,0 +1,863 @@
+[gd_scene format=3 uid="uid://bbji3koochdq4"]
+
+[ext_resource type="Texture2D" uid="uid://bjrt52172psww" path="res://assets/enemies/Moonstone_Keeper Eldermoon_Grove - By SUCART/Idle-MoonstoneKeeper-SUCART/No BG/frame0000.png" id="1_0tt4o"]
+[ext_resource type="Script" uid="uid://dygdxcix0fa8y" path="res://enemies/boss/moonkeeper.gd" id="1_5vlhv"]
+[ext_resource type="Texture2D" uid="uid://dm0t8p0jgkk5x" path="res://assets/enemies/Moonstone_Keeper Eldermoon_Grove - By SUCART/Attack1-MoonstoneKeeper-SUCART/No BG/frame0000.png" id="1_tjg4w"]
+[ext_resource type="Texture2D" uid="uid://cdetgl0r485pu" path="res://assets/enemies/Moonstone_Keeper Eldermoon_Grove - By SUCART/Attack1-MoonstoneKeeper-SUCART/No BG/frame0001.png" id="2_cdx55"]
+[ext_resource type="Texture2D" uid="uid://bkwmkeixvxry6" path="res://assets/enemies/Moonstone_Keeper Eldermoon_Grove - By SUCART/Idle-MoonstoneKeeper-SUCART/No BG/frame0001.png" id="2_mdqfm"]
+[ext_resource type="Texture2D" uid="uid://cfoc4nuxdgumh" path="res://assets/enemies/Moonstone_Keeper Eldermoon_Grove - By SUCART/Idle-MoonstoneKeeper-SUCART/No BG/frame0002.png" id="3_68ejy"]
+[ext_resource type="Texture2D" uid="uid://da0esnayd8oma" path="res://assets/enemies/Moonstone_Keeper Eldermoon_Grove - By SUCART/Attack1-MoonstoneKeeper-SUCART/No BG/frame0002.png" id="3_fpm1g"]
+[ext_resource type="Texture2D" uid="uid://ceug5ut8p0anf" path="res://assets/enemies/Moonstone_Keeper Eldermoon_Grove - By SUCART/Attack1-MoonstoneKeeper-SUCART/No BG/frame0003.png" id="4_0oltc"]
+[ext_resource type="Texture2D" uid="uid://bagpqfq8mnflp" path="res://assets/enemies/Moonstone_Keeper Eldermoon_Grove - By SUCART/Idle-MoonstoneKeeper-SUCART/No BG/frame0003.png" id="4_855b4"]
+[ext_resource type="Texture2D" uid="uid://crlmc6lawe0g1" path="res://assets/enemies/Moonstone_Keeper Eldermoon_Grove - By SUCART/Idle-MoonstoneKeeper-SUCART/No BG/frame0004.png" id="5_ldsgi"]
+[ext_resource type="Texture2D" uid="uid://lhuea4vlh3hs" path="res://assets/enemies/Moonstone_Keeper Eldermoon_Grove - By SUCART/Attack1-MoonstoneKeeper-SUCART/No BG/frame0004.png" id="5_st1x7"]
+[ext_resource type="Texture2D" uid="uid://cr7mx7y6ef330" path="res://assets/enemies/Moonstone_Keeper Eldermoon_Grove - By SUCART/Attack1-MoonstoneKeeper-SUCART/No BG/frame0005.png" id="6_2trwv"]
+[ext_resource type="Texture2D" uid="uid://pm1cxhx8ipa5" path="res://assets/enemies/Moonstone_Keeper Eldermoon_Grove - By SUCART/Idle-MoonstoneKeeper-SUCART/No BG/frame0005.png" id="6_c5yna"]
+[ext_resource type="Texture2D" uid="uid://c427wwm560n4k" path="res://assets/enemies/Moonstone_Keeper Eldermoon_Grove - By SUCART/Idle-MoonstoneKeeper-SUCART/No BG/frame0006.png" id="7_qbj2q"]
+[ext_resource type="Texture2D" uid="uid://c6ow1eqafyp02" path="res://assets/enemies/Moonstone_Keeper Eldermoon_Grove - By SUCART/Attack1-MoonstoneKeeper-SUCART/No BG/frame0006.png" id="7_y232b"]
+[ext_resource type="Texture2D" uid="uid://0cafx0mjti6i" path="res://assets/enemies/Moonstone_Keeper Eldermoon_Grove - By SUCART/Idle-MoonstoneKeeper-SUCART/No BG/frame0007.png" id="8_4y5lq"]
+[ext_resource type="Texture2D" uid="uid://bsemjk6t5fej" path="res://assets/enemies/Moonstone_Keeper Eldermoon_Grove - By SUCART/Attack1-MoonstoneKeeper-SUCART/No BG/frame0007.png" id="8_tenby"]
+[ext_resource type="Texture2D" uid="uid://cbeut61uw0vsb" path="res://assets/enemies/Moonstone_Keeper Eldermoon_Grove - By SUCART/Idle-MoonstoneKeeper-SUCART/No BG/frame0008.png" id="9_dnud0"]
+[ext_resource type="Texture2D" uid="uid://cokayojy8d6bc" path="res://assets/enemies/Moonstone_Keeper Eldermoon_Grove - By SUCART/Attack1-MoonstoneKeeper-SUCART/No BG/frame0008.png" id="9_mv0cx"]
+[ext_resource type="Texture2D" uid="uid://bt02cyvtknyx7" path="res://assets/enemies/Moonstone_Keeper Eldermoon_Grove - By SUCART/Attack1-MoonstoneKeeper-SUCART/No BG/frame0009.png" id="10_7f5ju"]
+[ext_resource type="Texture2D" uid="uid://bp5kycfopnvob" path="res://assets/enemies/Moonstone_Keeper Eldermoon_Grove - By SUCART/Idle-MoonstoneKeeper-SUCART/No BG/frame0009.png" id="10_l0qpd"]
+[ext_resource type="Texture2D" uid="uid://ce46nyomxloid" path="res://assets/enemies/Moonstone_Keeper Eldermoon_Grove - By SUCART/Attack1-MoonstoneKeeper-SUCART/No BG/frame0010.png" id="11_isv88"]
+[ext_resource type="Texture2D" uid="uid://5o8tsp2g2itm" path="res://assets/enemies/Moonstone_Keeper Eldermoon_Grove - By SUCART/Idle-MoonstoneKeeper-SUCART/No BG/frame0010.png" id="11_ojpg3"]
+[ext_resource type="Texture2D" uid="uid://bgi3tgiqn77u2" path="res://assets/enemies/Moonstone_Keeper Eldermoon_Grove - By SUCART/Attack2-MoonstoneKeeper-SUCART/No BG/frame0000.png" id="12_isv88"]
+[ext_resource type="Texture2D" uid="uid://6j6dx0vs3ypl" path="res://assets/enemies/Moonstone_Keeper Eldermoon_Grove - By SUCART/Idle-MoonstoneKeeper-SUCART/No BG/frame0011.png" id="12_luvwj"]
+[ext_resource type="Texture2D" uid="uid://5dtvbmpqno2b" path="res://assets/enemies/Moonstone_Keeper Eldermoon_Grove - By SUCART/Idle-MoonstoneKeeper-SUCART/No BG/frame0012.png" id="13_mqq7i"]
+[ext_resource type="Texture2D" uid="uid://ptl5jtkuj5nu" path="res://assets/enemies/Moonstone_Keeper Eldermoon_Grove - By SUCART/Attack2-MoonstoneKeeper-SUCART/No BG/frame0001.png" id="13_vm0t5"]
+[ext_resource type="Texture2D" uid="uid://dqyk3liq5xnsb" path="res://assets/enemies/Moonstone_Keeper Eldermoon_Grove - By SUCART/Attack2-MoonstoneKeeper-SUCART/No BG/frame0002.png" id="14_c8vtl"]
+[ext_resource type="Texture2D" uid="uid://dfgw0cx6b2e5r" path="res://assets/enemies/Moonstone_Keeper Eldermoon_Grove - By SUCART/Idle-MoonstoneKeeper-SUCART/No BG/frame0013.png" id="14_daldf"]
+[ext_resource type="Texture2D" uid="uid://dm1odr1265pt7" path="res://assets/enemies/Moonstone_Keeper Eldermoon_Grove - By SUCART/Attack2-MoonstoneKeeper-SUCART/No BG/frame0003.png" id="15_b8cf0"]
+[ext_resource type="Texture2D" uid="uid://dx7t0ykp3yicm" path="res://assets/enemies/Moonstone_Keeper Eldermoon_Grove - By SUCART/Idle-MoonstoneKeeper-SUCART/No BG/frame0014.png" id="15_ujlrk"]
+[ext_resource type="Texture2D" uid="uid://cc8nysfg0l82j" path="res://assets/enemies/Moonstone_Keeper Eldermoon_Grove - By SUCART/Attack2-MoonstoneKeeper-SUCART/No BG/frame0004.png" id="16_3yrgk"]
+[ext_resource type="Texture2D" uid="uid://dvfna3fs1ldr0" path="res://assets/enemies/Moonstone_Keeper Eldermoon_Grove - By SUCART/Idle-MoonstoneKeeper-SUCART/No BG/frame0015.png" id="16_l7ky6"]
+[ext_resource type="Texture2D" uid="uid://dvlq3o2sa18iu" path="res://assets/enemies/Moonstone_Keeper Eldermoon_Grove - By SUCART/Attack2-MoonstoneKeeper-SUCART/No BG/frame0005.png" id="17_2e4nt"]
+[ext_resource type="Texture2D" uid="uid://qai3wy7gka4i" path="res://assets/enemies/Moonstone_Keeper Eldermoon_Grove - By SUCART/Idle-MoonstoneKeeper-SUCART/No BG/frame0016.png" id="17_d7bqv"]
+[ext_resource type="Texture2D" uid="uid://bssphia30t85d" path="res://assets/enemies/Moonstone_Keeper Eldermoon_Grove - By SUCART/Run-MoonstoneKeeper-SUCART/No BG/frame0000.png" id="18_3081e"]
+[ext_resource type="Texture2D" uid="uid://bo0eayv7ussrn" path="res://assets/enemies/Moonstone_Keeper Eldermoon_Grove - By SUCART/Walk-MoonstoneKeeper-SUCART/No BG/frame0000.png" id="18_mqq7i"]
+[ext_resource type="Texture2D" uid="uid://crgneengt6em7" path="res://assets/enemies/Moonstone_Keeper Eldermoon_Grove - By SUCART/Attack2-MoonstoneKeeper-SUCART/No BG/frame0006.png" id="18_qok4y"]
+[ext_resource type="Texture2D" uid="uid://bvcw3wyhpj1hh" path="res://assets/enemies/Moonstone_Keeper Eldermoon_Grove - By SUCART/Attack2-MoonstoneKeeper-SUCART/No BG/frame0007.png" id="19_8cbxn"]
+[ext_resource type="Texture2D" uid="uid://bbg4e6spmmice" path="res://assets/enemies/Moonstone_Keeper Eldermoon_Grove - By SUCART/Walk-MoonstoneKeeper-SUCART/No BG/frame0001.png" id="19_daldf"]
+[ext_resource type="Texture2D" uid="uid://bwjwrbscint34" path="res://assets/enemies/Moonstone_Keeper Eldermoon_Grove - By SUCART/Run-MoonstoneKeeper-SUCART/No BG/frame0001.png" id="19_uhga0"]
+[ext_resource type="Texture2D" uid="uid://bwip17hqc58af" path="res://assets/enemies/Moonstone_Keeper Eldermoon_Grove - By SUCART/Run-MoonstoneKeeper-SUCART/No BG/frame0002.png" id="20_32h26"]
+[ext_resource type="Texture2D" uid="uid://b2xoktg4inwj4" path="res://assets/enemies/Moonstone_Keeper Eldermoon_Grove - By SUCART/Attack2-MoonstoneKeeper-SUCART/No BG/frame0008.png" id="20_ekk21"]
+[ext_resource type="Texture2D" uid="uid://clh4ec8kufmfe" path="res://assets/enemies/Moonstone_Keeper Eldermoon_Grove - By SUCART/Walk-MoonstoneKeeper-SUCART/No BG/frame0002.png" id="20_ujlrk"]
+[ext_resource type="Texture2D" uid="uid://ccmsy55mwxc75" path="res://assets/enemies/Moonstone_Keeper Eldermoon_Grove - By SUCART/Attack2-MoonstoneKeeper-SUCART/No BG/frame0009.png" id="21_a16hm"]
+[ext_resource type="Texture2D" uid="uid://ybkk0at0p5hg" path="res://assets/enemies/Moonstone_Keeper Eldermoon_Grove - By SUCART/Walk-MoonstoneKeeper-SUCART/No BG/frame0003.png" id="21_l7ky6"]
+[ext_resource type="Texture2D" uid="uid://7elqplyamth8" path="res://assets/enemies/Moonstone_Keeper Eldermoon_Grove - By SUCART/Run-MoonstoneKeeper-SUCART/No BG/frame0003.png" id="21_pvos3"]
+[ext_resource type="Texture2D" uid="uid://byclaq4wxuyja" path="res://assets/enemies/Moonstone_Keeper Eldermoon_Grove - By SUCART/Walk-MoonstoneKeeper-SUCART/No BG/frame0004.png" id="22_d7bqv"]
+[ext_resource type="Texture2D" uid="uid://d1fpocn7j7tcv" path="res://assets/enemies/Moonstone_Keeper Eldermoon_Grove - By SUCART/Run-MoonstoneKeeper-SUCART/No BG/frame0004.png" id="22_n0tir"]
+[ext_resource type="Texture2D" uid="uid://ctr8vv6hrsg57" path="res://assets/enemies/Moonstone_Keeper Eldermoon_Grove - By SUCART/Dash-MoonstoneKeeper-SUCART/No BG/frame0000.png" id="22_rruho"]
+[ext_resource type="Texture2D" uid="uid://bp3agsyr1sdu0" path="res://assets/enemies/Moonstone_Keeper Eldermoon_Grove - By SUCART/Dash-MoonstoneKeeper-SUCART/No BG/frame0001.png" id="23_0glbg"]
+[ext_resource type="Texture2D" uid="uid://b2btvpynl84tk" path="res://assets/enemies/Moonstone_Keeper Eldermoon_Grove - By SUCART/Walk-MoonstoneKeeper-SUCART/No BG/frame0005.png" id="23_ugmuj"]
+[ext_resource type="Texture2D" uid="uid://b8neq5tenplk8" path="res://assets/enemies/Moonstone_Keeper Eldermoon_Grove - By SUCART/Run-MoonstoneKeeper-SUCART/No BG/frame0005.png" id="23_uqtn6"]
+[ext_resource type="Texture2D" uid="uid://d0oy2402mq7h6" path="res://assets/enemies/Moonstone_Keeper Eldermoon_Grove - By SUCART/Walk-MoonstoneKeeper-SUCART/No BG/frame0006.png" id="24_3081e"]
+[ext_resource type="Texture2D" uid="uid://dp2sk6ecp6fl2" path="res://assets/enemies/Moonstone_Keeper Eldermoon_Grove - By SUCART/Dash-MoonstoneKeeper-SUCART/No BG/frame0002.png" id="24_whibf"]
+[ext_resource type="Texture2D" uid="uid://cmas7si2t5rxs" path="res://assets/enemies/Moonstone_Keeper Eldermoon_Grove - By SUCART/Dash-MoonstoneKeeper-SUCART/No BG/frame0003.png" id="25_68lvq"]
+[ext_resource type="Texture2D" uid="uid://cl11xu7kojsh7" path="res://assets/enemies/Moonstone_Keeper Eldermoon_Grove - By SUCART/Walk-MoonstoneKeeper-SUCART/No BG/frame0007.png" id="25_uhga0"]
+[ext_resource type="Texture2D" uid="uid://bp1tpscnp070f" path="res://assets/enemies/Moonstone_Keeper Eldermoon_Grove - By SUCART/Dash-MoonstoneKeeper-SUCART/No BG/frame0004.png" id="26_1h232"]
+[ext_resource type="Texture2D" uid="uid://bomucc78ypeds" path="res://assets/enemies/Moonstone_Keeper Eldermoon_Grove - By SUCART/Walk-MoonstoneKeeper-SUCART/No BG/frame0008.png" id="26_32h26"]
+[ext_resource type="Texture2D" uid="uid://cfol0yl11w0ub" path="res://assets/enemies/Moonstone_Keeper Eldermoon_Grove - By SUCART/Dash-MoonstoneKeeper-SUCART/No BG/frame0005.png" id="27_4e7bm"]
+[ext_resource type="Texture2D" uid="uid://x8r1oaswrtfd" path="res://assets/enemies/Moonstone_Keeper Eldermoon_Grove - By SUCART/Walk-MoonstoneKeeper-SUCART/No BG/frame0009.png" id="27_pvos3"]
+[ext_resource type="Texture2D" uid="uid://6gdxrl2ffvlx" path="res://assets/enemies/Moonstone_Keeper Eldermoon_Grove - By SUCART/Dash-MoonstoneKeeper-SUCART/No BG/frame0006.png" id="28_0s0ds"]
+[ext_resource type="Texture2D" uid="uid://b5j86fflldf5c" path="res://assets/enemies/Moonstone_Keeper Eldermoon_Grove - By SUCART/Walk-MoonstoneKeeper-SUCART/No BG/frame0010.png" id="28_n0tir"]
+[ext_resource type="Texture2D" uid="uid://bqrt42qhalcpn" path="res://assets/enemies/Moonstone_Keeper Eldermoon_Grove - By SUCART/Dash-MoonstoneKeeper-SUCART/No BG/frame0007.png" id="29_pjurw"]
+[ext_resource type="Texture2D" uid="uid://camrxdyk2vh3p" path="res://assets/enemies/Moonstone_Keeper Eldermoon_Grove - By SUCART/Walk-MoonstoneKeeper-SUCART/No BG/frame0011.png" id="29_uqtn6"]
+[ext_resource type="Texture2D" uid="uid://bi6q02thsncpe" path="res://assets/enemies/Moonstone_Keeper Eldermoon_Grove - By SUCART/Dash-MoonstoneKeeper-SUCART/No BG/frame0008.png" id="30_24g75"]
+[ext_resource type="Texture2D" uid="uid://8wamcfshpw1a" path="res://assets/enemies/Moonstone_Keeper Eldermoon_Grove - By SUCART/Dash-MoonstoneKeeper-SUCART/No BG/frame0009.png" id="31_gxnhs"]
+[ext_resource type="Texture2D" uid="uid://p7yaxask0oqm" path="res://assets/enemies/Moonstone_Keeper Eldermoon_Grove - By SUCART/Dash-MoonstoneKeeper-SUCART/No BG/frame0010.png" id="32_vex4a"]
+[ext_resource type="Texture2D" uid="uid://0b80b6gr0lj3" path="res://assets/enemies/Moonstone_Keeper Eldermoon_Grove - By SUCART/Dash-MoonstoneKeeper-SUCART/No BG/frame0011.png" id="33_4555g"]
+[ext_resource type="Texture2D" uid="uid://dbyp7od5hcsbf" path="res://assets/enemies/Moonstone_Keeper Eldermoon_Grove - By SUCART/Dash-MoonstoneKeeper-SUCART/No BG/frame0012.png" id="34_3dae7"]
+[ext_resource type="Texture2D" uid="uid://db7ilqmtfqfli" path="res://assets/enemies/Moonstone_Keeper Eldermoon_Grove - By SUCART/Dash-MoonstoneKeeper-SUCART/No BG/frame0013.png" id="35_fbqi1"]
+[ext_resource type="Texture2D" uid="uid://duib8xcmnxeg3" path="res://assets/enemies/Moonstone_Keeper Eldermoon_Grove - By SUCART/Dash-MoonstoneKeeper-SUCART/No BG/frame0014.png" id="36_r42ga"]
+[ext_resource type="Texture2D" uid="uid://bfwh6wh64pp6e" path="res://assets/enemies/Moonstone_Keeper Eldermoon_Grove - By SUCART/Hit-MoonstoneKeeper-SUCART/No BG/frame0000.png" id="37_68lvq"]
+[ext_resource type="Texture2D" uid="uid://bk1ghpou4wndh" path="res://assets/enemies/Moonstone_Keeper Eldermoon_Grove - By SUCART/Death-MoonstoneKeeper-SUCART/No BG/frame0000.png" id="37_irf47"]
+[ext_resource type="Texture2D" uid="uid://bnyiyob14chrv" path="res://assets/enemies/Moonstone_Keeper Eldermoon_Grove - By SUCART/Hit-MoonstoneKeeper-SUCART/No BG/frame0001.png" id="38_1h232"]
+[ext_resource type="Texture2D" uid="uid://r51eniu1537h" path="res://assets/enemies/Moonstone_Keeper Eldermoon_Grove - By SUCART/Death-MoonstoneKeeper-SUCART/No BG/frame0001.png" id="38_hjjpk"]
+[ext_resource type="Texture2D" uid="uid://dhk5orcg155h2" path="res://assets/enemies/Moonstone_Keeper Eldermoon_Grove - By SUCART/Hit-MoonstoneKeeper-SUCART/No BG/frame0002.png" id="39_4e7bm"]
+[ext_resource type="Texture2D" uid="uid://e7vuoxoj5wqi" path="res://assets/enemies/Moonstone_Keeper Eldermoon_Grove - By SUCART/Death-MoonstoneKeeper-SUCART/No BG/frame0002.png" id="39_4thme"]
+[ext_resource type="Texture2D" uid="uid://dgce7hyc2lhny" path="res://assets/enemies/Moonstone_Keeper Eldermoon_Grove - By SUCART/Death-MoonstoneKeeper-SUCART/No BG/frame0003.png" id="40_2bw4a"]
+[ext_resource type="Texture2D" uid="uid://cbrktaqubpqus" path="res://assets/enemies/Moonstone_Keeper Eldermoon_Grove - By SUCART/Death-MoonstoneKeeper-SUCART/No BG/frame0004.png" id="41_3mu86"]
+[ext_resource type="Texture2D" uid="uid://c2nnhwsf2tb7d" path="res://assets/enemies/Moonstone_Keeper Eldermoon_Grove - By SUCART/Death-MoonstoneKeeper-SUCART/No BG/frame0005.png" id="42_xu0v0"]
+[ext_resource type="Texture2D" uid="uid://ckjvds2wjipd0" path="res://assets/enemies/Moonstone_Keeper Eldermoon_Grove - By SUCART/Death-MoonstoneKeeper-SUCART/No BG/frame0006.png" id="43_ms45l"]
+[ext_resource type="Texture2D" uid="uid://bm06ymykdbgqx" path="res://assets/enemies/Moonstone_Keeper Eldermoon_Grove - By SUCART/Death-MoonstoneKeeper-SUCART/No BG/frame0007.png" id="44_hmsbk"]
+[ext_resource type="Texture2D" uid="uid://hp45o5qmhr6r" path="res://assets/enemies/Moonstone_Keeper Eldermoon_Grove - By SUCART/Death-MoonstoneKeeper-SUCART/No BG/frame0008.png" id="45_c8h32"]
+[ext_resource type="Texture2D" uid="uid://crwv3o7bdcdie" path="res://assets/enemies/Moonstone_Keeper Eldermoon_Grove - By SUCART/Death-MoonstoneKeeper-SUCART/No BG/frame0009.png" id="46_54mfr"]
+[ext_resource type="Texture2D" uid="uid://ft0yuhee0hfc" path="res://assets/enemies/Moonstone_Keeper Eldermoon_Grove - By SUCART/Death-MoonstoneKeeper-SUCART/No BG/frame0010.png" id="47_qwmja"]
+[ext_resource type="Texture2D" uid="uid://yr26ya7383ef" path="res://assets/enemies/Moonstone_Keeper Eldermoon_Grove - By SUCART/Death-MoonstoneKeeper-SUCART/No BG/frame0011.png" id="48_6afwm"]
+[ext_resource type="Texture2D" uid="uid://3lmr2ybhikk1" path="res://assets/enemies/Moonstone_Keeper Eldermoon_Grove - By SUCART/Death-MoonstoneKeeper-SUCART/No BG/frame0012.png" id="49_3dhhc"]
+[ext_resource type="Texture2D" uid="uid://cd41ycaxadoxe" path="res://assets/enemies/Moonstone_Keeper Eldermoon_Grove - By SUCART/Death-MoonstoneKeeper-SUCART/No BG/frame0013.png" id="50_5vlhv"]
+[ext_resource type="Texture2D" uid="uid://c0tf7j3go7wcq" path="res://assets/enemies/Moonstone_Keeper Eldermoon_Grove - By SUCART/Death-MoonstoneKeeper-SUCART/No BG/frame0014.png" id="51_2u5fi"]
+[ext_resource type="Texture2D" uid="uid://5bd4q58m5n3l" path="res://assets/enemies/Moonstone_Keeper Eldermoon_Grove - By SUCART/Death-MoonstoneKeeper-SUCART/No BG/frame0015.png" id="52_10ns1"]
+[ext_resource type="Texture2D" uid="uid://cpai5ohymgq47" path="res://assets/enemies/Moonstone_Keeper Eldermoon_Grove - By SUCART/Death-MoonstoneKeeper-SUCART/No BG/frame0016.png" id="53_wdn54"]
+[ext_resource type="Texture2D" uid="uid://4p8wbtshn1a" path="res://assets/enemies/Moonstone_Keeper Eldermoon_Grove - By SUCART/Death-MoonstoneKeeper-SUCART/No BG/frame0017.png" id="54_8lc7i"]
+[ext_resource type="Texture2D" uid="uid://twnv12mhgrhd" path="res://assets/enemies/Moonstone_Keeper Eldermoon_Grove - By SUCART/Death-MoonstoneKeeper-SUCART/No BG/frame0018.png" id="55_l8mto"]
+[ext_resource type="Texture2D" uid="uid://bqhnde1n6y0qh" path="res://assets/enemies/Moonstone_Keeper Eldermoon_Grove - By SUCART/Land-MoonstoneKeeper-SUCART/No BG/frame0000.png" id="76_3mu86"]
+[ext_resource type="Texture2D" uid="uid://b5jcf4q6kr4tm" path="res://assets/enemies/Moonstone_Keeper Eldermoon_Grove - By SUCART/Jump Start-MoonstoneKeeper-SUCART/No BG/frame0000.png" id="76_54mfr"]
+[ext_resource type="Texture2D" uid="uid://bu0mvq2puiw86" path="res://assets/enemies/Moonstone_Keeper Eldermoon_Grove - By SUCART/Jump Start-MoonstoneKeeper-SUCART/No BG/frame0001.png" id="77_qwmja"]
+[ext_resource type="Texture2D" uid="uid://berpprbyr7dlf" path="res://assets/enemies/Moonstone_Keeper Eldermoon_Grove - By SUCART/Land-MoonstoneKeeper-SUCART/No BG/frame0001.png" id="77_xu0v0"]
+[ext_resource type="Texture2D" uid="uid://dodo5pajm754l" path="res://assets/enemies/Moonstone_Keeper Eldermoon_Grove - By SUCART/Jump Start-MoonstoneKeeper-SUCART/No BG/frame0002.png" id="78_6afwm"]
+[ext_resource type="Texture2D" uid="uid://bxqcik1b6q0dt" path="res://assets/enemies/Moonstone_Keeper Eldermoon_Grove - By SUCART/Land-MoonstoneKeeper-SUCART/No BG/frame0002.png" id="78_ms45l"]
+[ext_resource type="Texture2D" uid="uid://3td624vnfjga" path="res://assets/enemies/Moonstone_Keeper Eldermoon_Grove - By SUCART/Jump Start-MoonstoneKeeper-SUCART/No BG/frame0003.png" id="79_3dhhc"]
+[ext_resource type="Texture2D" uid="uid://c13cyyvfbdc3h" path="res://assets/enemies/Moonstone_Keeper Eldermoon_Grove - By SUCART/Land-MoonstoneKeeper-SUCART/No BG/frame0003.png" id="79_hmsbk"]
+[ext_resource type="Texture2D" uid="uid://b0p5j340tthol" path="res://assets/enemies/Moonstone_Keeper Eldermoon_Grove - By SUCART/Jump Start-MoonstoneKeeper-SUCART/No BG/frame0004.png" id="80_5vlhv"]
+[ext_resource type="Texture2D" uid="uid://bvtj1urr185l3" path="res://assets/enemies/Moonstone_Keeper Eldermoon_Grove - By SUCART/Jump Loop-MoonstoneKeeper-SUCART/No BG/frame0000.png" id="81_3dhhc"]
+[ext_resource type="Texture2D" uid="uid://cx82t2mgycg63" path="res://assets/enemies/Moonstone_Keeper Eldermoon_Grove - By SUCART/Jump Loop-MoonstoneKeeper-SUCART/No BG/frame0001.png" id="82_5vlhv"]
+[ext_resource type="Texture2D" uid="uid://nyofvumxwaqb" path="res://assets/enemies/Moonstone_Keeper Eldermoon_Grove - By SUCART/Jump Loop-MoonstoneKeeper-SUCART/No BG/frame0002.png" id="83_2u5fi"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_3dhhc"]
+size = Vector2(17, 70)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_n8hj1"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_tjg4w")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_cdx55")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_fpm1g")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_0oltc")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_st1x7")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_2trwv")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_y232b")
+}, {
+"duration": 1.0,
+"texture": ExtResource("8_tenby")
+}, {
+"duration": 1.0,
+"texture": ExtResource("9_mv0cx")
+}, {
+"duration": 1.0,
+"texture": ExtResource("10_7f5ju")
+}, {
+"duration": 1.0,
+"texture": ExtResource("11_isv88")
+}],
+"loop": false,
+"name": &"attack_1",
+"speed": 10.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("12_isv88")
+}, {
+"duration": 1.0,
+"texture": ExtResource("13_vm0t5")
+}, {
+"duration": 1.0,
+"texture": ExtResource("14_c8vtl")
+}, {
+"duration": 1.0,
+"texture": ExtResource("15_b8cf0")
+}, {
+"duration": 1.0,
+"texture": ExtResource("16_3yrgk")
+}, {
+"duration": 1.0,
+"texture": ExtResource("17_2e4nt")
+}, {
+"duration": 1.0,
+"texture": ExtResource("18_qok4y")
+}, {
+"duration": 1.0,
+"texture": ExtResource("19_8cbxn")
+}, {
+"duration": 1.0,
+"texture": ExtResource("20_ekk21")
+}, {
+"duration": 1.0,
+"texture": ExtResource("21_a16hm")
+}],
+"loop": false,
+"name": &"attack_2",
+"speed": 9.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("22_rruho")
+}, {
+"duration": 1.0,
+"texture": ExtResource("23_0glbg")
+}, {
+"duration": 1.0,
+"texture": ExtResource("24_whibf")
+}, {
+"duration": 1.0,
+"texture": ExtResource("25_68lvq")
+}, {
+"duration": 1.0,
+"texture": ExtResource("26_1h232")
+}, {
+"duration": 1.0,
+"texture": ExtResource("27_4e7bm")
+}, {
+"duration": 1.0,
+"texture": ExtResource("28_0s0ds")
+}, {
+"duration": 1.0,
+"texture": ExtResource("29_pjurw")
+}, {
+"duration": 1.0,
+"texture": ExtResource("30_24g75")
+}, {
+"duration": 1.0,
+"texture": ExtResource("31_gxnhs")
+}, {
+"duration": 1.0,
+"texture": ExtResource("32_vex4a")
+}, {
+"duration": 1.0,
+"texture": ExtResource("33_4555g")
+}, {
+"duration": 1.0,
+"texture": ExtResource("34_3dae7")
+}, {
+"duration": 1.0,
+"texture": ExtResource("35_fbqi1")
+}, {
+"duration": 1.0,
+"texture": ExtResource("36_r42ga")
+}],
+"loop": false,
+"name": &"dash",
+"speed": 9.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("37_irf47")
+}, {
+"duration": 1.0,
+"texture": ExtResource("38_hjjpk")
+}, {
+"duration": 1.0,
+"texture": ExtResource("39_4thme")
+}, {
+"duration": 1.0,
+"texture": ExtResource("40_2bw4a")
+}, {
+"duration": 1.0,
+"texture": ExtResource("41_3mu86")
+}, {
+"duration": 1.0,
+"texture": ExtResource("42_xu0v0")
+}, {
+"duration": 1.0,
+"texture": ExtResource("43_ms45l")
+}, {
+"duration": 1.0,
+"texture": ExtResource("44_hmsbk")
+}, {
+"duration": 1.0,
+"texture": ExtResource("45_c8h32")
+}, {
+"duration": 1.0,
+"texture": ExtResource("46_54mfr")
+}, {
+"duration": 1.0,
+"texture": ExtResource("47_qwmja")
+}, {
+"duration": 1.0,
+"texture": ExtResource("48_6afwm")
+}, {
+"duration": 1.0,
+"texture": ExtResource("49_3dhhc")
+}, {
+"duration": 1.0,
+"texture": ExtResource("50_5vlhv")
+}, {
+"duration": 1.0,
+"texture": ExtResource("51_2u5fi")
+}, {
+"duration": 1.0,
+"texture": ExtResource("52_10ns1")
+}, {
+"duration": 1.0,
+"texture": ExtResource("53_wdn54")
+}, {
+"duration": 1.0,
+"texture": ExtResource("54_8lc7i")
+}, {
+"duration": 1.0,
+"texture": ExtResource("55_l8mto")
+}],
+"loop": false,
+"name": &"death",
+"speed": 8.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("37_68lvq")
+}, {
+"duration": 1.0,
+"texture": ExtResource("38_1h232")
+}, {
+"duration": 1.0,
+"texture": ExtResource("39_4e7bm")
+}],
+"loop": false,
+"name": &"hit",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_0tt4o")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_mdqfm")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_68ejy")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_855b4")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_ldsgi")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_c5yna")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_qbj2q")
+}, {
+"duration": 1.0,
+"texture": ExtResource("8_4y5lq")
+}, {
+"duration": 1.0,
+"texture": ExtResource("9_dnud0")
+}, {
+"duration": 1.0,
+"texture": ExtResource("10_l0qpd")
+}, {
+"duration": 1.0,
+"texture": ExtResource("11_ojpg3")
+}, {
+"duration": 1.0,
+"texture": ExtResource("12_luvwj")
+}, {
+"duration": 1.0,
+"texture": ExtResource("13_mqq7i")
+}, {
+"duration": 1.0,
+"texture": ExtResource("14_daldf")
+}, {
+"duration": 1.0,
+"texture": ExtResource("15_ujlrk")
+}, {
+"duration": 1.0,
+"texture": ExtResource("16_l7ky6")
+}, {
+"duration": 1.0,
+"texture": ExtResource("17_d7bqv")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 10.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("76_54mfr")
+}, {
+"duration": 1.0,
+"texture": ExtResource("77_qwmja")
+}, {
+"duration": 1.0,
+"texture": ExtResource("78_6afwm")
+}, {
+"duration": 1.0,
+"texture": ExtResource("79_3dhhc")
+}, {
+"duration": 1.0,
+"texture": ExtResource("80_5vlhv")
+}],
+"loop": false,
+"name": &"jump",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("81_3dhhc")
+}, {
+"duration": 1.0,
+"texture": ExtResource("82_5vlhv")
+}, {
+"duration": 1.0,
+"texture": ExtResource("83_2u5fi")
+}],
+"loop": true,
+"name": &"jump_loop",
+"speed": 9.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("76_3mu86")
+}, {
+"duration": 1.0,
+"texture": ExtResource("77_xu0v0")
+}, {
+"duration": 1.0,
+"texture": ExtResource("78_ms45l")
+}, {
+"duration": 1.0,
+"texture": ExtResource("79_hmsbk")
+}],
+"loop": false,
+"name": &"land",
+"speed": 3.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("18_3081e")
+}, {
+"duration": 1.0,
+"texture": ExtResource("19_uhga0")
+}, {
+"duration": 1.0,
+"texture": ExtResource("20_32h26")
+}, {
+"duration": 1.0,
+"texture": ExtResource("21_pvos3")
+}, {
+"duration": 1.0,
+"texture": ExtResource("22_n0tir")
+}, {
+"duration": 1.0,
+"texture": ExtResource("23_uqtn6")
+}],
+"loop": true,
+"name": &"run",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("18_mqq7i")
+}, {
+"duration": 1.0,
+"texture": ExtResource("19_daldf")
+}, {
+"duration": 1.0,
+"texture": ExtResource("20_ujlrk")
+}, {
+"duration": 1.0,
+"texture": ExtResource("21_l7ky6")
+}, {
+"duration": 1.0,
+"texture": ExtResource("22_d7bqv")
+}, {
+"duration": 1.0,
+"texture": ExtResource("23_ugmuj")
+}, {
+"duration": 1.0,
+"texture": ExtResource("24_3081e")
+}, {
+"duration": 1.0,
+"texture": ExtResource("25_uhga0")
+}, {
+"duration": 1.0,
+"texture": ExtResource("26_32h26")
+}, {
+"duration": 1.0,
+"texture": ExtResource("27_pvos3")
+}, {
+"duration": 1.0,
+"texture": ExtResource("28_n0tir")
+}, {
+"duration": 1.0,
+"texture": ExtResource("29_uqtn6")
+}],
+"loop": true,
+"name": &"walk",
+"speed": 8.0
+}]
+
+[sub_resource type="Animation" id="Animation_3dhhc"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite2D:animation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [&"idle"]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("AnimatedSprite2D:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [11]
+}
+
+[sub_resource type="Animation" id="Animation_10ns1"]
+resource_name = "attack_1"
+length = 1.4
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite2D:animation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [&"attack_1"]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("AnimatedSprite2D:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.40000007, 0.50000006, 0.6000001, 0.70000005, 0.8000001, 0.9000001, 1, 1.1, 1.2, 1.3000002),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 9, 10, 8, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+}
+
+[sub_resource type="Animation" id="Animation_wdn54"]
+resource_name = "attack_2"
+length = 1.3333334
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite2D:animation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [&"attack_2"]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("AnimatedSprite2D:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.13333334, 0.26666668, 0.4, 0.5333333, 0.6666666, 0.8, 0.93333334, 1.0666667, 1.2),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+}
+
+[sub_resource type="Animation" id="Animation_8lc7i"]
+resource_name = "dash"
+length = 1.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite2D:animation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [&"dash"]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("AnimatedSprite2D:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1, 1.1, 1.2, 1.3, 1.4),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14]
+}
+
+[sub_resource type="Animation" id="Animation_3gd03"]
+resource_name = "death"
+length = 1.9
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite2D:animation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [&"death"]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("AnimatedSprite2D:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1, 1.1, 1.2, 1.3, 1.4, 1.5, 1.6, 1.7, 1.8),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18]
+}
+
+[sub_resource type="Animation" id="Animation_l8mto"]
+resource_name = "hit"
+length = 0.3
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite2D:animation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [&"hit"]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("AnimatedSprite2D:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [0, 1, 2]
+}
+
+[sub_resource type="Animation" id="Animation_5vlhv"]
+resource_name = "idle"
+length = 1.6666666
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite2D:animation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [&"idle"]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("AnimatedSprite2D:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1, 1.1, 1.1999999, 1.3, 1.3999999, 1.5, 1.5999999),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16]
+}
+
+[sub_resource type="Animation" id="Animation_7xfv0"]
+resource_name = "jump"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite2D:animation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [&"jump"]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("AnimatedSprite2D:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.099999994, 0.2, 0.3, 0.4),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3, 4]
+}
+
+[sub_resource type="Animation" id="Animation_xj3dm"]
+resource_name = "jump_loop"
+length = 0.3
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite2D:animation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [&"jump_loop"]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("AnimatedSprite2D:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.099999994, 0.2),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [0, 1, 2]
+}
+
+[sub_resource type="Animation" id="Animation_nopt8"]
+resource_name = "land"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite2D:animation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [&"land"]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("AnimatedSprite2D:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3]
+}
+
+[sub_resource type="Animation" id="Animation_nh8o0"]
+resource_name = "run"
+length = 0.6
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite2D:animation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [&"run"]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("AnimatedSprite2D:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.099999994, 0.2, 0.3, 0.4, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3, 4, 5]
+}
+
+[sub_resource type="Animation" id="Animation_2u5fi"]
+resource_name = "walk"
+length = 1.2
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite2D:animation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [&"walk"]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("AnimatedSprite2D:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1, 1.1),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_2u5fi"]
+_data = {
+&"RESET": SubResource("Animation_3dhhc"),
+&"attack_1": SubResource("Animation_10ns1"),
+&"attack_2": SubResource("Animation_wdn54"),
+&"dash": SubResource("Animation_8lc7i"),
+&"death": SubResource("Animation_3gd03"),
+&"hit": SubResource("Animation_l8mto"),
+&"idle": SubResource("Animation_5vlhv"),
+&"jump": SubResource("Animation_7xfv0"),
+&"jump_loop": SubResource("Animation_xj3dm"),
+&"land": SubResource("Animation_nopt8"),
+&"run": SubResource("Animation_nh8o0"),
+&"walk": SubResource("Animation_2u5fi")
+}
+
+[sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_n8hj1"]
+
+[node name="Moonkeeper" type="CharacterBody2D" unique_id=1867670612]
+collision_layer = 16
+collision_mask = 2
+script = ExtResource("1_5vlhv")
+
+[node name="Hitbox" type="CollisionShape2D" parent="." unique_id=2020048663]
+position = Vector2(-1.5, 0)
+shape = SubResource("RectangleShape2D_3dhhc")
+
+[node name="Animations" type="Node2D" parent="." unique_id=2040847357]
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Animations" unique_id=204393031]
+position = Vector2(1, 0)
+sprite_frames = SubResource("SpriteFrames_n8hj1")
+animation = &"idle"
+frame = 11
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Animations" unique_id=594059316]
+libraries/ = SubResource("AnimationLibrary_2u5fi")
+
+[node name="AnimationTree" type="AnimationTree" parent="Animations" unique_id=52718687]
+tree_root = SubResource("AnimationNodeStateMachine_n8hj1")
+anim_player = NodePath("../AnimationPlayer")
