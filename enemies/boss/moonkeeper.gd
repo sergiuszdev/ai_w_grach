@@ -26,6 +26,8 @@ var state: States = States.IDLE
 
 var target_player: Node2D = null
 
+var paused := false
+
 
 func _ready():
 	animation_tree.active = true
@@ -33,13 +35,15 @@ func _ready():
 
 func _physics_process(delta):
 
+	if paused:
+		velocity = Vector2.ZERO
+		return
+
 	if not is_on_floor():
 		velocity.y += (gravity / 4) * delta
 
-	#ai_update(delta)
-
+	ai_update(delta)
 	update_animation()
-
 	move_and_slide()
 
 
@@ -117,6 +121,17 @@ func ai_update(_delta):
 			state = States.IDLE
 
 
+func jump():
+
+	var jump_force := -500.0
+
+	if not is_on_floor():
+		return
+
+	state = States.JUMP
+	velocity.y = jump_force
+
+
 func attack_1():
 	state = States.ATTACK_1
 	velocity.x = 0
@@ -134,3 +149,14 @@ func hit():
 func die():
 	state = States.DEATH
 	velocity = Vector2.ZERO
+
+
+func pause():
+	paused = true
+	velocity = Vector2.ZERO
+	set_physics_process(false)
+
+
+func resume():
+
+	paused = false

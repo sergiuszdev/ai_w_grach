@@ -924,6 +924,9 @@ transitions = ["Start", "RESET", SubResource("AnimationNodeStateMachineTransitio
 graph_offset = Vector2(-440, -72)
 
 [node name="Moonkeeper" type="CharacterBody2D" unique_id=1867670612]
+process_mode = 3
+physics_interpolation_mode = 1
+z_index = 31
 collision_layer = 16
 collision_mask = 2
 script = ExtResource("1_5vlhv")
