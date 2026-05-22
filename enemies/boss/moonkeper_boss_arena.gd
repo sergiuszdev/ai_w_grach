@@ -8,21 +8,16 @@ var boss_instance: Node2D = null
 var is_boss_alive := true
 
 @onready var night_background: Node2D = $NightClouds
-@onready var moon = $Enemy/moon
 @onready var day_background = $DayBackground
 @onready var trigger_area = $Cutscene/TriggerBoss
+@onready var moon = $Enemy/moon
 
-var moon_rolling := false
-
-@export var moon_speed := 20.0
 
 func _ready():
 	if not is_boss_alive:
 		head.visible = false
 
-func _process(delta):
-	if moon_rolling:
-		moon.rotation_degrees += moon_speed * 60.0 * delta
+#func _process(delta):
 
 func first_phase_animation():
 
@@ -82,14 +77,7 @@ func first_phase_animation():
 
 	await get_tree().create_timer(0.8).timeout
 
-	var moon_tween = create_tween()
-
-	moon_tween.tween_property(
-		moon,
-		"modulate:a",
-		1.0,
-		3.0
-	).set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_SINE)
+	moon.appear()
 
 	var night_tween = create_tween()
 
@@ -151,16 +139,7 @@ func second_phase_animation():
 		2.0
 	)
 
-	moon_rolling = true
-
-	var moon_tween = create_tween()
-
-	moon_tween.tween_property(
-		moon,
-		"global_position",
-		$Enemy/SecondPhaseMoon.global_position,
-		2.0
-	)
+	moon.hostile_mode($Enemy/SecondPhaseMoon.global_position)
 
 	tween.parallel().tween_property(
 		night_background,
@@ -172,8 +151,9 @@ func second_phase_animation():
 	await tween.finished
 
 func third_phase_animation():
-	moon_rolling = false
-
+	
+	moon.normal()
+	moon.scale_up(10.0)
 	head.scale = Vector2(6.0, 6.0)
 
 	var offsets = [
@@ -304,6 +284,9 @@ func _on_trigger_boss_body_entered(body: Node2D):
 		await get_tree().create_timer(2.0).timeout
 
 		await third_phase_animation()
+		await get_tree().create_timer(2.0).timeout
+
+		boss_instance.jump_to_pos_then_attack(moon.global_position)
 
 func pause_boss():
 

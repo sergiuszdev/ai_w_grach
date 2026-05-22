@@ -23,14 +23,18 @@ enum States {
 var state: States = States.IDLE
 
 @export var speed := 100.0
+@export var dash_speed := 450.0
+@export var jump_force := -500.0
 
 var target_player: Node2D = null
 
 var paused := false
+var is_dashing := false
 
 
 func _ready():
 	animation_tree.active = true
+	target_player = get_tree().get_first_node_in_group("player")
 
 
 func _physics_process(delta):
@@ -90,46 +94,79 @@ func update_animation():
 
 func ai_update(_delta):
 
+	if is_dashing:
+		return
+
+	# ADD States.JUMP here so ai doesn't override scripted jumps
 	if state in [
 		States.ATTACK_1,
 		States.ATTACK_2,
 		States.HIT,
 		States.DEATH,
-		States.DASH
+		States.DASH,
+		States.JUMP,      # ← add this
+		States.JUMP_LOOP  # ← add this
 	]:
 		velocity.x = 0
 		return
 
 	if target_player != null:
-
 		var dir = sign(target_player.global_position.x - global_position.x)
-
 		velocity.x = dir * speed
-
 		if abs(velocity.x) > 10:
 			state = States.RUN
 		else:
 			state = States.IDLE
-
 		sprite.flip_h = velocity.x < 0
-
 	else:
-
 		velocity.x = move_toward(velocity.x, 0, 500 * get_physics_process_delta_time())
-
 		if abs(velocity.x) < 5:
 			state = States.IDLE
 
 
 func jump():
 
-	var jump_force := -500.0
-
 	if not is_on_floor():
 		return
 
 	state = States.JUMP
 	velocity.y = jump_force
+
+
+func dash(direction: float):
+
+	is_dashing = true
+	state = States.DASH
+	velocity.x = direction * dash_speed
+
+	await get_tree().create_timer(0.25).timeout
+
+	is_dashing = false
+
+
+func jump_to_pos_then_attack(moon_position: Vector2):
+	print("jump and attack")
+
+	var dir = sign(moon_position.x - global_position.x)
+
+	state = States.JUMP
+	velocity.x = dir * speed * 2.0  # give it enough horizontal to reach moon
+	velocity.y = jump_force
+	
+	# wait until boss lands
+	await get_tree().create_timer(0.8).timeout
+
+	# snap state so ai_update stays blocked
+	state = States.ATTACK_1
+	velocity.x = 0
+
+	await get_tree().create_timer(0.3).timeout
+
+	var player_dir = sign(target_player.global_position.x - global_position.x)
+	await dash(player_dir)
+
+	# return control to ai after scripted sequence
+	state = States.IDLE
 
 
 func attack_1():
@@ -158,5 +195,5 @@ func pause():
 
 
 func resume():
-
 	paused = false
+	set_physics_process(true)

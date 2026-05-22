@@ -5,6 +5,7 @@
 [ext_resource type="PackedScene" uid="uid://daf2wm6fer2kl" path="res://player/Player.tscn" id="2_2sjh2"]
 [ext_resource type="PackedScene" uid="uid://c6k1v1tjejg0l" path="res://enemies/boss/dark_forest_doors.tscn" id="3_sv520"]
 [ext_resource type="PackedScene" uid="uid://bp1bh18u3dvhw" path="res://enemies/keeper_head.tscn" id="4_cyyuy"]
+[ext_resource type="Script" uid="uid://dimoib6pqr5ps" path="res://enemies/boss/moon.gd" id="4_yknab"]
 [ext_resource type="PackedScene" uid="uid://bbji3koochdq4" path="res://enemies/boss/moonkeeper.tscn" id="6_yh4k2"]
 [ext_resource type="PackedScene" uid="uid://ya1aqvse8aib" path="res://backgrounds/day_background.tscn" id="7_nq1lt"]
 [ext_resource type="PackedScene" uid="uid://c4phox14wyv30" path="res://backgrounds/night_clouds.tscn" id="7_ynsis"]
@@ -32,6 +33,7 @@ position = Vector2(-371.99997, -280.00003)
 scale = Vector2(5, 5)
 region_enabled = true
 region_rect = Rect2(242, 75, 29, 28)
+script = ExtResource("4_yknab")
 
 [node name="SecondPhaseMoon" type="Marker2D" parent="Enemy" unique_id=650813009]
 position = Vector2(0, -248)
