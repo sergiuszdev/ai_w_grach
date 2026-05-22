@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://c6lbpufs81dn1"]
 
 [ext_resource type="Texture2D" uid="uid://p5mffvsjjaiu" path="res://assets/trap_pack/Saw Trap/PNGs/Saw Trap - Level 1.png" id="1_k8f6p"]
+[ext_resource type="Script" uid="uid://drf200x3bwqx3" path="res://traps/saw_trap.gd" id="1_v8mjf"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_ldi5d"]
 
@@ -126,6 +127,7 @@ animations = [{
 
 [node name="SawTrap" type="Node2D" unique_id=1362440329]
 scale = Vector2(2, 2)
+script = ExtResource("1_v8mjf")
 
 [node name="Area2D" type="CharacterBody2D" parent="." unique_id=1531538474]
 collision_layer = 136
@@ -139,4 +141,5 @@ shape = SubResource("CircleShape2D_ldi5d")
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=66159618]
 texture_filter = 1
 sprite_frames = SubResource("SpriteFrames_hn2e1")
-frame_progress = 0.39978284
+autoplay = "default"
+frame_progress = 0.19486998

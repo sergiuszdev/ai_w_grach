@@ -40,9 +40,12 @@ process_mode = 4
 position = Vector2(-449, -125)
 
 [node name="TestParkour" type="Node2D" parent="." unique_id=646442163]
+process_mode = 3
+position = Vector2(595, -54)
+scale = Vector2(2, 2)
 
 [node name="SawTrap" parent="TestParkour" unique_id=1362440329 instance=ExtResource("7_w7vjj")]
-position = Vector2(-837, 15)
+position = Vector2(-982, 25)
 rotation = -1.5707964
 scale = Vector2(1, 1)
 
@@ -52,6 +55,6 @@ rotation = 1.5707964
 scale = Vector2(1, 1)
 
 [node name="SawTrap3" parent="TestParkour" unique_id=2070478916 instance=ExtResource("7_w7vjj")]
-position = Vector2(-837, -90)
+position = Vector2(-857, 3)
 rotation = -1.5707964
 scale = Vector2(1, 1)
