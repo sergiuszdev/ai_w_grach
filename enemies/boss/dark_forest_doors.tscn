@@ -7,6 +7,7 @@
 script = ExtResource("1_fhsen")
 
 [node name="Closed" type="Sprite2D" parent="." unique_id=1572111255]
+visible = false
 texture = ExtResource("1_q5x13")
 region_enabled = true
 region_rect = Rect2(200, 358, 99, 111)
@@ -18,7 +19,7 @@ region_enabled = true
 region_rect = Rect2(102, 356, 99, 111)
 
 [node name="ColorRect" type="ColorRect" parent="Open" unique_id=1647657235]
-z_index = -13
+z_index = -1
 offset_left = -24.0
 offset_top = -37.0
 offset_right = 29.0
