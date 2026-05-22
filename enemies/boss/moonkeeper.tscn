@@ -107,8 +107,8 @@
 [ext_resource type="Texture2D" uid="uid://cx82t2mgycg63" path="res://assets/enemies/Moonstone_Keeper Eldermoon_Grove - By SUCART/Jump Loop-MoonstoneKeeper-SUCART/No BG/frame0001.png" id="82_5vlhv"]
 [ext_resource type="Texture2D" uid="uid://nyofvumxwaqb" path="res://assets/enemies/Moonstone_Keeper Eldermoon_Grove - By SUCART/Jump Loop-MoonstoneKeeper-SUCART/No BG/frame0002.png" id="83_2u5fi"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_3dhhc"]
-size = Vector2(17, 70)
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_5vlhv"]
+height = 61.0
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_n8hj1"]
 animations = [{
@@ -710,6 +710,7 @@ tracks/1/keys = {
 [sub_resource type="Animation" id="Animation_xj3dm"]
 resource_name = "jump_loop"
 length = 0.3
+loop_mode = 1
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -836,7 +837,91 @@ _data = {
 &"walk": SubResource("Animation_2u5fi")
 }
 
+[sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_5vlhv"]
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_2u5fi"]
+animation = &"RESET"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_5vlhv"]
+animation = &"attack_1"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_10ns1"]
+animation = &"death"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_wdn54"]
+animation = &"hit"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_8lc7i"]
+animation = &"idle"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_l8mto"]
+animation = &"jump"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_7xfv0"]
+animation = &"jump_loop"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_xj3dm"]
+animation = &"land"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_nopt8"]
+animation = &"run"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_nh8o0"]
+animation = &"walk"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_3gd03"]
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_8l1au"]
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_xqbmj"]
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_j8eux"]
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_o0yto"]
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_fyfai"]
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_cn0qa"]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_p4yny"]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_h0q4g"]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_6cwkf"]
+switch_mode = 2
+
 [sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_n8hj1"]
+states/PhaseOne/node = SubResource("AnimationNodeStateMachine_5vlhv")
+states/PhaseOne/position = Vector2(-2.5, 107.625)
+states/RESET/node = SubResource("AnimationNodeAnimation_2u5fi")
+states/RESET/position = Vector2(-4, -42.25)
+states/Start/position = Vector2(-213, -38.9375)
+states/attack_1/node = SubResource("AnimationNodeAnimation_5vlhv")
+states/attack_1/position = Vector2(553.5, -135)
+states/death/node = SubResource("AnimationNodeAnimation_10ns1")
+states/death/position = Vector2(450, 444.5)
+states/hit/node = SubResource("AnimationNodeAnimation_wdn54")
+states/hit/position = Vector2(243.5, 200.5)
+states/idle/node = SubResource("AnimationNodeAnimation_8lc7i")
+states/idle/position = Vector2(197, 31.5)
+states/jump/node = SubResource("AnimationNodeAnimation_l8mto")
+states/jump/position = Vector2(597.5, 193.5)
+states/jump_loop/node = SubResource("AnimationNodeAnimation_7xfv0")
+states/jump_loop/position = Vector2(304.5, 333.75)
+states/land/node = SubResource("AnimationNodeAnimation_xj3dm")
+states/land/position = Vector2(556.5, 334.5)
+states/run/node = SubResource("AnimationNodeAnimation_nopt8")
+states/run/position = Vector2(-47.5, 435.5)
+states/walk/node = SubResource("AnimationNodeAnimation_nh8o0")
+states/walk/position = Vector2(462.5, 30)
+transitions = ["Start", "RESET", SubResource("AnimationNodeStateMachineTransition_3gd03"), "RESET", "PhaseOne", SubResource("AnimationNodeStateMachineTransition_8l1au"), "PhaseOne", "idle", SubResource("AnimationNodeStateMachineTransition_xqbmj"), "idle", "hit", SubResource("AnimationNodeStateMachineTransition_j8eux"), "idle", "attack_1", SubResource("AnimationNodeStateMachineTransition_o0yto"), "idle", "walk", SubResource("AnimationNodeStateMachineTransition_fyfai"), "idle", "jump", SubResource("AnimationNodeStateMachineTransition_cn0qa"), "jump", "jump_loop", SubResource("AnimationNodeStateMachineTransition_p4yny"), "jump_loop", "land", SubResource("AnimationNodeStateMachineTransition_h0q4g"), "land", "idle", SubResource("AnimationNodeStateMachineTransition_6cwkf")]
+graph_offset = Vector2(-440, -72)
 
 [node name="Moonkeeper" type="CharacterBody2D" unique_id=1867670612]
 collision_layer = 16
@@ -844,10 +929,15 @@ collision_mask = 2
 script = ExtResource("1_5vlhv")
 
 [node name="Hitbox" type="CollisionShape2D" parent="." unique_id=2020048663]
-position = Vector2(-1.5, 0)
-shape = SubResource("RectangleShape2D_3dhhc")
+z_index = 3
+position = Vector2(-1.5, 10)
+scale = Vector2(2, 2)
+shape = SubResource("CapsuleShape2D_5vlhv")
 
 [node name="Animations" type="Node2D" parent="." unique_id=2040847357]
+texture_filter = 1
+scale = Vector2(2, 2)
+metadata/_edit_lock_ = true
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Animations" unique_id=204393031]
 position = Vector2(1, 0)

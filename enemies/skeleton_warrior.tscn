@@ -10,8 +10,8 @@
 [ext_resource type="Texture2D" uid="uid://dxe0gum8dsb0d" path="res://assets/enemies/skeleton/Skeleton_Warrior/Protect.png" id="4_xymra"]
 [ext_resource type="PackedScene" uid="uid://cw607pj3kwspx" path="res://enemies/vision.tscn" id="9_q30jv"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_kvgax"]
-size = Vector2(33, 56)
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_q30jv"]
+height = 58.0
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_uhvge"]
 atlas = ExtResource("2_1m64b")
@@ -604,11 +604,12 @@ script = ExtResource("1_jkiek")
 
 [node name="BodyShape" type="CollisionShape2D" parent="." unique_id=917348603]
 position = Vector2(1.5, 35)
-shape = SubResource("RectangleShape2D_kvgax")
+shape = SubResource("CapsuleShape2D_q30jv")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=112079426]
 sprite_frames = SubResource("SpriteFrames_3m0pe")
 animation = &"attack"
+metadata/_edit_lock_ = true
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1602894954]
 root_node = NodePath("../AnimatedSprite2D")
@@ -622,6 +623,7 @@ anim_player = NodePath("../AnimationPlayer")
 
 [node name="Vision" parent="." unique_id=1749653016 instance=ExtResource("9_q30jv")]
 position = Vector2(5, 13)
+metadata/_edit_lock_ = true
 
 [connection signal="player_detected" from="Vision" to="." method="_on_vision_player_detected"]
 [connection signal="player_lost" from="Vision" to="." method="_on_vision_player_lost"]

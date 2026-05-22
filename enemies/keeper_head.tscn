@@ -4,6 +4,7 @@
 [ext_resource type="Script" uid="uid://b8opkt71mxac0" path="res://enemies/keeper_head.gd" id="1_j0i7k"]
 [ext_resource type="Texture2D" uid="uid://cws8r1l6bsh2n" path="res://assets/enemies/Moonstone_Keeper Eldermoon_Grove - By SUCART/Portraits-MoonstoneKeeper-SUCART/Facing_Straight.png" id="2_j0i7k"]
 [ext_resource type="Texture2D" uid="uid://yao64j6tx2xy" path="res://assets/enemies/Moonstone_Keeper Eldermoon_Grove - By SUCART/Portraits-MoonstoneKeeper-SUCART/Facing_Up.png" id="3_nseie"]
+[ext_resource type="Texture2D" uid="uid://bjrt52172psww" path="res://assets/enemies/Moonstone_Keeper Eldermoon_Grove - By SUCART/Idle-MoonstoneKeeper-SUCART/No BG/frame0000.png" id="5_nseie"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_imgpt"]
 animations = [{
@@ -36,5 +37,15 @@ animations = [{
 script = ExtResource("1_j0i7k")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=120410905]
+texture_filter = 1
 sprite_frames = SubResource("SpriteFrames_imgpt")
 animation = &"down"
+
+[node name="Frame0000" type="Sprite2D" parent="." unique_id=1588301381]
+z_index = -1
+texture_filter = 1
+position = Vector2(-2, 210.00002)
+scale = Vector2(5.779398, 5.7793994)
+texture = ExtResource("5_nseie")
+region_enabled = true
+region_rect = Rect2(61, 67, 27, 46)

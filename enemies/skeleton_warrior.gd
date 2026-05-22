@@ -25,6 +25,7 @@ func update_animation():
 		State.IDLE:     playback.travel("idle")
 		State.RUN:      playback.travel("run")
 
+# todo implement ai for enemy, a* path
 func ai_update(delta):
 	if state in [State.ATTACK, State.HURT, State.PROTECT, State.DEAD]:
 		velocity.x = 0

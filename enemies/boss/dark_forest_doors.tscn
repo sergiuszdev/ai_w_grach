@@ -1,0 +1,26 @@
+[gd_scene format=3 uid="uid://c6k1v1tjejg0l"]
+
+[ext_resource type="Script" uid="uid://bid720uc4b1tp" path="res://enemies/boss/dark_forest_doors.gd" id="1_fhsen"]
+[ext_resource type="Texture2D" uid="uid://wtws6a1uee0y" path="res://assets/tiles/DarkForest1.2 (2)/env_mon.png" id="1_q5x13"]
+
+[node name="DarkForestDoors" type="Node2D" unique_id=935811658]
+script = ExtResource("1_fhsen")
+
+[node name="Closed" type="Sprite2D" parent="." unique_id=1572111255]
+texture = ExtResource("1_q5x13")
+region_enabled = true
+region_rect = Rect2(200, 358, 99, 111)
+
+[node name="Open" type="Sprite2D" parent="." unique_id=854309597]
+position = Vector2(-2, -2)
+texture = ExtResource("1_q5x13")
+region_enabled = true
+region_rect = Rect2(102, 356, 99, 111)
+
+[node name="ColorRect" type="ColorRect" parent="Open" unique_id=1647657235]
+z_index = -13
+offset_left = -24.0
+offset_top = -37.0
+offset_right = 29.0
+offset_bottom = 53.0
+color = Color(0.05490196, 0.02745098, 0.023529412, 1)
