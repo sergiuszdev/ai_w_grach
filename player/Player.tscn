@@ -195,7 +195,7 @@ length = 0.001
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("Animations/AnimatedSprite2D:animation")
+tracks/0/path = NodePath("FlipGroup/Animations/AnimatedSprite2D:animation")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -207,7 +207,7 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("Animations/AnimatedSprite2D:frame")
+tracks/1/path = NodePath("FlipGroup/Animations/AnimatedSprite2D:frame")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
@@ -223,7 +223,7 @@ length = 0.1
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("Animations/AnimatedSprite2D:animation")
+tracks/0/path = NodePath("FlipGroup/Animations/AnimatedSprite2D:animation")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -235,7 +235,7 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("Animations/AnimatedSprite2D:frame")
+tracks/1/path = NodePath("FlipGroup/Animations/AnimatedSprite2D:frame")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
@@ -251,7 +251,7 @@ length = 1.1
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("Animations/AnimatedSprite2D:animation")
+tracks/0/path = NodePath("FlipGroup/Animations/AnimatedSprite2D:animation")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -263,7 +263,7 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("Animations/AnimatedSprite2D:frame")
+tracks/1/path = NodePath("FlipGroup/Animations/AnimatedSprite2D:frame")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
@@ -280,7 +280,7 @@ loop_mode = 1
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("Animations/AnimatedSprite2D:frame")
+tracks/0/path = NodePath("FlipGroup/Animations/AnimatedSprite2D:frame")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -292,7 +292,7 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("Animations/AnimatedSprite2D:animation")
+tracks/1/path = NodePath("FlipGroup/Animations/AnimatedSprite2D:animation")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
@@ -345,32 +345,78 @@ states/run/position = Vector2(420.5, 295.5)
 transitions = ["run", "jump", SubResource("AnimationNodeStateMachineTransition_06mnu"), "Start", "idle", SubResource("AnimationNodeStateMachineTransition_x8kxw"), "idle", "run", SubResource("AnimationNodeStateMachineTransition_aqcbf"), "idle", "jump", SubResource("AnimationNodeStateMachineTransition_83hs8"), "jump", "idle", SubResource("AnimationNodeStateMachineTransition_gskgj"), "jump", "run", SubResource("AnimationNodeStateMachineTransition_mhpjh"), "run", "idle", SubResource("AnimationNodeStateMachineTransition_ndjxb")]
 graph_offset = Vector2(-210, -2)
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_83hs8"]
+size = Vector2(74, 40)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_x8kxw"]
+size = Vector2(20, 43)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_aqcbf"]
+size = Vector2(20, 48)
+
 [node name="Player" type="CharacterBody2D" unique_id=1278280480 groups=["player"]]
 collision_mask = 7
 script = ExtResource("1_wnvi2")
-
-[node name="Camera2D" type="Camera2D" parent="." unique_id=543369694]
-visible = false
-zoom = Vector2(5, 5)
 
 [node name="PlayerCollision" type="CollisionShape2D" parent="." unique_id=40691261]
 light_mask = 0
 position = Vector2(1.5, 30.5)
 shape = SubResource("CapsuleShape2D_83hs8")
 
-[node name="Animations" type="Node2D" parent="." unique_id=1299207874]
+[node name="Camera2D" type="Camera2D" parent="." unique_id=543369694]
+visible = false
+zoom = Vector2(1.5, 1.5)
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Animations" unique_id=1733178183]
+[node name="FlipGroup" type="Node2D" parent="." unique_id=290311233]
+
+[node name="Animations" type="Node2D" parent="FlipGroup" unique_id=1299207874]
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="FlipGroup/Animations" unique_id=1733178183]
 position = Vector2(2, 0)
 sprite_frames = SubResource("SpriteFrames_ehsmr")
 animation = &"run"
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="Animations" unique_id=1334190663]
-root_node = NodePath("../..")
+[node name="AnimationPlayer" type="AnimationPlayer" parent="FlipGroup/Animations" unique_id=1334190663]
+root_node = NodePath("../../..")
 libraries/ = SubResource("AnimationLibrary_83hs8")
 
-[node name="AnimationTree" type="AnimationTree" parent="Animations" unique_id=1445728593]
-root_node = NodePath("../..")
+[node name="AnimationTree" type="AnimationTree" parent="FlipGroup/Animations" unique_id=1445728593]
+root_node = NodePath("../../..")
 tree_root = SubResource("AnimationNodeStateMachine_83hs8")
 anim_player = NodePath("../AnimationPlayer")
 parameters/conditions/idle = false
+
+[node name="Attacks" type="Node2D" parent="FlipGroup" unique_id=488605459]
+
+[node name="VerticalAttackArea" type="Area2D" parent="FlipGroup/Attacks" unique_id=1720501809]
+collision_layer = 64
+collision_mask = 26
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="FlipGroup/Attacks/VerticalAttackArea" unique_id=2075100041]
+position = Vector2(42, 26)
+shape = SubResource("RectangleShape2D_83hs8")
+debug_color = Color(0.98561984, 0, 0.33660117, 0.41960785)
+
+[node name="UpperAttack" type="Area2D" parent="FlipGroup/Attacks" unique_id=1505869683]
+visible = false
+collision_layer = 64
+collision_mask = 16
+monitoring = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="FlipGroup/Attacks/UpperAttack" unique_id=271847625]
+position = Vector2(2, -20.5)
+shape = SubResource("RectangleShape2D_x8kxw")
+debug_color = Color(0.5882353, 0.18039216, 0.31764707, 1)
+
+[node name="LowerAttack" type="Area2D" parent="FlipGroup/Attacks" unique_id=393415384]
+visible = false
+collision_layer = 64
+collision_mask = 152
+monitoring = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="FlipGroup/Attacks/LowerAttack" unique_id=388654836]
+position = Vector2(1, 84)
+shape = SubResource("RectangleShape2D_aqcbf")
+debug_color = Color(0.5882353, 0.18039216, 0.31764707, 1)
+
+[connection signal="body_entered" from="FlipGroup/Attacks/LowerAttack" to="." method="_on_lower_attack_body_entered"]

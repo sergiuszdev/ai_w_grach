@@ -928,7 +928,7 @@ process_mode = 3
 physics_interpolation_mode = 1
 z_index = 31
 collision_layer = 16
-collision_mask = 2
+collision_mask = 66
 script = ExtResource("1_5vlhv")
 
 [node name="Hitbox" type="CollisionShape2D" parent="." unique_id=2020048663]
