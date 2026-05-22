@@ -1,0 +1,142 @@
+[gd_scene format=3 uid="uid://c6lbpufs81dn1"]
+
+[ext_resource type="Texture2D" uid="uid://p5mffvsjjaiu" path="res://assets/trap_pack/Saw Trap/PNGs/Saw Trap - Level 1.png" id="1_k8f6p"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_ldi5d"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_v8mjf"]
+atlas = ExtResource("1_k8f6p")
+region = Rect2(0, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_psusf"]
+atlas = ExtResource("1_k8f6p")
+region = Rect2(64, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_spsk4"]
+atlas = ExtResource("1_k8f6p")
+region = Rect2(128, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gum7w"]
+atlas = ExtResource("1_k8f6p")
+region = Rect2(192, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_e4ixv"]
+atlas = ExtResource("1_k8f6p")
+region = Rect2(256, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_r01wm"]
+atlas = ExtResource("1_k8f6p")
+region = Rect2(320, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jrnj2"]
+atlas = ExtResource("1_k8f6p")
+region = Rect2(384, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_e7uvm"]
+atlas = ExtResource("1_k8f6p")
+region = Rect2(448, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_binus"]
+atlas = ExtResource("1_k8f6p")
+region = Rect2(512, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_w20yv"]
+atlas = ExtResource("1_k8f6p")
+region = Rect2(576, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_cjiil"]
+atlas = ExtResource("1_k8f6p")
+region = Rect2(640, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6x0gl"]
+atlas = ExtResource("1_k8f6p")
+region = Rect2(704, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vjolq"]
+atlas = ExtResource("1_k8f6p")
+region = Rect2(768, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_m8hrj"]
+atlas = ExtResource("1_k8f6p")
+region = Rect2(832, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_yyie0"]
+atlas = ExtResource("1_k8f6p")
+region = Rect2(896, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_mh6yd"]
+atlas = ExtResource("1_k8f6p")
+region = Rect2(960, 0, 64, 64)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_hn2e1"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_v8mjf")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_psusf")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_spsk4")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gum7w")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_e4ixv")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_r01wm")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jrnj2")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_e7uvm")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_binus")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_w20yv")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_cjiil")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6x0gl")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vjolq")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_m8hrj")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_yyie0")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_mh6yd")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[node name="SawTrap" type="Node2D" unique_id=1362440329]
+scale = Vector2(2, 2)
+
+[node name="Area2D" type="CharacterBody2D" parent="." unique_id=1531538474]
+collision_layer = 136
+collision_mask = 65
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=1067784008]
+position = Vector2(0, -15)
+scale = Vector2(1.2750839, 1.2750839)
+shape = SubResource("CircleShape2D_ldi5d")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=66159618]
+texture_filter = 1
+sprite_frames = SubResource("SpriteFrames_hn2e1")
+frame_progress = 0.39978284
