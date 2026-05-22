@@ -1,0 +1,43 @@
+[gd_scene format=3 uid="uid://ya1aqvse8aib"]
+
+[ext_resource type="Script" uid="uid://bfcdwr0blqjul" path="res://backgrounds/day_background.gd" id="1_h8hxa"]
+[ext_resource type="Texture2D" uid="uid://xhx4af8cos3g" path="res://assets/tiles/day_background/1.png" id="1_j3kse"]
+[ext_resource type="Texture2D" uid="uid://colxsnutgsyig" path="res://assets/tiles/day_background/2.png" id="2_h8hxa"]
+[ext_resource type="Texture2D" uid="uid://bkslihlgeoy85" path="res://assets/tiles/day_background/3.png" id="3_ypmqf"]
+[ext_resource type="Texture2D" uid="uid://dq0pvqurql70y" path="res://assets/tiles/day_background/4.png" id="4_7c81d"]
+
+[node name="DayBackground" type="Node2D" unique_id=425134530]
+texture_filter = 1
+script = ExtResource("1_h8hxa")
+
+[node name="Parallax2D" type="Parallax2D" parent="." unique_id=382414168]
+repeat_size = Vector2(200, 200)
+repeat_times = 200
+
+[node name="background" type="Sprite2D" parent="Parallax2D" unique_id=1884202101]
+z_index = -500
+texture = ExtResource("1_j3kse")
+
+[node name="Parallax2D2" type="Parallax2D" parent="." unique_id=1663153517]
+scroll_scale = Vector2(0.7, 0.7)
+scroll_offset = Vector2(0.7, 0.4)
+repeat_size = Vector2(500, 500)
+repeat_times = 200
+
+[node name="lower_clouds" type="Sprite2D" parent="Parallax2D2" unique_id=1579302912]
+texture = ExtResource("2_h8hxa")
+
+[node name="Parallax2D3" type="Parallax2D" parent="." unique_id=1701184740]
+repeat_size = Vector2(200, 200)
+repeat_times = 200
+
+[node name="upper_clouds" type="Sprite2D" parent="Parallax2D3" unique_id=404936705]
+z_index = -110
+texture = ExtResource("3_ypmqf")
+
+[node name="Parallax2D4" type="Parallax2D" parent="." unique_id=1990469913]
+repeat_size = Vector2(200, 200)
+repeat_times = 200
+
+[node name="clouds" type="Sprite2D" parent="Parallax2D4" unique_id=1464564922]
+texture = ExtResource("4_7c81d")
