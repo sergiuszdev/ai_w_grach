@@ -5,8 +5,8 @@ extends CharacterBody2D
 @export var FRICTION := 900.0
 @export var JUMP_VELOCITY := -400.0
 
-@onready var animation_tree = $FlipGroup/Animations/AnimationTree
-@onready var playback = animation_tree["parameters/playback"]
+@onready var animation_tree := $FlipGroup/Animations/AnimationTree
+@onready var playback: AnimationNodeStateMachinePlayback = animation_tree["parameters/playback"]
 
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 
@@ -15,7 +15,7 @@ var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 @onready var upper_attack_area = $FlipGroup/Attacks/UpperAttack
 @onready var lower_attack_area = $FlipGroup/Attacks/LowerAttack
 
-
+var is_attacking := false
 var jumps_remaining := 2
 @export var MAX_JUMPS := 1
 var direction := 0.0
@@ -25,17 +25,20 @@ func _ready():
 	disable_hitboxes()
 
 func update_animation():
+	if is_attacking:
+		return
 
 	if not is_on_floor():
 		if velocity.y < 0:
 			playback.travel("jump")
-		#else:
-			#playback.travel("fall")
 		return
 
-	if velocity != Vector2.ZERO and is_on_floor():
+	if abs(velocity.x) > 5:
 		playback.travel("run")
+		#print("current playback state: ", playback.get_current_node())
+		
 	else:
+		
 		playback.travel("idle")
 	
 func get_input():
@@ -47,7 +50,6 @@ func _physics_process(delta):
 
 	if not is_on_floor():
 		velocity.y += gravity * delta
-
 
 	if is_on_floor():
 		jumps_remaining = MAX_JUMPS
@@ -87,6 +89,7 @@ func attack():
 		do_lower_attack()
 		print("loopuje sie")
 	else:
+		print("normal attack")
 		do_normal_attack()
 
 func do_upper_attack():
@@ -103,7 +106,9 @@ func do_lower_attack():
 	lower_attack_area.visible = false
 	
 func do_normal_attack():
-	pass
+	is_attacking = true
+	playback.travel("attack")
+	
 
 func pogo_jump():
 	jump()
@@ -147,6 +152,14 @@ func handle_attack_hitboxes():
 		lower_attack_area.monitoring = false
 		lower_attack_area.visible = false
 
+func on_attack_start():
+	print("attack started")
+
+func on_attack_ended():
+	print("attack ended")
+	is_attacking = false
+	#playback.travel("idle")
+	print(is_attacking)
 
 func _on_lower_attack_body_entered(body):
 	print("lower attack hit: ", body)
