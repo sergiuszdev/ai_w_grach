@@ -19,6 +19,10 @@ run/main_scene="uid://c4phox14wyv30"
 config/features=PackedStringArray("4.6", "Mobile")
 config/icon="res://icon.svg"
 
+[autoload]
+
+Globals="*uid://cqbs5fmhf1ug3"
+
 [debug]
 
 shapes/collision/contact_color=Color(0.32283092, 0.6404636, 0.37818068, 0.8)

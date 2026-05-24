@@ -1,0 +1,25 @@
+[gd_scene format=3 uid="uid://bvf6o8xpsj5sa"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_f8j7h"]
+font_size = 1
+
+[node name="InGameUI" type="Control" unique_id=1932369190]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Control" type="Control" parent="." unique_id=790289582]
+layout_mode = 1
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Label" type="Label" parent="Control" unique_id=1830540551]
+layout_mode = 1
+offset_right = 40.0
+offset_bottom = 23.0
+text = "100hp"
+label_settings = SubResource("LabelSettings_f8j7h")
