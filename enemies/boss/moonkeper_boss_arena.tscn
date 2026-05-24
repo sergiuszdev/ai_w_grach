@@ -3,6 +3,7 @@
 [ext_resource type="PackedScene" uid="uid://cbqupqx7xo8yj" path="res://enemies/boss/dark_forest.tscn" id="1_6surb"]
 [ext_resource type="Script" uid="uid://21x6wcflpnjj" path="res://enemies/boss/moonkeper_boss_arena.gd" id="1_8420o"]
 [ext_resource type="PackedScene" uid="uid://daf2wm6fer2kl" path="res://player/Player.tscn" id="2_2sjh2"]
+[ext_resource type="Script" uid="uid://chth4dmsiqvfp" path="res://enemies/boss/debug_hp.gd" id="3_b5n2f"]
 [ext_resource type="PackedScene" uid="uid://c6k1v1tjejg0l" path="res://enemies/boss/dark_forest_doors.tscn" id="3_sv520"]
 [ext_resource type="PackedScene" uid="uid://bp1bh18u3dvhw" path="res://enemies/keeper_head.tscn" id="4_cyyuy"]
 [ext_resource type="Script" uid="uid://dimoib6pqr5ps" path="res://enemies/boss/moon.gd" id="4_yknab"]
@@ -23,6 +24,25 @@ size = Vector2(955.17114, 183.3396)
 [node name="MoonkeperBossArena" type="Node2D" unique_id=242877213]
 script = ExtResource("1_8420o")
 boss_scene = ExtResource("6_yh4k2")
+
+[node name="DebugHp" type="CanvasLayer" parent="." unique_id=1048312357]
+script = ExtResource("3_b5n2f")
+
+[node name="Control" type="Control" parent="DebugHp" unique_id=1630811078]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="ProgressBar" type="ProgressBar" parent="DebugHp/Control" unique_id=1719918276]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -4.0
+offset_right = 71.0
+offset_bottom = 27.0
+grow_horizontal = 0
 
 [node name="Enemy" type="Node2D" parent="." unique_id=1892374821]
 

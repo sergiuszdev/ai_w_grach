@@ -125,11 +125,12 @@ animations = [{
 "speed": 5.0
 }]
 
-[node name="SawTrap" type="Node2D" unique_id=1362440329]
+[node name="SawTrap" type="Node2D" unique_id=1362440329 groups=["jumpable"]]
 scale = Vector2(2, 2)
 script = ExtResource("1_v8mjf")
 
-[node name="StaticBody2D" type="StaticBody2D" parent="." unique_id=7686964]
+[node name="StaticBody2D" type="StaticBody2D" parent="." unique_id=7686964 groups=["jumpable"]]
+visible = false
 collision_layer = 136
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D" unique_id=1067784008]
@@ -137,7 +138,8 @@ position = Vector2(0, -15)
 scale = Vector2(1.2750839, 1.2750839)
 shape = SubResource("CircleShape2D_ldi5d")
 
-[node name="Area2D" type="Area2D" parent="." unique_id=974362284]
+[node name="Area2D" type="Area2D" parent="." unique_id=974362284 groups=["jumpable"]]
+scale = Vector2(0.89462453, 0.89462453)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=112616478]
 position = Vector2(0, -15)

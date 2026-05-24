@@ -6,7 +6,7 @@ extends Node2D
 @export var boss_scene: PackedScene
 var boss_instance: Node2D = null
 var is_boss_alive := true
-
+@onready var debug_hp = $DebugHp
 @onready var night_background: Node2D = $NightClouds
 @onready var day_background = $DayBackground
 @onready var trigger_area = $Cutscene/TriggerBoss
@@ -276,17 +276,20 @@ func _on_trigger_boss_body_entered(body: Node2D):
 		add_child(boss_instance)
 
 		boss_instance.global_position = $BossSpawnerPosition.global_position
+		
+		debug_hp.set_boss(boss_instance)
+		
 #for debug
-		await get_tree().create_timer(4.0).timeout
-
-		await second_phase_animation()
-
-		await get_tree().create_timer(2.0).timeout
-
-		await third_phase_animation()
-		await get_tree().create_timer(2.0).timeout
-
-		boss_instance.jump_to_pos_then_attack(moon.global_position)
+		#await get_tree().create_timer(4.0).timeout
+#
+		#await second_phase_animation()
+#
+		#await get_tree().create_timer(2.0).timeout
+#
+		#await third_phase_animation()
+		#await get_tree().create_timer(2.0).timeout
+#
+		#boss_instance.jump_to_pos_then_attack(moon.global_position)
 
 func pause_boss():
 

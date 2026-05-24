@@ -954,3 +954,5 @@ libraries/ = SubResource("AnimationLibrary_2u5fi")
 [node name="AnimationTree" type="AnimationTree" parent="Animations" unique_id=52718687]
 tree_root = SubResource("AnimationNodeStateMachine_n8hj1")
 anim_player = NodePath("../AnimationPlayer")
+
+[node name="StateMachine" type="Node" parent="." unique_id=1102714300]

@@ -2,6 +2,9 @@ extends CharacterBody2D
 
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 
+@export var MAX_HEALTH = 1000
+@export var current_hp = MAX_HEALTH
+
 @onready var sprite := $Animations/AnimatedSprite2D
 @onready var animation_tree := $Animations/AnimationTree
 @onready var playback = animation_tree["parameters/playback"]
@@ -179,7 +182,9 @@ func attack_2():
 	velocity.x = 0
 
 
-func hit():
+func hit(amount):
+	current_hp -= amount
+	print("moonkeeper hp: ", current_hp)
 	state = States.HIT
 
 
@@ -197,3 +202,10 @@ func pause():
 func resume():
 	paused = false
 	set_physics_process(true)
+	
+func get_max_health():
+	return MAX_HEALTH
+	
+func get_health():
+	return current_hp
+	

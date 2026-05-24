@@ -1,25 +1,30 @@
 [gd_scene format=3 uid="uid://bvf6o8xpsj5sa"]
 
-[sub_resource type="LabelSettings" id="LabelSettings_f8j7h"]
-font_size = 1
+[ext_resource type="Script" uid="uid://d32aicifkf70e" path="res://levels/globals/in_game_ui.gd" id="1_78osp"]
 
-[node name="InGameUI" type="Control" unique_id=1932369190]
-layout_mode = 3
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_f8j7h"]
+bg_color = Color(1, 1, 1, 0)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_78osp"]
+bg_color = Color(1, 0.16007765, 0, 1)
+
+[node name="InGameUI" type="CanvasLayer" unique_id=1415448259]
+script = ExtResource("1_78osp")
 
 [node name="Control" type="Control" parent="." unique_id=790289582]
-layout_mode = 1
+layout_mode = 3
 anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
 
-[node name="Label" type="Label" parent="Control" unique_id=1830540551]
+[node name="ProgressBar" type="ProgressBar" parent="Control" unique_id=736388047]
+texture_filter = 1
 layout_mode = 1
-offset_right = 40.0
+offset_left = 31.0
+offset_right = 73.0
 offset_bottom = 23.0
-text = "100hp"
-label_settings = SubResource("LabelSettings_f8j7h")
+scale = Vector2(3, 3)
+theme_override_styles/background = SubResource("StyleBoxFlat_f8j7h")
+theme_override_styles/fill = SubResource("StyleBoxFlat_78osp")
+step = 1.0
+value = 50.0
