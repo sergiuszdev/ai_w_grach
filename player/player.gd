@@ -142,17 +142,33 @@ func do_upper_attack():
 
 func do_lower_attack():
 	is_attacking = true
-	lower_attack_area.monitoring = true
-	lower_attack_area.visible = true
 	playback.travel("attack_down")
-	#await get_tree().create_timer(0.15).timeout
-	#Input.action_release("down")
+
+	lower_attack_area.monitoring = true
+	await get_tree().physics_frame
+
+	var pogo_done := false
+
+	for body in lower_attack_area.get_overlapping_bodies():
+		print(body.get_groups())
+
+		if body.has_method("hit"):
+			body.hit(get_player_damage())
+
+		if not pogo_done and body.is_in_group("jumpable") and velocity.y >= 0:
+			pogo_jump()
+			pogo_done = true
+
 	lower_attack_area.monitoring = false
-	lower_attack_area.visible = false
 	is_attacking = false
+
 func do_normal_attack():
 	is_attacking = true
 	playback.travel("attack")
+	
+	for body in vertical_attack_area.get_overlapping_bodies():
+		if body.has_method("hit"):
+			body.hit(get_player_damage())
 	
 
 func pogo_jump():
@@ -204,6 +220,7 @@ func handle_attack_hitboxes():
 
 func on_attack_start():
 	print("attack started")
+	
 
 func on_attack_ended():
 	print("attack ended")
@@ -219,25 +236,16 @@ func on_end_slide():
 	$SlideCollision.disabled = true
 	is_sliding = false
 
-func _on_lower_attack_body_entered(body):
-	print("lower attack hit: ", body)
-#	somehow it works now 
-	if Input.is_action_pressed("attack_1") and Input.is_action_pressed("down"):
-		if velocity.y >= 0:
-			pogo_jump()
-			disable_hitboxes()
-			print("pogo jump!")
-		
-#		todo implement dmg 
-		if body.has_method("hit"):
-			body.hit(1)
 
 func heal(amount):
 	is_healing = true
 	playback.travel("heal")
 
 	Globals.players_health += amount
-
+	
+	if Globals.players_health > Globals.max_players_health:
+		Globals.players_health = Globals.max_players_health
+	
 	print("players hp: ", Globals.players_health)
 
 
@@ -280,3 +288,11 @@ func hit(amount):
 	
 func is_dead():
 	return Globals.players_health < 1
+func get_player_damage():
+	return Globals.player_damage
+func set_player_damage(amount):
+	Globals.player_damage = amount
+
+
+
+		
