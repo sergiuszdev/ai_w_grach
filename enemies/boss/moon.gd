@@ -83,3 +83,12 @@ func normal():
 	is_hostile = false
 	state = State.IDLE
 	velocity = Vector2.ZERO
+	
+	
+
+
+func _on_damage_area_body_entered(body):
+	
+	if body.is_in_group("player") and "hit" in body:
+		body.hit(10)
+		
