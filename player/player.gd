@@ -122,7 +122,7 @@ func slide():
 
 	var slide_dir = sign(direction)
 
-	velocity.x = slide_dir * SPEED * 3.0
+	velocity.x = slide_dir * SPEED * 2.0
 
 	playback.travel("slide")
 
