@@ -21,6 +21,9 @@ var jumps_remaining := 2
 @export var MAX_JUMPS := 1
 var direction := 0.0
 @onready var wall_jumps = 1
+@onready var is_pogo := false
+
+
 func _ready():
 	animation_tree.active = true
 	disable_hitboxes()
@@ -35,7 +38,8 @@ func update_animation():
 		return
 		
 	if not is_on_floor():
-		if velocity.y < 0:
+		
+		if velocity.y < 0 and not is_pogo:
 			playback.travel("jump")
 		return
 
@@ -147,17 +151,15 @@ func do_lower_attack():
 	lower_attack_area.monitoring = true
 	await get_tree().physics_frame
 
-	var pogo_done := false
-
 	for body in lower_attack_area.get_overlapping_bodies():
 		print(body.get_groups())
 
 		if body.has_method("hit"):
 			body.hit(get_player_damage())
-
-		if not pogo_done and body.is_in_group("jumpable") and velocity.y >= 0:
 			pogo_jump()
-			pogo_done = true
+
+		if body.is_in_group("jumpable") and velocity.y >= 0:
+			pogo_jump()
 
 	lower_attack_area.monitoring = false
 	is_attacking = false
@@ -172,6 +174,7 @@ func do_normal_attack():
 	
 
 func pogo_jump():
+	is_pogo = true
 	jump()
 	jumps_remaining = MAX_JUMPS
 	
@@ -293,6 +296,6 @@ func get_player_damage():
 func set_player_damage(amount):
 	Globals.player_damage = amount
 
-
-
+func pogo_end():
+	is_pogo = false
 		

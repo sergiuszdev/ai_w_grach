@@ -109,6 +109,7 @@ spell_1={
 2d_physics/layer_5="enemy"
 2d_physics/layer_7="attack"
 2d_physics/layer_8="trap"
+2d_physics/layer_12="arena_borders"
 
 [rendering]
 

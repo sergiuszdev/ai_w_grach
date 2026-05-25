@@ -1,10 +1,40 @@
 [gd_scene format=3 uid="uid://bgep6lxq77ojk"]
 
 [ext_resource type="Texture2D" uid="uid://btfm2jtkhxasy" path="res://assets/tiles/night_clouds/2.png" id="1_1ocv2"]
+[ext_resource type="Script" uid="uid://dimoib6pqr5ps" path="res://enemies/boss/moon.gd" id="1_r7mrm"]
 
-[node name="moon" type="Sprite2D" unique_id=94986557]
-visible = false
+[sub_resource type="CircleShape2D" id="CircleShape2D_1ocv2"]
+radius = 10.760851
+
+[node name="Moon" type="CharacterBody2D" unique_id=419883926]
+collision_layer = 16
+collision_mask = 2048
+slide_on_ceiling = false
+floor_stop_on_slope = false
+floor_block_on_wall = false
+script = ExtResource("1_r7mrm")
+
+[node name="moon" type="Sprite2D" parent="." unique_id=94986557]
 z_index = 30
 texture_filter = 3
 scale = Vector2(2, 2)
 texture = ExtResource("1_1ocv2")
+region_enabled = true
+region_rect = Rect2(246, 79, 21, 21)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=430206669]
+z_index = 31
+scale = Vector2(1.9515185, 1.9515185)
+shape = SubResource("CircleShape2D_1ocv2")
+debug_color = Color(0.9291755, 3.3017695e-05, 0.66375375, 0.41960785)
+
+[node name="DamageArea" type="Area2D" parent="." unique_id=1655247879]
+collision_layer = 16
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="DamageArea" unique_id=335774880]
+z_index = 31
+scale = Vector2(1.9515185, 1.9515185)
+shape = SubResource("CircleShape2D_1ocv2")
+debug_color = Color(0.9291755, 3.3017695e-05, 0.66375375, 0.41960785)
+
+[connection signal="body_entered" from="DamageArea" to="." method="_on_damage_area_body_entered"]

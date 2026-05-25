@@ -1,23 +1,65 @@
 extends Node2D
 
 @onready var doors = [$Terrain/Props/RightDoor, $Terrain/Props/LeftDoor]
-@onready var head = $Terrain/Props/KeeperHead
+@onready var head = $Enemy/KeeperHead
 
 @export var boss_scene: PackedScene
 var boss_instance: Node2D = null
 var is_boss_alive := true
+
 @onready var debug_hp = $DebugHp
-@onready var night_background: Node2D = $NightClouds
+@onready var night_background = $NightClouds
 @onready var day_background = $DayBackground
 @onready var trigger_area = $Cutscene/TriggerBoss
 @onready var moon = $Enemy/moon
+@onready var upper_bound = $ArenaConstraints/Up
 
+var phase2_active = false
+enum Phase {
+	NO_PHASE,
+	PHASE_1,
+	PHASE_2,
+	PHASE_3
+}
+
+@export var current_phase: Phase = Phase.NO_PHASE
 
 func _ready():
+	match current_phase:
+		Phase.NO_PHASE:
+			print("no phase")
+
+		Phase.PHASE_1:
+			start_phase_one()
+
+		Phase.PHASE_2:
+			start_phase_two()
+			
+
+		Phase.PHASE_3:
+			start_phase_three
+			
 	if not is_boss_alive:
 		head.visible = false
 
-#func _process(delta):
+func _process(delta):
+	
+	pass
+
+func start_phase_three():
+	current_phase = Phase.PHASE_3
+	third_phase_animation()
+	
+func start_phase_two():
+	
+	phase2_active = true
+	$Timers/Phase2Timer.start()
+
+	
+	await second_phase_animation()
+	
+	upper_bound.disabled = false
+	moon.enter_hostile_mode()
 
 func first_phase_animation():
 
@@ -107,15 +149,32 @@ func second_phase_animation():
 
 	var mid_pos = (start_pos + spawn_pos) * 0.5
 	mid_pos.y -= 160
+	
+	
+	var moon_tween = create_tween()
 
-	boss_tween.tween_property(
+	moon_tween.tween_property(
+		moon,
+		"scale",
+		Vector2(2.5, 2.5),
+		2.0
+	)
+	
+	moon_tween.parallel().tween_property(
+		moon,
+		"global_position",
+		$Enemy/SecondPhaseMoon.global_position,
+		2.0
+	)
+
+	boss_tween.parallel().tween_property(
 		boss_instance,
 		"global_position",
 		mid_pos,
 		0.4
 	)
 
-	boss_tween.tween_property(
+	boss_tween.parallel().tween_property(
 		boss_instance,
 		"global_position",
 		spawn_pos,
@@ -139,8 +198,6 @@ func second_phase_animation():
 		2.0
 	)
 
-	moon.hostile_mode($Enemy/SecondPhaseMoon.global_position)
-
 	tween.parallel().tween_property(
 		night_background,
 		"modulate",
@@ -151,9 +208,23 @@ func second_phase_animation():
 	await tween.finished
 
 func third_phase_animation():
-	
+	upper_bound.disabled = true
 	moon.normal()
-	moon.scale_up(10.0)
+	var moon_tween = create_tween()
+	moon_tween.tween_property(
+		moon,
+		"scale",
+		Vector2(5.0, 5.0),
+		2.0
+	)
+	
+	moon_tween.parallel().tween_property(
+		moon,
+		"global_position",
+		$Enemy/SecondPhaseMoon.global_position,
+		2.0
+	)
+	
 	head.scale = Vector2(6.0, 6.0)
 
 	var offsets = [
@@ -206,7 +277,7 @@ func third_phase_animation():
 	)
 
 	tween.parallel().tween_property(
-		$NightClouds/Parallax2D/background,
+		$NightClouds,
 		"modulate",
 		Color(1.8, 0.2, 0.2, 1.0),
 		3.0
@@ -216,23 +287,6 @@ func third_phase_animation():
 
 	resume_boss()
 
-func on_boss_attack():
-
-	var moon_tween = create_tween()
-
-	moon_tween.tween_property(
-		moon,
-		"modulate",
-		Color(1, 0, 0, 1),
-		1.0
-	)
-
-	moon_tween.tween_property(
-		moon,
-		"modulate",
-		Color(1, 1, 1, 1),
-		1.0
-	)
 
 func on_boss_dead():
 
@@ -254,42 +308,41 @@ func on_boss_dead():
 
 	await tween.finished
 
+func start_phase_one():
+	
+	trigger_area.set_deferred("monitoring", false)
+	trigger_area.set_deferred("monitorable", false)
+	trigger_area.set_deferred("collision_layer", 0)
+	trigger_area.set_deferred("collision_mask", 0)
+	
+	for door in doors:
+		door.close_door()
+
+	await first_phase_animation()
+
+	if boss_instance != null:
+		return
+
+	boss_instance = boss_scene.instantiate()
+	add_child(boss_instance)
+	current_phase = Phase.PHASE_1
+	boss_instance.global_position = $BossSpawnerPosition.global_position
+	boss_instance.moon = moon
+
+	boss_instance.health_changed.connect(_on_boss_health_changed)
+
+	debug_hp.set_boss(boss_instance)
+	
+	trigger_area.set_deferred("monitoring", false)
+	trigger_area.set_deferred("monitorable", false)
+	trigger_area.set_deferred("collision_layer", 0)
+	trigger_area.set_deferred("collision_mask", 0)
+
 func _on_trigger_boss_body_entered(body: Node2D):
+	if not body.is_in_group("player") or not is_boss_alive or not current_phase == Phase.NO_PHASE:
+		return
+	start_phase_one()
 
-	if body.is_in_group("player") and is_boss_alive:
-
-		trigger_area.set_deferred("monitoring", false)
-		trigger_area.set_deferred("monitorable", false)
-		trigger_area.set_deferred("collision_layer", 0)
-		trigger_area.set_deferred("collision_mask", 0)
-
-		for door: DarkForestDoors in doors:
-			door.close_door()
-
-		await first_phase_animation()
-
-		if boss_instance != null:
-			return
-
-		boss_instance = boss_scene.instantiate()
-
-		add_child(boss_instance)
-
-		boss_instance.global_position = $BossSpawnerPosition.global_position
-		
-		debug_hp.set_boss(boss_instance)
-		
-#for debug
-		#await get_tree().create_timer(4.0).timeout
-#
-		#await second_phase_animation()
-#
-		#await get_tree().create_timer(2.0).timeout
-#
-		#await third_phase_animation()
-		#await get_tree().create_timer(2.0).timeout
-#
-		#boss_instance.jump_to_pos_then_attack(moon.global_position)
 
 func pause_boss():
 
@@ -309,3 +362,17 @@ func resume_boss():
 	boss_instance.set_physics_process(true)
 	boss_instance.resume()
 	print("boss resumed")
+	
+func _on_boss_health_changed(hp, max_hp):
+	if current_phase == Phase.NO_PHASE:
+		return
+
+	var perc := float(hp) / float(max_hp) * 100.0
+
+	if perc < 70.0 and current_phase == Phase.PHASE_1:
+		current_phase = Phase.PHASE_2
+		start_phase_two()
+
+
+func _on_phase_2_timer_timeout():
+	start_phase_three()

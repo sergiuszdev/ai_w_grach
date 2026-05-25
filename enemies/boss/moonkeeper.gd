@@ -1,14 +1,17 @@
 extends CharacterBody2D
-
+class_name Moonkeeper
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 
-@export var MAX_HEALTH = 1000
-@export var current_hp = MAX_HEALTH
+@onready var MAX_HEALTH = 1000
+@onready var current_hp = MAX_HEALTH
 
 @onready var sprite := $Animations/AnimatedSprite2D
 @onready var animation_tree := $Animations/AnimationTree
 @onready var playback = animation_tree["parameters/playback"]
 
+@onready var is_attacking = false
+signal health_changed(current, max)
+var moon: CharacterBody2D
 enum States {
 	IDLE,
 	ATTACK_1,
@@ -183,10 +186,9 @@ func attack_2():
 
 
 func hit(amount):
-	current_hp -= amount
-	print("moonkeeper hp: ", current_hp)
 	state = States.HIT
-
+	current_hp -= amount
+	emit_signal("health_changed", current_hp, MAX_HEALTH)
 
 func die():
 	state = States.DEATH
@@ -209,3 +211,27 @@ func get_max_health():
 func get_health():
 	return current_hp
 	
+func trigger_moon():
+	if moon == null:
+		return
+	var moon_tween = create_tween()
+
+	moon_tween.tween_property(
+		moon,
+		"modulate",
+		Color(1, 0, 0, 1),
+		1.0
+	)
+
+	moon_tween.tween_property(
+		moon,
+		"modulate",
+		Color(1, 1, 1, 1),
+		1.0
+	)
+	
+func attack_started():
+	is_attacking = true
+	
+func attack_ended():
+	is_attacking = false

@@ -3,7 +3,6 @@
 [ext_resource type="Texture2D" uid="uid://de8ybh8xjysw5" path="res://assets/tiles/night_clouds/1.png" id="1_0l4y8"]
 [ext_resource type="Script" uid="uid://b2m4pokj8rg5f" path="res://backgrounds/night_clouds.gd" id="1_pq4nj"]
 [ext_resource type="Texture2D" uid="uid://tuq2rl2ircsv" path="res://assets/tiles/night_clouds/3.png" id="2_q6bnb"]
-[ext_resource type="PackedScene" uid="uid://bgep6lxq77ojk" path="res://enemies/boss/moon.tscn" id="3_pq4nj"]
 [ext_resource type="Texture2D" uid="uid://dbxx3t4y7tfma" path="res://assets/tiles/night_clouds/4.png" id="3_q6bnb"]
 
 [node name="NightClouds" type="Node2D" unique_id=1088667855]
@@ -18,9 +17,6 @@ repeat_times = 200
 
 [node name="background" type="Sprite2D" parent="Parallax2D" unique_id=1499612499]
 texture = ExtResource("1_0l4y8")
-
-[node name="moon" parent="." unique_id=94986557 instance=ExtResource("3_pq4nj")]
-position = Vector2(-31, 77)
 
 [node name="Parallax2D2" type="Parallax2D" parent="." unique_id=1355840214]
 scroll_scale = Vector2(0.7, 0.7)
