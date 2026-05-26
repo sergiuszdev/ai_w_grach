@@ -1,0 +1,23 @@
+[gd_scene format=3 uid="uid://dy1emo2kogi3r"]
+
+[ext_resource type="PackedScene" uid="uid://daf2wm6fer2kl" path="res://player/Player.tscn" id="1_wewrr"]
+[ext_resource type="PackedScene" uid="uid://bbji3koochdq4" path="res://enemies/boss/moonkeeper.tscn" id="2_yswmf"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_wxlb6"]
+size = Vector2(1931, 81)
+
+[node name="Test_Moonkeeper" type="Node2D" unique_id=827049870]
+
+[node name="StaticBody2D" type="StaticBody2D" parent="." unique_id=333496358]
+collision_layer = 2
+collision_mask = 17
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D" unique_id=1992067772]
+position = Vector2(955.5, 793)
+shape = SubResource("RectangleShape2D_wxlb6")
+
+[node name="Player" parent="." unique_id=1278280480 instance=ExtResource("1_wewrr")]
+position = Vector2(1168, 660)
+
+[node name="Moonkeeper" parent="." unique_id=1867670612 instance=ExtResource("2_yswmf")]
+position = Vector2(542, 638)

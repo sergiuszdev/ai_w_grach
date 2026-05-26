@@ -2,14 +2,17 @@ extends CharacterBody2D
 class_name Moonkeeper
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 
-@onready var MAX_HEALTH = 1000
-@onready var current_hp = MAX_HEALTH
+@onready var MAX_HEALTH := 1000
+@onready var current_hp := MAX_HEALTH
 
 @onready var sprite := $Animations/AnimatedSprite2D
 @onready var animation_tree := $Animations/AnimationTree
 @onready var playback = animation_tree["parameters/playback"]
 
-@onready var is_attacking = false
+@onready var is_attacking := false
+
+@onready var detection := $Attacks/PlayerDetection
+
 signal health_changed(current, max)
 var moon: CharacterBody2D
 enum States {
@@ -48,6 +51,11 @@ func _physics_process(delta):
 	if paused:
 		velocity = Vector2.ZERO
 		return
+
+	if is_attacking:
+		for body in detection.get_overlapping_bodies():
+			if body.is_in_group("player") and "hit" in body:
+				body.hit(1, self)
 
 	if not is_on_floor():
 		velocity.y += (gravity / 4) * delta
@@ -124,6 +132,9 @@ func ai_update(_delta):
 		else:
 			state = States.IDLE
 		sprite.flip_h = velocity.x < 0
+		
+		
+		
 	else:
 		velocity.x = move_toward(velocity.x, 0, 500 * get_physics_process_delta_time())
 		if abs(velocity.x) < 5:
@@ -235,3 +246,10 @@ func attack_started():
 	
 func attack_ended():
 	is_attacking = false
+
+
+
+func _on_player_detection_body_entered(body):
+	if body.is_in_group("player"):
+		attack_1()
+	
