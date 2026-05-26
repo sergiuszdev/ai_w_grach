@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://o7vctjeuseb3"]
 
-[ext_resource type="Script" uid="uid://c5qcwe4h0nrcc" path="res://enemies/ai/behaviour_tree.gd" id="1_5bjfd"]
+[ext_resource type="Script" uid="uid://c5qcwe4h0nrcc" path="res://enemies/ai/behaviour_tree/behaviour_tree.gd" id="1_5bjfd"]
 
 [node name="BehaviourTree" type="Node" unique_id=1772508354]
 script = ExtResource("1_5bjfd")

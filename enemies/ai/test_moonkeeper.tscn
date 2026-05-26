@@ -8,6 +8,16 @@ size = Vector2(1931, 81)
 
 [node name="Test_Moonkeeper" type="Node2D" unique_id=827049870]
 
+[node name="StaticBody2D2" type="StaticBody2D" parent="." unique_id=2133028549]
+position = Vector2(-763.00006, 1287)
+rotation = -1.5689324
+collision_layer = 2
+collision_mask = 17
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D2" unique_id=1944743606]
+position = Vector2(955.5, 793)
+shape = SubResource("RectangleShape2D_wxlb6")
+
 [node name="StaticBody2D" type="StaticBody2D" parent="." unique_id=333496358]
 collision_layer = 2
 collision_mask = 17
@@ -21,3 +31,23 @@ position = Vector2(1168, 660)
 
 [node name="Moonkeeper" parent="." unique_id=1867670612 instance=ExtResource("2_yswmf")]
 position = Vector2(542, 638)
+
+[node name="StaticBody2D3" type="StaticBody2D" parent="." unique_id=63009034]
+position = Vector2(1944.9999, 780.99963)
+rotation = -3.1378648
+collision_layer = 2
+collision_mask = 17
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D3" unique_id=351036017]
+position = Vector2(955.5, 793)
+shape = SubResource("RectangleShape2D_wxlb6")
+
+[node name="StaticBody2D4" type="StaticBody2D" parent="." unique_id=823579476]
+position = Vector2(1142, 1244)
+rotation = -1.5689324
+collision_layer = 2
+collision_mask = 17
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D4" unique_id=1077431220]
+position = Vector2(955.5, 793)
+shape = SubResource("RectangleShape2D_wxlb6")

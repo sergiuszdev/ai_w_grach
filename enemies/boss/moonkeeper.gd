@@ -13,6 +13,9 @@ var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 
 @onready var detection := $Attacks/PlayerDetection
 
+@onready var behaviour_tree := $AI/BehaviourTree
+var blackboard: Blackboard
+
 signal health_changed(current, max)
 var moon: CharacterBody2D
 enum States {
@@ -40,11 +43,14 @@ var target_player: Node2D = null
 var paused := false
 var is_dashing := false
 
-
 func _ready():
 	animation_tree.active = true
 	target_player = get_tree().get_first_node_in_group("player")
-
+	blackboard = Blackboard.new()
+	blackboard.set("player", target_player)
+	
+	behaviour_tree.setup(self, blackboard)
+	
 
 func _physics_process(delta):
 
@@ -60,8 +66,11 @@ func _physics_process(delta):
 	if not is_on_floor():
 		velocity.y += (gravity / 4) * delta
 
-	ai_update(delta)
+	#ai_update(delta)
 	update_animation()
+	
+	behaviour_tree.run(delta)
+	
 	move_and_slide()
 
 
@@ -150,13 +159,45 @@ func jump():
 	velocity.y = jump_force
 
 
-func dash(direction: float):
+func dash_to_player():
+	if target_player == null:
+		return
 
 	is_dashing = true
 	state = States.DASH
-	velocity.x = direction * dash_speed
+
+	var dir = sign(target_player.global_position.x - global_position.x)
+	if dir == 0:
+		dir = 1
+
+	velocity.x = dir * dash_speed
 
 	await get_tree().create_timer(0.25).timeout
+	is_dashing = false
+
+func dash_away_from_player():
+	if target_player == null:
+		return
+
+	is_dashing = true
+	state = States.DASH
+
+	var dir = sign(global_position.x - target_player.global_position.x)
+	if dir == 0:
+		dir = -1
+
+	velocity.x = dir * dash_speed
+
+	await get_tree().create_timer(0.25).timeout
+	is_dashing = false
+
+func dash(direction: float):
+	
+	is_dashing = true
+	playback.travel("dash")
+
+	state = States.DASH
+	velocity.x = move_toward(velocity.x, direction * dash_speed, dash_speed * 10)
 
 	is_dashing = false
 
@@ -246,7 +287,6 @@ func attack_started():
 	
 func attack_ended():
 	is_attacking = false
-
 
 
 func _on_player_detection_body_entered(body):

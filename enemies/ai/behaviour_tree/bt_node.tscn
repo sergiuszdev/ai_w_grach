@@ -1,0 +1,6 @@
+[gd_scene format=3 uid="uid://csrex75wjyrc2"]
+
+[ext_resource type="Script" uid="uid://nbgn6qhvgu33" path="res://enemies/ai/behaviour_tree/bt_node.gd" id="1_ji0qi"]
+
+[node name="BTNode" type="Node" unique_id=5681233]
+script = ExtResource("1_ji0qi")

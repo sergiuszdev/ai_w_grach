@@ -106,6 +106,9 @@
 [ext_resource type="Texture2D" uid="uid://bvtj1urr185l3" path="res://assets/enemies/Moonstone_Keeper Eldermoon_Grove - By SUCART/Jump Loop-MoonstoneKeeper-SUCART/No BG/frame0000.png" id="81_3dhhc"]
 [ext_resource type="Texture2D" uid="uid://cx82t2mgycg63" path="res://assets/enemies/Moonstone_Keeper Eldermoon_Grove - By SUCART/Jump Loop-MoonstoneKeeper-SUCART/No BG/frame0001.png" id="82_5vlhv"]
 [ext_resource type="Texture2D" uid="uid://nyofvumxwaqb" path="res://assets/enemies/Moonstone_Keeper Eldermoon_Grove - By SUCART/Jump Loop-MoonstoneKeeper-SUCART/No BG/frame0002.png" id="83_2u5fi"]
+[ext_resource type="Script" uid="uid://c5qcwe4h0nrcc" path="res://enemies/ai/behaviour_tree/behaviour_tree.gd" id="108_wdn54"]
+[ext_resource type="Script" uid="uid://ch1xv8tfey4mh" path="res://enemies/ai/behaviour_tree/leaf.gd" id="109_l8mto"]
+[ext_resource type="Script" uid="uid://xydh8qo3tesg" path="res://enemies/ai/behaviour_tree/sequence.gd" id="110_8lc7i"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_5vlhv"]
 height = 61.0
@@ -989,6 +992,9 @@ animation = &"RESET"
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_5vlhv"]
 animation = &"attack_1"
 
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_3gd03"]
+animation = &"dash"
+
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_10ns1"]
 animation = &"death"
 
@@ -1056,6 +1062,10 @@ advance_mode = 2
 
 [sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_7xfv0"]
 
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_j8eux"]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_xj3dm"]
+
 [sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_n8hj1"]
 states/End/position = Vector2(282, 422.5)
 states/PhaseOne/node = SubResource("AnimationNodeStateMachine_5vlhv")
@@ -1065,6 +1075,8 @@ states/RESET/position = Vector2(-4, -42.25)
 states/Start/position = Vector2(-213, -38.9375)
 states/attack_1/node = SubResource("AnimationNodeAnimation_5vlhv")
 states/attack_1/position = Vector2(220.5, -150.5)
+states/dash/node = SubResource("AnimationNodeAnimation_3gd03")
+states/dash/position = Vector2(219.25, 162)
 states/death/node = SubResource("AnimationNodeAnimation_10ns1")
 states/death/position = Vector2(147, 373)
 states/hit/node = SubResource("AnimationNodeAnimation_wdn54")
@@ -1081,7 +1093,7 @@ states/run/node = SubResource("AnimationNodeAnimation_nopt8")
 states/run/position = Vector2(378, -51.5)
 states/walk/node = SubResource("AnimationNodeAnimation_nh8o0")
 states/walk/position = Vector2(658.5, 31)
-transitions = ["Start", "RESET", SubResource("AnimationNodeStateMachineTransition_3gd03"), "RESET", "PhaseOne", SubResource("AnimationNodeStateMachineTransition_8l1au"), "PhaseOne", "idle", SubResource("AnimationNodeStateMachineTransition_xqbmj"), "idle", "attack_1", SubResource("AnimationNodeStateMachineTransition_o0yto"), "idle", "walk", SubResource("AnimationNodeStateMachineTransition_fyfai"), "idle", "jump", SubResource("AnimationNodeStateMachineTransition_cn0qa"), "jump", "jump_loop", SubResource("AnimationNodeStateMachineTransition_p4yny"), "jump_loop", "land", SubResource("AnimationNodeStateMachineTransition_h0q4g"), "land", "idle", SubResource("AnimationNodeStateMachineTransition_6cwkf"), "attack_1", "idle", SubResource("AnimationNodeStateMachineTransition_5vlhv"), "walk", "idle", SubResource("AnimationNodeStateMachineTransition_2u5fi"), "idle", "hit", SubResource("AnimationNodeStateMachineTransition_10ns1"), "hit", "idle", SubResource("AnimationNodeStateMachineTransition_wdn54"), "hit", "death", SubResource("AnimationNodeStateMachineTransition_8lc7i"), "idle", "run", SubResource("AnimationNodeStateMachineTransition_l8mto"), "run", "idle", SubResource("AnimationNodeStateMachineTransition_7xfv0")]
+transitions = ["Start", "RESET", SubResource("AnimationNodeStateMachineTransition_3gd03"), "RESET", "PhaseOne", SubResource("AnimationNodeStateMachineTransition_8l1au"), "PhaseOne", "idle", SubResource("AnimationNodeStateMachineTransition_xqbmj"), "idle", "attack_1", SubResource("AnimationNodeStateMachineTransition_o0yto"), "idle", "walk", SubResource("AnimationNodeStateMachineTransition_fyfai"), "idle", "jump", SubResource("AnimationNodeStateMachineTransition_cn0qa"), "jump", "jump_loop", SubResource("AnimationNodeStateMachineTransition_p4yny"), "jump_loop", "land", SubResource("AnimationNodeStateMachineTransition_h0q4g"), "land", "idle", SubResource("AnimationNodeStateMachineTransition_6cwkf"), "attack_1", "idle", SubResource("AnimationNodeStateMachineTransition_5vlhv"), "walk", "idle", SubResource("AnimationNodeStateMachineTransition_2u5fi"), "idle", "hit", SubResource("AnimationNodeStateMachineTransition_10ns1"), "hit", "idle", SubResource("AnimationNodeStateMachineTransition_wdn54"), "hit", "death", SubResource("AnimationNodeStateMachineTransition_8lc7i"), "idle", "run", SubResource("AnimationNodeStateMachineTransition_l8mto"), "run", "idle", SubResource("AnimationNodeStateMachineTransition_7xfv0"), "idle", "dash", SubResource("AnimationNodeStateMachineTransition_j8eux"), "dash", "idle", SubResource("AnimationNodeStateMachineTransition_xj3dm")]
 graph_offset = Vector2(-624, -234)
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_2u5fi"]
@@ -1156,5 +1168,30 @@ shape = SubResource("CircleShape2D_5vlhv")
 position = Vector2(18, -40)
 shape = SubResource("RectangleShape2D_5vlhv")
 debug_color = Color(1.973361e-06, 0.6516583, 0.005146525, 0.41960785)
+
+[node name="AI" type="Node" parent="." unique_id=2066344084]
+
+[node name="BehaviourTree" type="Node" parent="AI" unique_id=890924009]
+script = ExtResource("108_wdn54")
+metadata/_custom_type_script = "uid://c5qcwe4h0nrcc"
+
+[node name="BTSequence" type="Node" parent="AI/BehaviourTree" unique_id=878320220]
+script = ExtResource("110_8lc7i")
+metadata/_custom_type_script = "uid://xydh8qo3tesg"
+
+[node name="DashToPlayer" type="Node" parent="AI/BehaviourTree/BTSequence" unique_id=971811532]
+script = ExtResource("109_l8mto")
+method_name = "dash_to_player"
+metadata/_custom_type_script = "uid://ch1xv8tfey4mh"
+
+[node name="DashAwayFromPlayer" type="Node" parent="AI/BehaviourTree/BTSequence" unique_id=2102983583]
+script = ExtResource("109_l8mto")
+method_name = "dash_away_from_player"
+metadata/_custom_type_script = "uid://ch1xv8tfey4mh"
+
+[node name="Jump" type="Node" parent="AI/BehaviourTree/BTSequence" unique_id=956827250]
+script = ExtResource("109_l8mto")
+method_name = "jump"
+metadata/_custom_type_script = "uid://ch1xv8tfey4mh"
 
 [connection signal="body_entered" from="Attacks/PlayerDetection" to="." method="_on_player_detection_body_entered"]
