@@ -257,28 +257,28 @@ func heal_end():
 	print("heal endd")
 	is_healing = false
 
-#todo chyba animacja się nie triggeruje
-func hit(amount):
 
-	if is_dead():
+func parry(attacker):
+
+	if attacker == null:
 		return
 
-	Globals.players_health -= amount
+	print("parry")
 
-	is_attacking = false
-	is_sliding = false
-	is_healing = false
+	playback.travel("idle")
 
-	playback.travel("hit")
+	var dir = sign(global_position.x - attacker.global_position.x)
+	if dir == 0:
+		dir = -1
 
-	var hit_direction = -sign($FlipGroup.scale.x)
+	velocity.x = dir * 180
+	velocity.y = 0
 
-	velocity.x = hit_direction * 360
-	velocity.y = -120
-
-	modulate = Color(1.8, 0.3, 0.3, 1.0)
+	is_sliding = true
 
 	var tween = create_tween()
+
+	modulate = Color(1.4, 1.4, 1.4, 1.0)
 
 	tween.tween_property(
 		self,
@@ -287,7 +287,59 @@ func hit(amount):
 		0.15
 	)
 
-	print("players hp: ", Globals.players_health)
+	await get_tree().create_timer(0.12).timeout
+	is_sliding = false
+
+func hit(amount: int, attacker = null):
+
+	if is_dead():
+		return
+
+	if is_attacking and attacker != null:
+		if "is_attacking" in attacker and attacker.is_attacking:
+			parry(attacker)
+
+		if "velocity" in attacker:
+
+			var dir = sign(attacker.global_position.x - global_position.x)
+			if dir == 0:
+				dir = 1
+
+			attacker.velocity = Vector2(dir * 220, 0)
+
+			if "is_hostile" in attacker:
+				attacker.is_hostile = false
+
+				await get_tree().create_timer(0.15).timeout
+				attacker.is_hostile = true
+			return
+
+
+	Globals.players_health -= amount
+	Globals.players_health = max(Globals.players_health, 0)
+
+
+	is_attacking = false
+	is_sliding = false
+	is_healing = false
+	is_pogo = false
+	
+	playback.travel("hit")
+
+
+	var hit_dir = -sign($FlipGroup.scale.x)
+	velocity.x = hit_dir * 360
+	velocity.y = -120
+
+	modulate = Color(1.8, 0.3, 0.3, 1.0)
+
+	var tween = create_tween()
+	tween.tween_property(
+		self,
+		"modulate",
+		Color(1, 1, 1, 1),
+		0.15
+	)
 	
 func is_dead():
 	return Globals.players_health < 1
