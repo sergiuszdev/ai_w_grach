@@ -1,0 +1,7 @@
+[gd_scene format=3 uid="uid://bmjhf807a0tk5"]
+
+[ext_resource type="Script" uid="uid://c88wskwkhdj7i" path="res://enemies/ai/behaviour_tree/wait.gd" id="1_dc61w"]
+
+[node name="Wait" type="Node" unique_id=2082817383]
+script = ExtResource("1_dc61w")
+metadata/_custom_type_script = "uid://ch1xv8tfey4mh"

@@ -1,0 +1,7 @@
+[gd_scene format=3 uid="uid://qy1fs0iasnir"]
+
+[ext_resource type="Script" uid="uid://dnraiggpni3rq" path="res://enemies/ai/behaviour_tree/condition.gd" id="1_ow7rt"]
+
+[node name="Condition" type="Node" unique_id=637313450]
+script = ExtResource("1_ow7rt")
+metadata/_custom_type_script = "uid://ch1xv8tfey4mh"

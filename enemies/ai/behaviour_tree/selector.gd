@@ -3,13 +3,23 @@ extends BTNode
 
 class_name Selector
 
+var current_index = 0
 
 func run(delta: float) -> Status:
 	
-	for child: BTNode in get_children():
+	while current_index < get_child_count():
+		var child: BTNode = get_child(current_index)
 		var result = child.run(delta)
-		if result != Status.FAILURE:
-			return result
 		
+		match result:
+			Status.SUCCESS:
+				current_index = 0
+				return Status.SUCCESS
+			
+			Status.RUNNING:
+				return Status.RUNNING
+				
+			Status.FAILURE:
+				current_index+=1
+	current_index = 0
 	return Status.FAILURE
-	

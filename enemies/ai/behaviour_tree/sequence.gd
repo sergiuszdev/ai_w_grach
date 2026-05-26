@@ -2,9 +2,22 @@
 extends BTNode
 class_name BTSequence
 
+var current_index := 0
+
 func run(delta):
-	for child in get_children():
-		var result = child.run(delta)
-		if result != Status.SUCCESS:
-			return result
+	
+	
+	while current_index < get_child_count():
+		var child: BTNode = get_child(current_index)
+		var result: Status = child.run(delta)
+		
+		match result:
+			Status.SUCCESS:
+				current_index += 1
+			Status.RUNNING:
+				return Status.RUNNING
+			Status.FAILURE:
+				current_index = 0
+				return Status.FAILURE
+	current_index = 0
 	return Status.SUCCESS
