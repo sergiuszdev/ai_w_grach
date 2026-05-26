@@ -6,6 +6,9 @@ class_name BTLeaf
 @export var method_name: String
 
 func run(delta: float) -> int:
+	if not is_enabled:
+		return Status.FAILURE
+	
 	if agent == null:
 		return Status.FAILURE
 

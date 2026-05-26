@@ -46,8 +46,9 @@ var is_dashing := false
 func _ready():
 	animation_tree.active = true
 	target_player = get_tree().get_first_node_in_group("player")
+	print("target_player", target_player)
 	blackboard = Blackboard.new()
-	blackboard.set("player", target_player)
+	blackboard.set_value("player", target_player)
 	
 	behaviour_tree.setup(self, blackboard)
 	
@@ -120,7 +121,6 @@ func ai_update(_delta):
 	if is_dashing:
 		return
 
-	# ADD States.JUMP here so ai doesn't override scripted jumps
 	if state in [
 		States.ATTACK_1,
 		States.ATTACK_2,
@@ -159,37 +159,6 @@ func jump():
 	velocity.y = jump_force
 
 
-func dash_to_player():
-	if target_player == null:
-		return
-
-	is_dashing = true
-	state = States.DASH
-
-	var dir = sign(target_player.global_position.x - global_position.x)
-	if dir == 0:
-		dir = 1
-
-	velocity.x = dir * dash_speed
-
-	await get_tree().create_timer(0.25).timeout
-	is_dashing = false
-
-func dash_away_from_player():
-	if target_player == null:
-		return
-
-	is_dashing = true
-	state = States.DASH
-
-	var dir = sign(global_position.x - target_player.global_position.x)
-	if dir == 0:
-		dir = -1
-
-	velocity.x = dir * dash_speed
-
-	await get_tree().create_timer(0.25).timeout
-	is_dashing = false
 
 func dash(direction: float):
 	
@@ -208,13 +177,11 @@ func jump_to_pos_then_attack(moon_position: Vector2):
 	var dir = sign(moon_position.x - global_position.x)
 
 	state = States.JUMP
-	velocity.x = dir * speed * 2.0  # give it enough horizontal to reach moon
+	velocity.x = dir * speed * 2.0
 	velocity.y = jump_force
 	
-	# wait until boss lands
 	await get_tree().create_timer(0.8).timeout
 
-	# snap state so ai_update stays blocked
 	state = States.ATTACK_1
 	velocity.x = 0
 
@@ -223,7 +190,6 @@ func jump_to_pos_then_attack(moon_position: Vector2):
 	var player_dir = sign(target_player.global_position.x - global_position.x)
 	await dash(player_dir)
 
-	# return control to ai after scripted sequence
 	state = States.IDLE
 
 
@@ -289,7 +255,39 @@ func attack_ended():
 	is_attacking = false
 
 
-func _on_player_detection_body_entered(body):
-	if body.is_in_group("player"):
-		attack_1()
+#func _on_player_detection_body_entered(body):
+	#if body.is_in_group("player"):
+		#attack_1()
 	
+# methods for btree
+func dash_to_player():
+	if target_player == null:
+		return
+
+	is_dashing = true
+	state = States.DASH
+
+	var dir = sign(target_player.global_position.x - global_position.x)
+	if dir == 0:
+		dir = 1
+
+	velocity.x = dir * dash_speed
+
+	await get_tree().create_timer(0.25).timeout
+	is_dashing = false
+
+func dash_away_from_player():
+	if target_player == null:
+		return
+
+	is_dashing = true
+	state = States.DASH
+
+	var dir = sign(global_position.x - target_player.global_position.x)
+	if dir == 0:
+		dir = -1
+
+	velocity.x = dir * dash_speed
+
+	await get_tree().create_timer(0.25).timeout
+	is_dashing = false

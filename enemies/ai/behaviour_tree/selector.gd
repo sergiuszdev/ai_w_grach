@@ -6,7 +6,8 @@ class_name Selector
 var current_index = 0
 
 func run(delta: float) -> Status:
-	
+	if not is_enabled:
+		return Status.FAILURE
 	while current_index < get_child_count():
 		var child: BTNode = get_child(current_index)
 		var result = child.run(delta)

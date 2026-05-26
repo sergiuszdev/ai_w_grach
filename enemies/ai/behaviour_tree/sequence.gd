@@ -5,7 +5,8 @@ class_name BTSequence
 var current_index := 0
 
 func run(delta):
-	
+	if not is_enabled:
+		return Status.FAILURE
 	
 	while current_index < get_child_count():
 		var child: BTNode = get_child(current_index)
