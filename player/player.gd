@@ -23,6 +23,12 @@ var direction := 0.0
 @onready var wall_jumps = 1
 @onready var is_pogo := false
 
+@export var attack_cooldown_time := Globals.player_attack_cooldown
+@onready var is_attack_ready := true
+
+@onready var attack_cooldown_timer = $FlipGroup/Attacks/AttackCooldown
+
+
 
 func _ready():
 	animation_tree.active = true
@@ -131,6 +137,11 @@ func slide():
 	is_sliding = false
 	
 func attack():
+	if not is_attack_ready:
+		print("attack not ready")
+		return
+	is_attack_ready = false
+	attack_cooldown_timer.start(attack_cooldown_time)
 	if Input.is_action_pressed("up"):
 		do_upper_attack()
 
@@ -264,8 +275,7 @@ func parry(attacker):
 		return
 
 	print("parry")
-
-	playback.travel("idle")
+	
 
 	var dir = sign(global_position.x - attacker.global_position.x)
 	if dir == 0:
@@ -351,3 +361,8 @@ func set_player_damage(amount):
 func pogo_end():
 	is_pogo = false
 		
+
+
+func _on_attack_cooldown_timeout():
+	print("attack ready")
+	is_attack_ready = true

@@ -671,7 +671,7 @@ tracks/1/keys = {
 
 [sub_resource type="Animation" id="Animation_5qrx2"]
 resource_name = "attack"
-length = 0.8
+length = 0.6
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -691,10 +691,10 @@ tracks/1/path = NodePath("FlipGroup/Animations/AnimatedSprite2D:frame")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.033299997, 0.0999, 0.1998, 0.2997, 0.3996, 0.4995, 0.5994, 0.6993, 6.0333),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"times": PackedFloat32Array(0, 0.06666667, 0.13333334, 0.1998, 0.26666668, 0.33333334, 0.4, 0.46666667, 0.53333336),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1),
 "update": 1,
-"values": [0, 1, 2, 3, 4, 6, 7, 8, 9, 5]
+"values": [0, 1, 2, 3, 4, 6, 7, 8, 9]
 }
 tracks/2/type = "method"
 tracks/2/imported = false
@@ -703,7 +703,7 @@ tracks/2/path = NodePath(".")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
-"times": PackedFloat32Array(0.1998, 0.6993),
+"times": PackedFloat32Array(0.1998, 0.53333336),
 "transitions": PackedFloat32Array(1, 1),
 "values": [{
 "args": [],
@@ -1231,3 +1231,7 @@ position = Vector2(2.666666, 38.666668)
 scale = Vector2(1.1416092, 0.7993277)
 shape = SubResource("RectangleShape2D_aqcbf")
 debug_color = Color(0.5882353, 0.18039216, 0.31764707, 1)
+
+[node name="AttackCooldown" type="Timer" parent="FlipGroup/Attacks" unique_id=1519608561]
+
+[connection signal="timeout" from="FlipGroup/Attacks/AttackCooldown" to="." method="_on_attack_cooldown_timeout"]
