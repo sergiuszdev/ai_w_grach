@@ -1,0 +1,8 @@
+[gd_scene format=3 uid="uid://bpyvyljookldf"]
+
+[ext_resource type="Script" uid="uid://e7ef0yj4s4hw" path="res://enemies/ai/behaviour_tree/dash_behind_target.gd" id="1_cj5oo"]
+
+[node name="DashBehindTarget" type="Node" unique_id=447862702]
+script = ExtResource("1_cj5oo")
+offset = 300.0
+metadata/_custom_type_script = "uid://bwxqiollp6b1v"

@@ -12,8 +12,8 @@ func check_condition() -> bool:
 		player.global_position
 	) <= distance
 	
-	if is_close:
-		print("jest blisko")
-	else:
-		print("nie jest blisko")
+	#if is_close:
+		#print("jest blisko")
+	#else:
+		#print("nie jest blisko")
 	return is_close

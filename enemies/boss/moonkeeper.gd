@@ -260,6 +260,7 @@ func attack_ended():
 		#attack_1()
 	
 # methods for btree
+#todo dashing is to refactor i guess
 func dash_to_player():
 	if target_player == null:
 		return
@@ -288,6 +289,52 @@ func dash_away_from_player():
 		dir = -1
 
 	velocity.x = dir * dash_speed
+
+	await get_tree().create_timer(0.25).timeout
+	is_dashing = false
+
+func walk_to_player():
+	if target_player == null:
+		return
+
+	var dir = sign(target_player.global_position.x - global_position.x)
+
+	if dir == 0:
+		dir = 1
+
+	state = States.WALK
+
+	velocity.x = move_toward(
+		velocity.x,
+		dir * speed,
+		speed * 5.0 * get_physics_process_delta_time()
+	)
+
+	sprite.flip_h = velocity.x < 0
+
+func dash_behind_player():
+	if target_player == null:
+		return
+
+	is_dashing = true
+	state = States.DASH
+
+	var behind_offset := 80.0
+
+	var player_pos = target_player.global_positiona
+	var dir = sign(global_position.x - player_pos.x)
+
+	if dir == 0:
+		dir = 1
+
+	var target_x = player_pos.x + dir * behind_offset
+
+	var dash_dir = sign(target_x - global_position.x)
+	if dash_dir == 0:
+		dash_dir = dir
+
+	velocity.x = dash_dir * dash_speed
+	sprite.flip_h = velocity.x < 0
 
 	await get_tree().create_timer(0.25).timeout
 	is_dashing = false

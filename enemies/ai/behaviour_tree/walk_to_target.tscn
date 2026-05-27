@@ -1,0 +1,7 @@
+[gd_scene format=3 uid="uid://bubg5eh6t2bxm"]
+
+[ext_resource type="Script" uid="uid://bq7kf50u5p03j" path="res://enemies/ai/behaviour_tree/walk_to_target.gd" id="1_a421o"]
+
+[node name="WalkToTarget" type="Node" unique_id=1864208662]
+script = ExtResource("1_a421o")
+metadata/_custom_type_script = "uid://bwxqiollp6b1v"

@@ -1,0 +1,7 @@
+[gd_scene format=3 uid="uid://btnsb36sc2mug"]
+
+[ext_resource type="Script" uid="uid://dakbfiwxw73ds" path="res://enemies/ai/behaviour_tree/walk_away_from_target.gd" id="1_5usnc"]
+
+[node name="WalkAwayFromTarget" type="Node" unique_id=1724699127]
+script = ExtResource("1_5usnc")
+metadata/_custom_type_script = "uid://bwxqiollp6b1v"

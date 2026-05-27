@@ -109,7 +109,13 @@
 [ext_resource type="Script" uid="uid://c5qcwe4h0nrcc" path="res://enemies/ai/behaviour_tree/behaviour_tree.gd" id="108_wdn54"]
 [ext_resource type="Script" uid="uid://nybao10d0uqe" path="res://enemies/boss/is_player_close.gd" id="109_7xfv0"]
 [ext_resource type="Script" uid="uid://ch1xv8tfey4mh" path="res://enemies/ai/behaviour_tree/leaf.gd" id="109_l8mto"]
+[ext_resource type="Script" uid="uid://68oh06t8niod" path="res://enemies/boss/is_phase_one.gd" id="109_xj3dm"]
 [ext_resource type="Script" uid="uid://xydh8qo3tesg" path="res://enemies/ai/behaviour_tree/sequence.gd" id="110_8lc7i"]
+[ext_resource type="Script" uid="uid://catlqunj6cmld" path="res://enemies/ai/behaviour_tree/invert.gd" id="110_xj3dm"]
+[ext_resource type="Script" uid="uid://cl1myvdmmihw7" path="res://enemies/ai/behaviour_tree/cooldown.gd" id="111_7xfv0"]
+[ext_resource type="Script" uid="uid://bq7kf50u5p03j" path="res://enemies/ai/behaviour_tree/walk_to_target.gd" id="114_3gd03"]
+[ext_resource type="Script" uid="uid://e7ef0yj4s4hw" path="res://enemies/ai/behaviour_tree/dash_behind_target.gd" id="115_8l1au"]
+[ext_resource type="Script" uid="uid://dakbfiwxw73ds" path="res://enemies/ai/behaviour_tree/walk_away_from_target.gd" id="116_xqbmj"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_5vlhv"]
 height = 61.0
@@ -717,6 +723,7 @@ tracks/5/keys = {
 [sub_resource type="Animation" id="Animation_8lc7i"]
 resource_name = "dash"
 length = 1.5
+loop_mode = 1
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -993,6 +1000,9 @@ animation = &"RESET"
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_5vlhv"]
 animation = &"attack_1"
 
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_8l1au"]
+animation = &"attack_2"
+
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_3gd03"]
 animation = &"dash"
 
@@ -1067,6 +1077,12 @@ advance_mode = 2
 
 [sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_xj3dm"]
 
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_fa4jy"]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_vgguk"]
+switch_mode = 2
+advance_mode = 2
+
 [sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_n8hj1"]
 states/End/position = Vector2(282, 422.5)
 states/PhaseOne/node = SubResource("AnimationNodeStateMachine_5vlhv")
@@ -1075,7 +1091,9 @@ states/RESET/node = SubResource("AnimationNodeAnimation_2u5fi")
 states/RESET/position = Vector2(-4, -42.25)
 states/Start/position = Vector2(-213, -38.9375)
 states/attack_1/node = SubResource("AnimationNodeAnimation_5vlhv")
-states/attack_1/position = Vector2(220.5, -150.5)
+states/attack_1/position = Vector2(297.5, -155)
+states/attack_2/node = SubResource("AnimationNodeAnimation_8l1au")
+states/attack_2/position = Vector2(147.5, -144.5)
 states/dash/node = SubResource("AnimationNodeAnimation_3gd03")
 states/dash/position = Vector2(219.25, 162)
 states/death/node = SubResource("AnimationNodeAnimation_10ns1")
@@ -1094,7 +1112,7 @@ states/run/node = SubResource("AnimationNodeAnimation_nopt8")
 states/run/position = Vector2(378, -51.5)
 states/walk/node = SubResource("AnimationNodeAnimation_nh8o0")
 states/walk/position = Vector2(658.5, 31)
-transitions = ["Start", "RESET", SubResource("AnimationNodeStateMachineTransition_3gd03"), "RESET", "PhaseOne", SubResource("AnimationNodeStateMachineTransition_8l1au"), "PhaseOne", "idle", SubResource("AnimationNodeStateMachineTransition_xqbmj"), "idle", "attack_1", SubResource("AnimationNodeStateMachineTransition_o0yto"), "idle", "walk", SubResource("AnimationNodeStateMachineTransition_fyfai"), "idle", "jump", SubResource("AnimationNodeStateMachineTransition_cn0qa"), "jump", "jump_loop", SubResource("AnimationNodeStateMachineTransition_p4yny"), "jump_loop", "land", SubResource("AnimationNodeStateMachineTransition_h0q4g"), "land", "idle", SubResource("AnimationNodeStateMachineTransition_6cwkf"), "attack_1", "idle", SubResource("AnimationNodeStateMachineTransition_5vlhv"), "walk", "idle", SubResource("AnimationNodeStateMachineTransition_2u5fi"), "idle", "hit", SubResource("AnimationNodeStateMachineTransition_10ns1"), "hit", "idle", SubResource("AnimationNodeStateMachineTransition_wdn54"), "hit", "death", SubResource("AnimationNodeStateMachineTransition_8lc7i"), "idle", "run", SubResource("AnimationNodeStateMachineTransition_l8mto"), "run", "idle", SubResource("AnimationNodeStateMachineTransition_7xfv0"), "idle", "dash", SubResource("AnimationNodeStateMachineTransition_j8eux"), "dash", "idle", SubResource("AnimationNodeStateMachineTransition_xj3dm")]
+transitions = ["Start", "RESET", SubResource("AnimationNodeStateMachineTransition_3gd03"), "RESET", "PhaseOne", SubResource("AnimationNodeStateMachineTransition_8l1au"), "PhaseOne", "idle", SubResource("AnimationNodeStateMachineTransition_xqbmj"), "idle", "attack_1", SubResource("AnimationNodeStateMachineTransition_o0yto"), "idle", "walk", SubResource("AnimationNodeStateMachineTransition_fyfai"), "idle", "jump", SubResource("AnimationNodeStateMachineTransition_cn0qa"), "jump", "jump_loop", SubResource("AnimationNodeStateMachineTransition_p4yny"), "jump_loop", "land", SubResource("AnimationNodeStateMachineTransition_h0q4g"), "land", "idle", SubResource("AnimationNodeStateMachineTransition_6cwkf"), "attack_1", "idle", SubResource("AnimationNodeStateMachineTransition_5vlhv"), "walk", "idle", SubResource("AnimationNodeStateMachineTransition_2u5fi"), "idle", "hit", SubResource("AnimationNodeStateMachineTransition_10ns1"), "hit", "idle", SubResource("AnimationNodeStateMachineTransition_wdn54"), "hit", "death", SubResource("AnimationNodeStateMachineTransition_8lc7i"), "idle", "run", SubResource("AnimationNodeStateMachineTransition_l8mto"), "run", "idle", SubResource("AnimationNodeStateMachineTransition_7xfv0"), "idle", "dash", SubResource("AnimationNodeStateMachineTransition_j8eux"), "dash", "idle", SubResource("AnimationNodeStateMachineTransition_xj3dm"), "idle", "attack_2", SubResource("AnimationNodeStateMachineTransition_fa4jy"), "attack_2", "idle", SubResource("AnimationNodeStateMachineTransition_vgguk")]
 graph_offset = Vector2(-624, -234)
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_2u5fi"]
@@ -1143,6 +1161,7 @@ anim_player = NodePath("../AnimationPlayer")
 [node name="Attacks" type="Node2D" parent="." unique_id=1382373050]
 
 [node name="Area_1" type="Area2D" parent="Attacks" unique_id=86408369]
+visible = false
 collision_layer = 64
 monitoring = false
 monitorable = false
@@ -1174,17 +1193,70 @@ debug_color = Color(1.973361e-06, 0.6516583, 0.005146525, 0.41960785)
 script = ExtResource("108_wdn54")
 metadata/_custom_type_script = "uid://c5qcwe4h0nrcc"
 
+[node name="Walk" type="Node" parent="AI/BehaviourTree" unique_id=1229571682]
+script = ExtResource("110_8lc7i")
+is_enabled = false
+metadata/_custom_type_script = "uid://xydh8qo3tesg"
+
+[node name="IsPhaseOne" type="Node" parent="AI/BehaviourTree/Walk" unique_id=1886784621]
+script = ExtResource("109_xj3dm")
+metadata/_custom_type_script = "uid://dnraiggpni3rq"
+
+[node name="Invert" type="Node" parent="AI/BehaviourTree/Walk" unique_id=487706545]
+script = ExtResource("110_xj3dm")
+metadata/_custom_type_script = "uid://catlqunj6cmld"
+
+[node name="IsPlayerClose" type="Node" parent="AI/BehaviourTree/Walk/Invert" unique_id=2005201698]
+script = ExtResource("109_7xfv0")
+metadata/_custom_type_script = "uid://dnraiggpni3rq"
+
+[node name="WalkToPlayer" type="Node" parent="AI/BehaviourTree/Walk" unique_id=1986025809]
+script = ExtResource("109_l8mto")
+method_name = "walk_to_player"
+metadata/_custom_type_script = "uid://ch1xv8tfey4mh"
+
 [node name="AttackSequence" type="Node" parent="AI/BehaviourTree" unique_id=185870575]
 script = ExtResource("110_8lc7i")
+is_enabled = false
 metadata/_custom_type_script = "uid://xydh8qo3tesg"
+
+[node name="IsPhaseOne" type="Node" parent="AI/BehaviourTree/AttackSequence" unique_id=1242848772]
+script = ExtResource("109_xj3dm")
+metadata/_custom_type_script = "uid://dnraiggpni3rq"
 
 [node name="IsPlayerClose" type="Node" parent="AI/BehaviourTree/AttackSequence" unique_id=276978258]
 script = ExtResource("109_7xfv0")
 metadata/_custom_type_script = "uid://dnraiggpni3rq"
 
-[node name="Attack" type="Node" parent="AI/BehaviourTree/AttackSequence" unique_id=1108044628]
+[node name="Cooldown" type="Node" parent="AI/BehaviourTree/AttackSequence" unique_id=1601180838]
+script = ExtResource("111_7xfv0")
+cooldown = 5.0
+metadata/_custom_type_script = "uid://cl1myvdmmihw7"
+
+[node name="Attack_1" type="Node" parent="AI/BehaviourTree/AttackSequence/Cooldown" unique_id=1108044628]
 script = ExtResource("109_l8mto")
 method_name = "attack_1"
 metadata/_custom_type_script = "uid://ch1xv8tfey4mh"
+
+[node name="JumpAndAttack" type="Node" parent="AI/BehaviourTree" unique_id=628659010]
+script = ExtResource("110_8lc7i")
+is_enabled = false
+metadata/_custom_type_script = "uid://xydh8qo3tesg"
+
+[node name="DashBehindAttack" type="Node" parent="AI/BehaviourTree" unique_id=1141821528]
+script = ExtResource("110_8lc7i")
+metadata/_custom_type_script = "uid://xydh8qo3tesg"
+
+[node name="WalkToTarget" type="Node" parent="AI/BehaviourTree/DashBehindAttack" unique_id=2086560888]
+script = ExtResource("114_3gd03")
+metadata/_custom_type_script = "uid://bq7kf50u5p03j"
+
+[node name="DashBehindTarget" type="Node" parent="AI/BehaviourTree/DashBehindAttack" unique_id=1200445883]
+script = ExtResource("115_8l1au")
+metadata/_custom_type_script = "uid://e7ef0yj4s4hw"
+
+[node name="WalkAwayFromTarget" type="Node" parent="AI/BehaviourTree/DashBehindAttack" unique_id=2057523750]
+script = ExtResource("116_xqbmj")
+metadata/_custom_type_script = "uid://dakbfiwxw73ds"
 
 [connection signal="body_entered" from="Attacks/PlayerDetection" to="." method="_on_player_detection_body_entered"]

@@ -138,7 +138,6 @@ func slide():
 	
 func attack():
 	if not is_attack_ready:
-		print("attack not ready")
 		return
 	is_attack_ready = false
 	attack_cooldown_timer.start(attack_cooldown_time)
@@ -147,9 +146,7 @@ func attack():
 
 	elif Input.is_action_pressed("down") and not is_on_floor():
 		do_lower_attack()
-		print("loopuje sie")
 	else:
-		print("normal attack")
 		do_normal_attack()
 
 func do_upper_attack():

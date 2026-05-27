@@ -1,0 +1,7 @@
+[gd_scene format=3 uid="uid://bswnjo47btydv"]
+
+[ext_resource type="Script" uid="uid://c4s14jwyxeutb" path="res://enemies/ai/behaviour_tree/decorator.gd" id="1_m75wn"]
+
+[node name="Decorator" type="Node" unique_id=267282893]
+script = ExtResource("1_m75wn")
+metadata/_custom_type_script = "uid://nbgn6qhvgu33"

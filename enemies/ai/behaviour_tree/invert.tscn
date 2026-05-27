@@ -1,0 +1,7 @@
+[gd_scene format=3 uid="uid://b4srj2ua5do3b"]
+
+[ext_resource type="Script" uid="uid://catlqunj6cmld" path="res://enemies/ai/behaviour_tree/invert.gd" id="1_8jxva"]
+
+[node name="Invert" type="Node" unique_id=1686273519]
+script = ExtResource("1_8jxva")
+metadata/_custom_type_script = "uid://c4s14jwyxeutb"

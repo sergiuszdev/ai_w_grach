@@ -1,0 +1,7 @@
+[gd_scene format=3 uid="uid://b6agv8jr0iv80"]
+
+[ext_resource type="Script" uid="uid://cl1myvdmmihw7" path="res://enemies/ai/behaviour_tree/cooldown.gd" id="1_k4els"]
+
+[node name="Cooldown" type="Node" unique_id=2124716425]
+script = ExtResource("1_k4els")
+metadata/_custom_type_script = "uid://c4s14jwyxeutb"
