@@ -357,6 +357,9 @@ func set_player_damage(amount):
 
 func pogo_end():
 	is_pogo = false
+	
+func take_damage(damage):
+	Globals.players_health -= damage
 		
 
 
