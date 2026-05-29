@@ -21,6 +21,10 @@ func setup(_agent: Node, _blackboard: Blackboard):
 	blackboard = _blackboard
 
 func run(delta: float) -> Status:
+	
+	if blackboard.get_value("boss_paused", false):
+		return Status.RUNNING
+	
 	if not is_active():
 		return Status.FAILURE
 	return Status.SUCCESS

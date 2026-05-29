@@ -320,7 +320,7 @@ func hit(amount: int, attacker = null):
 				await get_tree().create_timer(0.15).timeout
 				attacker.is_hostile = true
 			return
-
+	
 
 	Globals.players_health -= amount
 	Globals.players_health = max(Globals.players_health, 0)
@@ -347,7 +347,14 @@ func hit(amount: int, attacker = null):
 		Color(1, 1, 1, 1),
 		0.15
 	)
-	
+	#if is_jumping():
+		#todo make player fall on back (or use dead animation with getting up animation)
+#		or crouch animation (looks even better)
+ 		
+
+func is_jumping():
+	return false
+
 func is_dead():
 	return Globals.players_health < 1
 func get_player_damage():
