@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://e45miim8cnyb"]
 
-[ext_resource type="Script" uid="uid://6sxo1nnb4bi" path="res://paralell_any.gd" id="1_bleuo"]
+[ext_resource type="Script" uid="uid://6sxo1nnb4bi" path="res://enemies/ai/behaviour_tree/paralell_any.gd" id="1_bleuo"]
 
 [node name="ParalellAny" type="Node" unique_id=1438815896]
 script = ExtResource("1_bleuo")

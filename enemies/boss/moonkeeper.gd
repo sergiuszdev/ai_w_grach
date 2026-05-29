@@ -17,7 +17,7 @@ var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 var blackboard: Blackboard
 
 signal health_changed(current, max)
-var moon: CharacterBody2D
+@export var moon: CharacterBody2D
 enum States {
 	IDLE,
 	ATTACK_1,
@@ -44,17 +44,22 @@ var paused := false
 var is_dashing := false
 
 func _ready():
+	state = States.IDLE
 	animation_tree.active = true
 	target_player = get_tree().get_first_node_in_group("player")
 	print("target_player", target_player)
 	blackboard = Blackboard.new()
 	blackboard.set_value("player", target_player)
+	blackboard.set_value("moon", moon)
+	
+	blackboard.set_value("last_action", "")
+	blackboard.set_value("combo_streak", 0)
 	
 	behaviour_tree.setup(self, blackboard)
 	
 
 func _physics_process(delta):
-
+	
 	if paused:
 		velocity = Vector2.ZERO
 		return
@@ -65,14 +70,18 @@ func _physics_process(delta):
 				body.hit(1, self)
 
 	if not is_on_floor():
-		velocity.y += (gravity / 4) * delta
+		velocity.y += (gravity / 2) * delta
 
 	#ai_update(delta)
 	update_animation()
 	
+	
+	update_perception()
 	behaviour_tree.run(delta)
 	
 	move_and_slide()
+	
+	blackboard.set_value("got_hit", false)
 
 
 func update_animation():
@@ -171,39 +180,19 @@ func dash(direction: float):
 	is_dashing = false
 
 
-func jump_to_pos_then_attack(moon_position: Vector2):
-	print("jump and attack")
-
-	var dir = sign(moon_position.x - global_position.x)
-
-	state = States.JUMP
-	velocity.x = dir * speed * 2.0
-	velocity.y = jump_force
-	
-	await get_tree().create_timer(0.8).timeout
-
-	state = States.ATTACK_1
-	velocity.x = 0
-
-	await get_tree().create_timer(0.3).timeout
-
-	var player_dir = sign(target_player.global_position.x - global_position.x)
-	await dash(player_dir)
-
-	state = States.IDLE
-
-
 func attack_1():
+	
 	state = States.ATTACK_1
 	velocity.x = 0
 
-
+#change it to anti airborne attack
 func attack_2():
 	state = States.ATTACK_2
 	velocity.x = 0
 
 
 func hit(amount):
+	blackboard.set_value("got_hit", true)
 	state = States.HIT
 	current_hp -= amount
 	emit_signal("health_changed", current_hp, MAX_HEALTH)
@@ -249,16 +238,27 @@ func trigger_moon():
 	)
 	
 func attack_started():
+	print("ATTACK_1 CALLED FROM:", get_stack())
 	is_attacking = true
 	
 func attack_ended():
 	is_attacking = false
 
 
-#func _on_player_detection_body_entered(body):
-	#if body.is_in_group("player"):
-		#attack_1()
-	
+func update_perception():
+
+	var player = blackboard.get_value("player")
+	if player == null:
+		return
+
+	blackboard.set_value("player_pos", player.global_position)
+	blackboard.set_value("player_velocity", player.velocity)
+
+	var dist = global_position.distance_to(player.global_position)
+	blackboard.set_value("distance_to_player", dist)
+
+	blackboard.set_value("player_in_range", dist < 200.0)
+
 # methods for btree
 #todo dashing is to refactor i guess
 func dash_to_player():
@@ -321,7 +321,7 @@ func dash_behind_player():
 
 	var behind_offset := 80.0
 
-	var player_pos = target_player.global_positiona
+	var player_pos = target_player.global_position
 	var dir = sign(global_position.x - player_pos.x)
 
 	if dir == 0:

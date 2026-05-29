@@ -3,6 +3,7 @@ extends Condition
 @export var distance := 200.0
 
 func check_condition() -> bool:
+	
 	var player = blackboard.get_value("player")
 
 	if player == null:

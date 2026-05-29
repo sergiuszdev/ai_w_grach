@@ -9,7 +9,8 @@ enum Status {
 	RUNNING,
 	FAILURE,
 	SKIPPED,
-	ABORTED
+	ABORTED,
+	INTERRUPTED
 }
 
 var agent: Node

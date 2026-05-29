@@ -1,0 +1,7 @@
+[gd_scene format=3 uid="uid://bemml1sebs24d"]
+
+[ext_resource type="Script" uid="uid://cfpgsh1t8yecp" path="res://enemies/ai/behaviour_tree/interruptable.gd" id="1_x1qa1"]
+
+[node name="Interruptable" type="Node" unique_id=1491926741]
+script = ExtResource("1_x1qa1")
+metadata/_custom_type_script = "uid://c4s14jwyxeutb"

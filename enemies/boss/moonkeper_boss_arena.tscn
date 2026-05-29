@@ -23,7 +23,6 @@ size = Vector2(955.17114, 183.3396)
 [node name="MoonkeperBossArena" type="Node2D" unique_id=242877213]
 script = ExtResource("1_8420o")
 boss_scene = ExtResource("6_yh4k2")
-current_phase = 1
 
 [node name="DebugHp" type="CanvasLayer" parent="." unique_id=1048312357]
 script = ExtResource("3_b5n2f")
