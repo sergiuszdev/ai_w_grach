@@ -54,9 +54,7 @@ func _ready():
 	
 	blackboard.set_value("last_action", "")
 	blackboard.set_value("combo_streak", 0)
-	
-	if blackboard.get_value("phase", false):
-		blackboard.set_value("phase", 1)
+	blackboard.set_value("phase", 1)
 	
 	behaviour_tree.setup(self, blackboard)
 	

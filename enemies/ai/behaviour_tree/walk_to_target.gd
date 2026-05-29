@@ -5,7 +5,7 @@ class_name WalkToTarget
 @export var speed := 100.0
 @export var stop_distance := 60.0
 
-func on_update(delta):
+func on_update(_delta):
 
 	var target = blackboard.get_value(target_key)
 	if target == null:
@@ -15,6 +15,7 @@ func on_update(delta):
 
 	if dist <= stop_distance:
 		agent.velocity.x = 0
+		agent.state = agent.States.IDLE
 		return Status.SUCCESS
 
 	var dir = sign(target.global_position.x - agent.global_position.x)
@@ -23,3 +24,9 @@ func on_update(delta):
 	agent.velocity.x = dir * speed
 
 	return Status.RUNNING
+
+
+func on_end():
+	agent.velocity.x = 0
+	if agent.state == agent.States.WALK:
+		agent.state = agent.States.IDLE

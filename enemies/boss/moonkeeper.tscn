@@ -117,13 +117,14 @@
 [ext_resource type="Script" uid="uid://6sxo1nnb4bi" path="res://enemies/ai/behaviour_tree/paralell_any.gd" id="112_3gd03"]
 [ext_resource type="Script" uid="uid://cmabbidlxll6j" path="res://enemies/boss/hit_action.gd" id="112_o0yto"]
 [ext_resource type="Script" uid="uid://bq7kf50u5p03j" path="res://enemies/ai/behaviour_tree/walk_to_target.gd" id="114_3gd03"]
-[ext_resource type="Script" uid="uid://bwxqiollp6b1v" path="res://enemies/ai/behaviour_tree/action.gd" id="114_cn0qa"]
 [ext_resource type="Script" uid="uid://bpylkwdh8yc0x" path="res://enemies/boss/is_in_air.gd" id="114_p4yny"]
 [ext_resource type="Script" uid="uid://dkukwp1u747s5" path="res://enemies/boss/anti_air_attack.gd" id="115_cn0qa"]
 [ext_resource type="Script" uid="uid://cyjn2q0aoexxb" path="res://enemies/ai/behaviour_tree/weighted_selector.gd" id="116_j8eux"]
 [ext_resource type="Script" uid="uid://nybao10d0uqe" path="res://enemies/boss/is_player_close.gd" id="118_p4yny"]
 [ext_resource type="Script" uid="uid://3yxdd3pk6gt1" path="res://enemies/boss/face_target.gd" id="118_xqbmj"]
 [ext_resource type="Script" uid="uid://cfpgsh1t8yecp" path="res://enemies/ai/behaviour_tree/interruptable.gd" id="119_interruptable"]
+[ext_resource type="Script" uid="uid://uagppe5ilvy2" path="res://enemies/ai/behaviour_tree/attack_1.gd" id="120_attack1"]
+[ext_resource type="Script" uid="uid://e7ef0yj4s4hw" path="res://enemies/ai/behaviour_tree/dash_behind_target.gd" id="121_dashbehind"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_5vlhv"]
 height = 61.0
@@ -1104,7 +1105,7 @@ states/run/position = Vector2(381, -136.5)
 states/walk/node = SubResource("AnimationNodeAnimation_nh8o0")
 states/walk/position = Vector2(760, -118.5)
 transitions = ["Start", "RESET", SubResource("AnimationNodeStateMachineTransition_3gd03"), "RESET", "PhaseOne", SubResource("AnimationNodeStateMachineTransition_8l1au"), "PhaseOne", "idle", SubResource("AnimationNodeStateMachineTransition_xqbmj"), "idle", "walk", SubResource("AnimationNodeStateMachineTransition_fyfai"), "idle", "jump", SubResource("AnimationNodeStateMachineTransition_cn0qa"), "jump", "jump_loop", SubResource("AnimationNodeStateMachineTransition_p4yny"), "jump_loop", "land", SubResource("AnimationNodeStateMachineTransition_h0q4g"), "land", "idle", SubResource("AnimationNodeStateMachineTransition_6cwkf"), "walk", "idle", SubResource("AnimationNodeStateMachineTransition_2u5fi"), "idle", "hit", SubResource("AnimationNodeStateMachineTransition_10ns1"), "hit", "idle", SubResource("AnimationNodeStateMachineTransition_wdn54"), "hit", "death", SubResource("AnimationNodeStateMachineTransition_8lc7i"), "idle", "run", SubResource("AnimationNodeStateMachineTransition_l8mto"), "run", "idle", SubResource("AnimationNodeStateMachineTransition_7xfv0"), "idle", "dash", SubResource("AnimationNodeStateMachineTransition_j8eux"), "dash", "idle", SubResource("AnimationNodeStateMachineTransition_xj3dm"), "idle", "anti_air_attack", SubResource("AnimationNodeStateMachineTransition_fa4jy"), "anti_air_attack", "idle", SubResource("AnimationNodeStateMachineTransition_vgguk"), "ground_attack", "idle", SubResource("AnimationNodeStateMachineTransition_5vlhv"), "ground_attack", "jump_loop", SubResource("AnimationNodeStateMachineTransition_wbl4p"), "jump_loop", "ground_attack", SubResource("AnimationNodeStateMachineTransition_85y5g"), "idle", "ground_attack", SubResource("AnimationNodeStateMachineTransition_o0yto"), "jump", "hit", SubResource("AnimationNodeStateMachineTransition_2ksj2")]
-graph_offset = Vector2(-344, -190)
+graph_offset = Vector2(-216, -6)
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_2u5fi"]
 height = 52.12429
@@ -1193,119 +1194,204 @@ script = ExtResource("108_o0yto")
 metadata/_custom_type_script = "uid://bl88bvfrjphrj"
 
 [node name="PhaseOne" type="Node" parent="AI/BehaviourTree/Selector" unique_id=1303575154]
-script = ExtResource("108_o0yto")
-metadata/_custom_type_script = "uid://bl88bvfrjphrj"
+script = ExtResource("110_8lc7i")
+metadata/_custom_type_script = "uid://xydh8qo3tesg"
 
 [node name="is phase one" type="Node" parent="AI/BehaviourTree/Selector/PhaseOne" unique_id=509849656]
 script = ExtResource("109_xj3dm")
 metadata/_custom_type_script = "uid://dnraiggpni3rq"
 
-[node name="react to hit" type="Node" parent="AI/BehaviourTree/Selector/PhaseOne" unique_id=1005106362]
-script = ExtResource("110_8lc7i")
-metadata/_custom_type_script = "uid://xydh8qo3tesg"
-
-[node name="got hit" type="Node" parent="AI/BehaviourTree/Selector/PhaseOne/react to hit" unique_id=84277446]
-script = ExtResource("111_xqbmj")
-metadata/_custom_type_script = "uid://dnraiggpni3rq"
-
-[node name="hit action" type="Node" parent="AI/BehaviourTree/Selector/PhaseOne/react to hit" unique_id=1385326236]
-script = ExtResource("112_o0yto")
-metadata/_custom_type_script = "uid://bwxqiollp6b1v"
-
-[node name="attack player if in range" type="Node" parent="AI/BehaviourTree/Selector/PhaseOne" unique_id=359503651]
-script = ExtResource("110_8lc7i")
-metadata/_custom_type_script = "uid://xydh8qo3tesg"
-
-[node name="is player in distance" type="Node" parent="AI/BehaviourTree/Selector/PhaseOne/attack player if in range" unique_id=1789698902]
-script = ExtResource("118_p4yny")
-metadata/_custom_type_script = "uid://dnraiggpni3rq"
-
-[node name="Interruptable" type="Node" parent="AI/BehaviourTree/Selector/PhaseOne/attack player if in range" unique_id=1888362079]
-script = ExtResource("119_interruptable")
-interrupt_distance = 200.0
-metadata/_custom_type_script = "uid://cfpgsh1t8yecp"
-
-[node name="Selector" type="Node" parent="AI/BehaviourTree/Selector/PhaseOne/attack player if in range/Interruptable" unique_id=653151181]
+[node name="PhaseOneLogic" type="Node" parent="AI/BehaviourTree/Selector/PhaseOne" unique_id=1293076]
 script = ExtResource("108_o0yto")
 metadata/_custom_type_script = "uid://bl88bvfrjphrj"
 
-[node name="Anti air attack" type="Node" parent="AI/BehaviourTree/Selector/PhaseOne/attack player if in range/Interruptable/Selector" unique_id=546473602]
+[node name="react to hit" type="Node" parent="AI/BehaviourTree/Selector/PhaseOne/PhaseOneLogic" unique_id=1005106362]
 script = ExtResource("110_8lc7i")
 metadata/_custom_type_script = "uid://xydh8qo3tesg"
 
-[node name="is player in air" type="Node" parent="AI/BehaviourTree/Selector/PhaseOne/attack player if in range/Interruptable/Selector/Anti air attack" unique_id=1533046448]
-script = ExtResource("114_p4yny")
+[node name="got hit" type="Node" parent="AI/BehaviourTree/Selector/PhaseOne/PhaseOneLogic/react to hit" unique_id=84277446]
+script = ExtResource("111_xqbmj")
 metadata/_custom_type_script = "uid://dnraiggpni3rq"
 
-[node name="Wait" type="Node" parent="AI/BehaviourTree/Selector/PhaseOne/attack player if in range/Interruptable/Selector/Anti air attack" unique_id=984621240]
-script = ExtResource("109_8lc7i")
-wait_time = 0.3
-metadata/_custom_type_script = "uid://c88wskwkhdj7i"
-
-[node name="cooldown for 2s" type="Node" parent="AI/BehaviourTree/Selector/PhaseOne/attack player if in range/Interruptable/Selector/Anti air attack" unique_id=419585065]
-script = ExtResource("111_7xfv0")
-cooldown = 10.0
-metadata/_custom_type_script = "uid://cl1myvdmmihw7"
-
-[node name="anti air attack" type="Node" parent="AI/BehaviourTree/Selector/PhaseOne/attack player if in range/Interruptable/Selector/Anti air attack/cooldown for 2s" unique_id=276428197]
-script = ExtResource("115_cn0qa")
+[node name="hit action" type="Node" parent="AI/BehaviourTree/Selector/PhaseOne/PhaseOneLogic/react to hit" unique_id=1385326236]
+script = ExtResource("112_o0yto")
 metadata/_custom_type_script = "uid://bwxqiollp6b1v"
 
-[node name="ground attack" type="Node" parent="AI/BehaviourTree/Selector/PhaseOne/attack player if in range/Interruptable/Selector" unique_id=1708573661]
-script = ExtResource("110_8lc7i")
-is_enabled = false
-metadata/_custom_type_script = "uid://xydh8qo3tesg"
-
-[node name="approach player" type="Node" parent="AI/BehaviourTree/Selector/PhaseOne" unique_id=1896818517]
+[node name="anti air punish" type="Node" parent="AI/BehaviourTree/Selector/PhaseOne/PhaseOneLogic" unique_id=2125007619]
 script = ExtResource("110_8lc7i")
 metadata/_custom_type_script = "uid://xydh8qo3tesg"
 
-[node name="Invert" type="Node" parent="AI/BehaviourTree/Selector/PhaseOne/approach player" unique_id=1188526771]
-script = ExtResource("110_xj3dm")
-metadata/_custom_type_script = "uid://catlqunj6cmld"
-
-[node name="is player in distance" type="Node" parent="AI/BehaviourTree/Selector/PhaseOne/approach player/Invert" unique_id=1943497927]
+[node name="is player in distance" type="Node" parent="AI/BehaviourTree/Selector/PhaseOne/PhaseOneLogic/anti air punish" unique_id=1789698902]
 script = ExtResource("118_p4yny")
 metadata/_custom_type_script = "uid://dnraiggpni3rq"
 
-[node name="weighted selector" type="Node" parent="AI/BehaviourTree/Selector/PhaseOne/approach player" unique_id=335398169]
+[node name="is player in air" type="Node" parent="AI/BehaviourTree/Selector/PhaseOne/PhaseOneLogic/anti air punish" unique_id=1533046448]
+script = ExtResource("114_p4yny")
+metadata/_custom_type_script = "uid://dnraiggpni3rq"
+
+[node name="cooldown" type="Node" parent="AI/BehaviourTree/Selector/PhaseOne/PhaseOneLogic/anti air punish" unique_id=419585065]
+script = ExtResource("111_7xfv0")
+cooldown = 3.0
+metadata/_custom_type_script = "uid://cl1myvdmmihw7"
+
+[node name="Interruptable" type="Node" parent="AI/BehaviourTree/Selector/PhaseOne/PhaseOneLogic/anti air punish/cooldown" unique_id=1888362079]
+script = ExtResource("119_interruptable")
+interrupt_distance = 260.0
+metadata/_custom_type_script = "uid://cfpgsh1t8yecp"
+
+[node name="attack windup" type="Node" parent="AI/BehaviourTree/Selector/PhaseOne/PhaseOneLogic/anti air punish/cooldown/Interruptable" unique_id=1474400615]
+script = ExtResource("110_8lc7i")
+metadata/_custom_type_script = "uid://xydh8qo3tesg"
+
+[node name="Wait" type="Node" parent="AI/BehaviourTree/Selector/PhaseOne/PhaseOneLogic/anti air punish/cooldown/Interruptable/attack windup" unique_id=984621240]
+script = ExtResource("109_8lc7i")
+wait_time = 0.25
+metadata/_custom_type_script = "uid://c88wskwkhdj7i"
+
+[node name="anti air attack" type="Node" parent="AI/BehaviourTree/Selector/PhaseOne/PhaseOneLogic/anti air punish/cooldown/Interruptable/attack windup" unique_id=276428197]
+script = ExtResource("115_cn0qa")
+metadata/_custom_type_script = "uid://bwxqiollp6b1v"
+
+[node name="slow ground attack" type="Node" parent="AI/BehaviourTree/Selector/PhaseOne/PhaseOneLogic" unique_id=1708573661]
+script = ExtResource("110_8lc7i")
+metadata/_custom_type_script = "uid://xydh8qo3tesg"
+
+[node name="is player in distance" type="Node" parent="AI/BehaviourTree/Selector/PhaseOne/PhaseOneLogic/slow ground attack" unique_id=1619397490]
+script = ExtResource("118_p4yny")
+distance = 155.0
+metadata/_custom_type_script = "uid://dnraiggpni3rq"
+
+[node name="cooldown" type="Node" parent="AI/BehaviourTree/Selector/PhaseOne/PhaseOneLogic/slow ground attack" unique_id=381576454]
+script = ExtResource("111_7xfv0")
+metadata/_custom_type_script = "uid://cl1myvdmmihw7"
+
+[node name="Interruptable" type="Node" parent="AI/BehaviourTree/Selector/PhaseOne/PhaseOneLogic/slow ground attack/cooldown" unique_id=1556878996]
+script = ExtResource("119_interruptable")
+interrupt_distance = 220.0
+metadata/_custom_type_script = "uid://cfpgsh1t8yecp"
+
+[node name="attack windup" type="Node" parent="AI/BehaviourTree/Selector/PhaseOne/PhaseOneLogic/slow ground attack/cooldown/Interruptable" unique_id=1806541971]
+script = ExtResource("110_8lc7i")
+metadata/_custom_type_script = "uid://xydh8qo3tesg"
+
+[node name="Wait" type="Node" parent="AI/BehaviourTree/Selector/PhaseOne/PhaseOneLogic/slow ground attack/cooldown/Interruptable/attack windup" unique_id=1630941299]
+script = ExtResource("109_8lc7i")
+wait_time = 0.35
+metadata/_custom_type_script = "uid://c88wskwkhdj7i"
+
+[node name="attack with facing" type="Node" parent="AI/BehaviourTree/Selector/PhaseOne/PhaseOneLogic/slow ground attack/cooldown/Interruptable/attack windup" unique_id=1419815865]
+script = ExtResource("112_3gd03")
+metadata/_custom_type_script = "uid://6sxo1nnb4bi"
+
+[node name="FaceTarget" type="Node" parent="AI/BehaviourTree/Selector/PhaseOne/PhaseOneLogic/slow ground attack/cooldown/Interruptable/attack windup/attack with facing" unique_id=534511649]
+script = ExtResource("118_xqbmj")
+metadata/_custom_type_script = "uid://3yxdd3pk6gt1"
+
+[node name="attack_1" type="Node" parent="AI/BehaviourTree/Selector/PhaseOne/PhaseOneLogic/slow ground attack/cooldown/Interruptable/attack windup/attack with facing" unique_id=208799051]
+script = ExtResource("120_attack1")
+metadata/_custom_type_script = "uid://bwxqiollp6b1v"
+
+[node name="occasional dash" type="Node" parent="AI/BehaviourTree/Selector/PhaseOne/PhaseOneLogic" unique_id=365199408]
+script = ExtResource("110_8lc7i")
+metadata/_custom_type_script = "uid://xydh8qo3tesg"
+
+[node name="is player in dash range" type="Node" parent="AI/BehaviourTree/Selector/PhaseOne/PhaseOneLogic/occasional dash" unique_id=1710343043]
+script = ExtResource("118_p4yny")
+distance = 340.0
+metadata/_custom_type_script = "uid://dnraiggpni3rq"
+
+[node name="not too close" type="Node" parent="AI/BehaviourTree/Selector/PhaseOne/PhaseOneLogic/occasional dash" unique_id=1980796769]
+script = ExtResource("110_xj3dm")
+metadata/_custom_type_script = "uid://catlqunj6cmld"
+
+[node name="is player in distance" type="Node" parent="AI/BehaviourTree/Selector/PhaseOne/PhaseOneLogic/occasional dash/not too close" unique_id=1037411682]
+script = ExtResource("118_p4yny")
+distance = 170.0
+metadata/_custom_type_script = "uid://dnraiggpni3rq"
+
+[node name="cooldown" type="Node" parent="AI/BehaviourTree/Selector/PhaseOne/PhaseOneLogic/occasional dash" unique_id=145182436]
+script = ExtResource("111_7xfv0")
+cooldown = 5.0
+metadata/_custom_type_script = "uid://cl1myvdmmihw7"
+
+[node name="Interruptable" type="Node" parent="AI/BehaviourTree/Selector/PhaseOne/PhaseOneLogic/occasional dash/cooldown" unique_id=1237599800]
+script = ExtResource("119_interruptable")
+interrupt_distance = 0.0
+metadata/_custom_type_script = "uid://cfpgsh1t8yecp"
+
+[node name="dash with facing" type="Node" parent="AI/BehaviourTree/Selector/PhaseOne/PhaseOneLogic/occasional dash/cooldown/Interruptable" unique_id=426258287]
+script = ExtResource("112_3gd03")
+metadata/_custom_type_script = "uid://6sxo1nnb4bi"
+
+[node name="FaceTarget" type="Node" parent="AI/BehaviourTree/Selector/PhaseOne/PhaseOneLogic/occasional dash/cooldown/Interruptable/dash with facing" unique_id=229454519]
+script = ExtResource("118_xqbmj")
+metadata/_custom_type_script = "uid://3yxdd3pk6gt1"
+
+[node name="dash behind target" type="Node" parent="AI/BehaviourTree/Selector/PhaseOne/PhaseOneLogic/occasional dash/cooldown/Interruptable/dash with facing" unique_id=973493813]
+script = ExtResource("121_dashbehind")
+speed = 350.0
+metadata/_custom_type_script = "uid://bwxqiollp6b1v"
+
+[node name="approach player" type="Node" parent="AI/BehaviourTree/Selector/PhaseOne/PhaseOneLogic" unique_id=1896818517]
+script = ExtResource("110_8lc7i")
+metadata/_custom_type_script = "uid://xydh8qo3tesg"
+
+[node name="Invert" type="Node" parent="AI/BehaviourTree/Selector/PhaseOne/PhaseOneLogic/approach player" unique_id=1188526771]
+script = ExtResource("110_xj3dm")
+metadata/_custom_type_script = "uid://catlqunj6cmld"
+
+[node name="is player in distance" type="Node" parent="AI/BehaviourTree/Selector/PhaseOne/PhaseOneLogic/approach player/Invert" unique_id=1943497927]
+script = ExtResource("118_p4yny")
+distance = 150.0
+metadata/_custom_type_script = "uid://dnraiggpni3rq"
+
+[node name="weighted selector" type="Node" parent="AI/BehaviourTree/Selector/PhaseOne/PhaseOneLogic/approach player" unique_id=335398169]
 script = ExtResource("116_j8eux")
 metadata/_custom_type_script = "uid://cyjn2q0aoexxb"
 
-[node name="Interruptable" type="Node" parent="AI/BehaviourTree/Selector/PhaseOne/approach player/weighted selector" unique_id=373771229]
+[node name="Interruptable" type="Node" parent="AI/BehaviourTree/Selector/PhaseOne/PhaseOneLogic/approach player/weighted selector" unique_id=373771229]
 script = ExtResource("119_interruptable")
+interrupt_distance = 5000.0
+weight = 4.0
 metadata/_custom_type_script = "uid://cfpgsh1t8yecp"
 
-[node name="face and walk" type="Node" parent="AI/BehaviourTree/Selector/PhaseOne/approach player/weighted selector/Interruptable" unique_id=2067411080]
+[node name="face and walk" type="Node" parent="AI/BehaviourTree/Selector/PhaseOne/PhaseOneLogic/approach player/weighted selector/Interruptable" unique_id=2067411080]
 script = ExtResource("112_3gd03")
 metadata/_custom_type_script = "uid://6sxo1nnb4bi"
 
-[node name="FaceTarget" type="Node" parent="AI/BehaviourTree/Selector/PhaseOne/approach player/weighted selector/Interruptable/face and walk" unique_id=1526281450]
+[node name="FaceTarget" type="Node" parent="AI/BehaviourTree/Selector/PhaseOne/PhaseOneLogic/approach player/weighted selector/Interruptable/face and walk" unique_id=1526281450]
 script = ExtResource("118_xqbmj")
 metadata/_custom_type_script = "uid://3yxdd3pk6gt1"
 
-[node name="WalkToTarget" type="Node" parent="AI/BehaviourTree/Selector/PhaseOne/approach player/weighted selector/Interruptable/face and walk" unique_id=1376286561]
+[node name="WalkToTarget" type="Node" parent="AI/BehaviourTree/Selector/PhaseOne/PhaseOneLogic/approach player/weighted selector/Interruptable/face and walk" unique_id=1376286561]
 script = ExtResource("114_3gd03")
+speed = 75.0
+stop_distance = 140.0
 metadata/_custom_type_script = "uid://bq7kf50u5p03j"
 
-[node name="face and dash" type="Node" parent="AI/BehaviourTree/Selector/PhaseOne/approach player/weighted selector" unique_id=760163075]
+[node name="dash Interruptable" type="Node" parent="AI/BehaviourTree/Selector/PhaseOne/PhaseOneLogic/approach player/weighted selector" unique_id=1231125832]
+script = ExtResource("119_interruptable")
+interrupt_distance = 5000.0
+metadata/_custom_type_script = "uid://cfpgsh1t8yecp"
+
+[node name="face and dash" type="Node" parent="AI/BehaviourTree/Selector/PhaseOne/PhaseOneLogic/approach player/weighted selector/dash Interruptable" unique_id=760163075]
 script = ExtResource("112_3gd03")
-is_enabled = false
 metadata/_custom_type_script = "uid://6sxo1nnb4bi"
 
-[node name="FaceTarget" type="Node" parent="AI/BehaviourTree/Selector/PhaseOne/approach player/weighted selector/face and dash" unique_id=229454519]
+[node name="FaceTarget" type="Node" parent="AI/BehaviourTree/Selector/PhaseOne/PhaseOneLogic/approach player/weighted selector/dash Interruptable/face and dash" unique_id=1653065506]
 script = ExtResource("118_xqbmj")
 metadata/_custom_type_script = "uid://3yxdd3pk6gt1"
 
-[node name="dash to target" type="Node" parent="AI/BehaviourTree/Selector/PhaseOne/approach player/weighted selector/face and dash" unique_id=973493813]
-script = ExtResource("114_cn0qa")
+[node name="dash behind target" type="Node" parent="AI/BehaviourTree/Selector/PhaseOne/PhaseOneLogic/approach player/weighted selector/dash Interruptable/face and dash" unique_id=1855279437]
+script = ExtResource("121_dashbehind")
+speed = 320.0
 metadata/_custom_type_script = "uid://bwxqiollp6b1v"
 
 [node name="Phase Three" type="Node" parent="AI/BehaviourTree/Selector" unique_id=797308998]
 script = ExtResource("108_o0yto")
 metadata/_custom_type_script = "uid://bl88bvfrjphrj"
 
-[node name="is phase one" type="Node" parent="AI/BehaviourTree/Selector/Phase Three" unique_id=868182994]
+[node name="is phase three" type="Node" parent="AI/BehaviourTree/Selector/Phase Three" unique_id=868182994]
 script = ExtResource("109_xj3dm")
 phase_required = 3
 metadata/_custom_type_script = "uid://dnraiggpni3rq"
