@@ -23,8 +23,6 @@ func run(delta):
 
 	if result != Status.RUNNING:
 		timer = cooldown
-		print("cooldown started")
-
 	return result
 
 
