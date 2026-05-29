@@ -575,7 +575,7 @@ tracks/2/path = NodePath("..")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
-"times": PackedFloat32Array(0.26666668, 0.8333333),
+"times": PackedFloat32Array(0.3, 0.8),
 "transitions": PackedFloat32Array(1, 1),
 "values": [{
 "args": [],
@@ -592,7 +592,7 @@ tracks/3/path = NodePath("../Attacks/Attack_2_Area:monitoring")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/keys = {
-"times": PackedFloat32Array(0.26666668, 0.8333333),
+"times": PackedFloat32Array(0.3, 0.8),
 "transitions": PackedFloat32Array(1, 1),
 "update": 1,
 "values": [true, false]
@@ -604,7 +604,7 @@ tracks/4/path = NodePath("../Attacks/Attack_2_Area:monitorable")
 tracks/4/interp = 1
 tracks/4/loop_wrap = true
 tracks/4/keys = {
-"times": PackedFloat32Array(0.26666668, 0.8333333),
+"times": PackedFloat32Array(0.3, 0.8),
 "transitions": PackedFloat32Array(1, 1),
 "update": 1,
 "values": [true, false]
@@ -616,7 +616,7 @@ tracks/5/path = NodePath("../Attacks/Attack_2_Area:visible")
 tracks/5/interp = 1
 tracks/5/loop_wrap = true
 tracks/5/keys = {
-"times": PackedFloat32Array(0.26666668, 0.8333333),
+"times": PackedFloat32Array(0.3, 0.8),
 "transitions": PackedFloat32Array(1, 1),
 "update": 1,
 "values": [true, false]
@@ -1165,7 +1165,8 @@ transitions = ["Start", "RESET", SubResource("AnimationNodeStateMachineTransitio
 graph_offset = Vector2(-226, -22)
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_2u5fi"]
-height = 52.12429
+radius = 8.841946
+height = 44.305653
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_xqbmj"]
 
@@ -1216,7 +1217,7 @@ monitoring = false
 monitorable = false
 
 [node name="Attack_1_Shape" type="CollisionShape2D" parent="Attacks/Area_1" unique_id=1957846977]
-position = Vector2(69, 12.999998)
+position = Vector2(80, 21.000002)
 scale = Vector2(10.518046, 2.3021894)
 shape = SubResource("CapsuleShape2D_2u5fi")
 debug_color = Color(0.8911433, 0, 0.79298174, 0.120000005)
@@ -1272,6 +1273,7 @@ metadata/_custom_type_script = "uid://dnraiggpni3rq"
 
 [node name="hit action" type="Node" parent="AI/BehaviourTree/Selector/PhaseOne/PhaseOneLogic/react to hit" unique_id=1385326236]
 script = ExtResource("112_o0yto")
+hit_duration = 0.2
 metadata/_custom_type_script = "uid://bwxqiollp6b1v"
 
 [node name="anti air punish" type="Node" parent="AI/BehaviourTree/Selector/PhaseOne/PhaseOneLogic" unique_id=2125007619]
