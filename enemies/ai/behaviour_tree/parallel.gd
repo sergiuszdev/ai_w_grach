@@ -22,6 +22,10 @@ func run(delta: float) -> int:
 			Status.SUCCESS:
 				pass
 
+			Status.INTERRUPTED:
+				interrupt()
+				return Status.INTERRUPTED
+
 	if all_success:
 		return Status.SUCCESS
 

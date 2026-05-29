@@ -9,6 +9,8 @@ var interrupted := false
 
 
 func run(delta):
+	if not is_active():
+		return Status.FAILURE
 
 	if interrupted:
 		interrupt_child()
@@ -22,7 +24,11 @@ func run(delta):
 	if get_child_count() == 0:
 		return Status.FAILURE
 
-	return get_child(0).run(delta)
+	var child = get_child(0)
+	if not child.has_method("run"):
+		return Status.FAILURE
+
+	return child.run(delta)
 
 
 func should_interrupt() -> bool:

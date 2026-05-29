@@ -55,6 +55,9 @@ func _ready():
 	blackboard.set_value("last_action", "")
 	blackboard.set_value("combo_streak", 0)
 	
+	if blackboard.get_value("phase", false):
+		blackboard.set_value("phase", 1)
+	
 	behaviour_tree.setup(self, blackboard)
 	
 
@@ -207,88 +210,88 @@ func update_perception():
 
 	blackboard.set_value("player_pos", player.global_position)
 	blackboard.set_value("player_velocity", player.velocity)
-
+	blackboard.set_value("player_in_air", player.global_position.y < global_position.y)
 	var dist = global_position.distance_to(player.global_position)
 	blackboard.set_value("distance_to_player", dist)
 
 	blackboard.set_value("player_in_range", dist < 200.0)
 
 # methods for btree
-#todo dashing is to refactor i guess
-func dash_to_player():
-	if target_player == null:
-		return
-
-	is_dashing = true
-	state = States.DASH
-
-	var dir = sign(target_player.global_position.x - global_position.x)
-	if dir == 0:
-		dir = 1
-
-	velocity.x = dir * dash_speed
-
-	await get_tree().create_timer(0.25).timeout
-	is_dashing = false
-
-func dash_away_from_player():
-	if target_player == null:
-		return
-
-	is_dashing = true
-	state = States.DASH
-
-	var dir = sign(global_position.x - target_player.global_position.x)
-	if dir == 0:
-		dir = -1
-
-	velocity.x = dir * dash_speed
-
-	await get_tree().create_timer(0.25).timeout
-	is_dashing = false
-
-func walk_to_player():
-	if target_player == null:
-		return
-
-	var dir = sign(target_player.global_position.x - global_position.x)
-
-	if dir == 0:
-		dir = 1
-
-	state = States.WALK
-
-	velocity.x = move_toward(
-		velocity.x,
-		dir * speed,
-		speed * 5.0 * get_physics_process_delta_time()
-	)
-
-	sprite.flip_h = velocity.x < 0
-
-func dash_behind_player():
-	if target_player == null:
-		return
-
-	is_dashing = true
-	state = States.DASH
-
-	var behind_offset := 80.0
-
-	var player_pos = target_player.global_position
-	var dir = sign(global_position.x - player_pos.x)
-
-	if dir == 0:
-		dir = 1
-
-	var target_x = player_pos.x + dir * behind_offset
-
-	var dash_dir = sign(target_x - global_position.x)
-	if dash_dir == 0:
-		dash_dir = dir
-
-	velocity.x = dash_dir * dash_speed
-	sprite.flip_h = velocity.x < 0
-
-	await get_tree().create_timer(0.25).timeout
-	is_dashing = false
+#todo remove
+#func dash_to_player():
+	#if target_player == null:
+		#return
+#
+	#is_dashing = true
+	#state = States.DASH
+#
+	#var dir = sign(target_player.global_position.x - global_position.x)
+	#if dir == 0:
+		#dir = 1
+#
+	#velocity.x = dir * dash_speed
+#
+	#await get_tree().create_timer(0.25).timeout
+	#is_dashing = false
+#
+#func dash_away_from_player():
+	#if target_player == null:
+		#return
+#
+	#is_dashing = true
+	#state = States.DASH
+#
+	#var dir = sign(global_position.x - target_player.global_position.x)
+	#if dir == 0:
+		#dir = -1
+#
+	#velocity.x = dir * dash_speed
+#
+	#await get_tree().create_timer(0.25).timeout
+	#is_dashing = false
+#
+#func walk_to_player():
+	#if target_player == null:
+		#return
+#
+	#var dir = sign(target_player.global_position.x - global_position.x)
+#
+	#if dir == 0:
+		#dir = 1
+#
+	#state = States.WALK
+#
+	#velocity.x = move_toward(
+		#velocity.x,
+		#dir * speed,
+		#speed * 5.0 * get_physics_process_delta_time()
+	#)
+#
+	#sprite.flip_h = velocity.x < 0
+# to remove
+#func dash_behind_player():
+	#if target_player == null:
+		#return
+#
+	#is_dashing = true
+	#state = States.DASH
+#
+	#var behind_offset := 80.0
+#
+	#var player_pos = target_player.global_position
+	#var dir = sign(global_position.x - player_pos.x)
+#
+	#if dir == 0:
+		#dir = 1
+#
+	#var target_x = player_pos.x + dir * behind_offset
+#
+	#var dash_dir = sign(target_x - global_position.x)
+	#if dash_dir == 0:
+		#dash_dir = dir
+#
+	#velocity.x = dash_dir * dash_speed
+	#sprite.flip_h = velocity.x < 0
+#
+	#await get_tree().create_timer(0.25).timeout
+	#is_dashing = false

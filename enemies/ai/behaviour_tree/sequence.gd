@@ -35,6 +35,10 @@ func run(delta):
 				current_index = 0
 				return Status.FAILURE
 
+			Status.INTERRUPTED:
+				current_index = 0
+				return Status.INTERRUPTED
+
 	current_index = 0
 	return Status.SUCCESS
 

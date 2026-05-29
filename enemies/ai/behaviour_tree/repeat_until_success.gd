@@ -15,6 +15,9 @@ func run(delta: float) -> int:
 
 	var result = child.run(delta)
 
+	if result == Status.INTERRUPTED:
+		return Status.INTERRUPTED
+
 	if result == Status.SUCCESS:
 		return Status.SUCCESS
 

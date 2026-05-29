@@ -6,11 +6,11 @@ class_name Cooldown
 var timer := 0.0
 
 func run(delta):
-	
+
 	if not is_active():
 		return Status.FAILURE
-	
-	if timer > 0:
+
+	if timer > 0.0:
 		timer -= delta
 		return Status.FAILURE
 
@@ -21,8 +21,18 @@ func run(delta):
 
 	var result = child.run(delta)
 
-	if result == Status.SUCCESS:
+	if result != Status.RUNNING:
 		timer = cooldown
-		print("cooldown")
+		print("cooldown started")
 
 	return result
+
+
+func interrupt():
+
+	var child = get_child_node()
+
+	if child and child.has_method("interrupt"):
+		child.interrupt()
+
+	timer = cooldown

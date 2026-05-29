@@ -16,4 +16,7 @@ func run(delta: float) -> int:
 	if result == Status.RUNNING:
 		return Status.RUNNING
 
+	if result == Status.INTERRUPTED:
+		return Status.INTERRUPTED
+
 	return Status.FAILURE

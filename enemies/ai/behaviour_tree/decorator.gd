@@ -3,7 +3,7 @@ class_name Decorator
 
 func get_child_node():
 	if not is_active():
-		return Status.FAILURE
+		return null
 	
 	if get_child_count() == 0:
 		return null

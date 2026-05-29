@@ -21,6 +21,10 @@ func run(delta: float) -> int:
 			Status.RUNNING:
 				has_running = true
 
+			Status.INTERRUPTED:
+				interrupt()
+				return Status.INTERRUPTED
+
 	if has_running:
 		return Status.RUNNING
 

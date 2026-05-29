@@ -35,6 +35,10 @@ func run(delta: float) -> Status:
 			Status.FAILURE:
 				current_index += 1
 
+			Status.INTERRUPTED:
+				current_index = 0
+				return Status.INTERRUPTED
+
 	current_index = 0
 	return Status.FAILURE
 

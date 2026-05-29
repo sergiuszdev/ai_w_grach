@@ -13,7 +13,7 @@ func on_start():
 	timer = windup
 	phase = 0
 
-	agent.state = agent.States.ATTACK_1
+	agent.state = agent.States.GROUND_ATTACK
 	agent.velocity.x = 0
 
 	if agent.has_method("attack_started"):
