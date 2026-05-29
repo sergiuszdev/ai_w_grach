@@ -7,6 +7,7 @@ extends Node2D
 var boss_instance: Node2D = null
 var is_boss_alive := true
 
+
 @onready var debug_hp = $DebugHp
 @onready var night_background = $NightClouds
 @onready var day_background = $DayBackground
@@ -14,7 +15,12 @@ var is_boss_alive := true
 @onready var moon = $Enemy/moon
 @onready var upper_bound = $ArenaConstraints/Up
 
+
+
 var phase2_active = false
+
+
+
 enum Phase {
 	NO_PHASE,
 	PHASE_1,
@@ -309,7 +315,7 @@ func on_boss_dead():
 	await tween.finished
 
 func start_phase_one():
-	
+	current_phase = Phase.PHASE_1
 	trigger_area.set_deferred("monitoring", false)
 	trigger_area.set_deferred("monitorable", false)
 	trigger_area.set_deferred("collision_layer", 0)
@@ -325,7 +331,7 @@ func start_phase_one():
 
 	boss_instance = boss_scene.instantiate()
 	add_child(boss_instance)
-	current_phase = Phase.PHASE_1
+	boss_instance.blackboard.set_value("phase", current_phase)
 	boss_instance.global_position = $BossSpawnerPosition.global_position
 	boss_instance.moon = moon
 
@@ -348,31 +354,39 @@ func pause_boss():
 
 	if boss_instance == null:
 		return
-
-	boss_instance.state = boss_instance.States.IDLE
+	boss_instance.blackboard.set_value("boss_paused", true)
 	boss_instance.velocity = Vector2.ZERO
 	boss_instance.set_physics_process(false)
 
 func resume_boss():
+	
 
 	if boss_instance == null:
 		return
-
+		
+	boss_instance.blackboard.set_value("boss_paused", false)
 	boss_instance.velocity = Vector2.ZERO
 	boss_instance.set_physics_process(true)
-	boss_instance.resume()
-	print("boss resumed")
 	
 func _on_boss_health_changed(hp, max_hp):
-	if current_phase == Phase.NO_PHASE:
-		return
+	var pct = float(hp) / float(max_hp) * 100.0
 
-	var perc := float(hp) / float(max_hp) * 100.0
-
-	if perc < 70.0 and current_phase == Phase.PHASE_1:
-		current_phase = Phase.PHASE_2
-		start_phase_two()
+	if pct < 70 and current_phase == Phase.PHASE_1:
+		_switch_phase(Phase.PHASE_2)
 
 
 func _on_phase_2_timer_timeout():
 	start_phase_three()
+	
+	
+func _switch_phase(p):
+	current_phase = p
+
+	if boss_instance:
+		boss_instance.blackboard.set_value("phase", p)
+
+	match p:
+		Phase.PHASE_2:
+			start_phase_two()
+		Phase.PHASE_3:
+			start_phase_three()

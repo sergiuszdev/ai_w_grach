@@ -125,40 +125,6 @@ func update_animation():
 			playback.travel("death")
 
 
-func ai_update(_delta):
-
-	if is_dashing:
-		return
-
-	if state in [
-		States.GROUND_ATTACK,
-		States.ANTI_AIR_ATTACK,
-		States.HIT,
-		States.DEATH,
-		States.DASH,
-		States.JUMP,      # ← add this
-		States.JUMP_LOOP  # ← add this
-	]:
-		velocity.x = 0
-		return
-
-	if target_player != null:
-		var dir = sign(target_player.global_position.x - global_position.x)
-		velocity.x = dir * speed
-		if abs(velocity.x) > 10:
-			state = States.RUN
-		else:
-			state = States.IDLE
-		sprite.flip_h = velocity.x < 0
-		
-		
-		
-	else:
-		velocity.x = move_toward(velocity.x, 0, 500 * get_physics_process_delta_time())
-		if abs(velocity.x) < 5:
-			state = States.IDLE
-
-
 func jump():
 
 	if not is_on_floor():
@@ -200,17 +166,6 @@ func hit(amount):
 func die():
 	state = States.DEATH
 	velocity = Vector2.ZERO
-
-
-func pause():
-	paused = true
-	velocity = Vector2.ZERO
-	set_physics_process(false)
-
-
-func resume():
-	paused = false
-	set_physics_process(true)
 	
 func get_max_health():
 	return MAX_HEALTH
