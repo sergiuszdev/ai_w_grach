@@ -7,6 +7,10 @@ var has_started := false
 var timer := 0.0
 
 func run(delta):
+	
+	if not is_active():
+		return Status.FAILURE
+	
 	if not has_started:
 		has_started = true
 		timer = wait_time

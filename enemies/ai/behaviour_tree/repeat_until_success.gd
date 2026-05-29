@@ -1,17 +1,11 @@
+@icon("res://icons/refresh-cw-green.svg")
 extends Decorator
-class_name Cooldown
+class_name RepeatUntilSuccess
 
-@export var cooldown := 2.0
 
-var timer := 0.0
+func run(delta: float) -> int:
 
-func run(delta):
-	
 	if not is_active():
-		return Status.FAILURE
-	
-	if timer > 0:
-		timer -= delta
 		return Status.FAILURE
 
 	var child = get_child_node()
@@ -22,7 +16,6 @@ func run(delta):
 	var result = child.run(delta)
 
 	if result == Status.SUCCESS:
-		timer = cooldown
-		print("cooldown")
+		return Status.SUCCESS
 
-	return result
+	return Status.RUNNING

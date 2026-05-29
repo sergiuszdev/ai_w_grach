@@ -4,6 +4,8 @@ extends Decorator
 class_name Invert
 
 func run(delta):
+	if not is_active():
+		return Status.FAILURE
 	
 	var child = get_child_node()
 

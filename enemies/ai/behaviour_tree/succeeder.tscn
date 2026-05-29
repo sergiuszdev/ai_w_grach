@@ -1,0 +1,7 @@
+[gd_scene format=3 uid="uid://4fh024phqohc"]
+
+[ext_resource type="Script" uid="uid://ce26gogbkyyem" path="res://enemies/ai/behaviour_tree/succeeder.gd" id="1_015jx"]
+
+[node name="Succeeder" type="Node" unique_id=412970885]
+script = ExtResource("1_015jx")
+metadata/_custom_type_script = "uid://c4s14jwyxeutb"

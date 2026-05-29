@@ -1,17 +1,16 @@
+@icon("res://icons/hash.svg")
 extends Decorator
-class_name Cooldown
+class_name Limiter
 
-@export var cooldown := 2.0
+@export var limit := 1
 
-var timer := 0.0
+var counter := 0
 
-func run(delta):
-	
+
+func run(delta: float) -> int:
 	if not is_active():
 		return Status.FAILURE
-	
-	if timer > 0:
-		timer -= delta
+	if counter >= limit:
 		return Status.FAILURE
 
 	var child = get_child_node()
@@ -22,7 +21,6 @@ func run(delta):
 	var result = child.run(delta)
 
 	if result == Status.SUCCESS:
-		timer = cooldown
-		print("cooldown")
+		counter += 1
 
 	return result

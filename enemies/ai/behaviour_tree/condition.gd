@@ -6,7 +6,7 @@ func check_condition() -> bool:
 	return false
 
 func run(delta: float) -> Status:
-	if not is_enabled:
+	if not is_active():
 		return Status.FAILURE
 	
 	if check_condition():

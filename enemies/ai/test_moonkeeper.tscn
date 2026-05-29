@@ -2,6 +2,7 @@
 
 [ext_resource type="PackedScene" uid="uid://daf2wm6fer2kl" path="res://player/Player.tscn" id="1_wewrr"]
 [ext_resource type="PackedScene" uid="uid://bbji3koochdq4" path="res://enemies/boss/moonkeeper.tscn" id="2_yswmf"]
+[ext_resource type="PackedScene" uid="uid://bgep6lxq77ojk" path="res://enemies/boss/moon.tscn" id="3_yswmf"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_wxlb6"]
 size = Vector2(1931, 81)
@@ -29,8 +30,9 @@ shape = SubResource("RectangleShape2D_wxlb6")
 [node name="Player" parent="." unique_id=1278280480 instance=ExtResource("1_wewrr")]
 position = Vector2(1168, 660)
 
-[node name="Moonkeeper" parent="." unique_id=1867670612 instance=ExtResource("2_yswmf")]
+[node name="Moonkeeper" parent="." unique_id=1867670612 node_paths=PackedStringArray("moon") instance=ExtResource("2_yswmf")]
 position = Vector2(542, 638)
+moon = NodePath("../Moon")
 
 [node name="StaticBody2D3" type="StaticBody2D" parent="." unique_id=63009034]
 position = Vector2(1944.9999, 780.99963)
@@ -51,3 +53,7 @@ collision_mask = 17
 [node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D4" unique_id=1077431220]
 position = Vector2(955.5, 793)
 shape = SubResource("RectangleShape2D_wxlb6")
+
+[node name="Moon" parent="." unique_id=419883926 instance=ExtResource("3_yswmf")]
+position = Vector2(999.0001, 330.00003)
+scale = Vector2(5, 5)
