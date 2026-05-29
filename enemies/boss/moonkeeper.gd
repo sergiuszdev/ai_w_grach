@@ -29,7 +29,8 @@ enum States {
 	JUMP_LOOP,
 	LAND,
 	RUN,
-	WALK
+	WALK,
+	AGGRESSIVE_DASH
 }
 
 var state: States = States.IDLE
@@ -37,7 +38,7 @@ var state: States = States.IDLE
 @export var speed := 100.0
 @export var dash_speed := 450.0
 @export var jump_force := -500.0
-
+@export var phase := 1
 var target_player: Node2D = null
 
 var paused := false
@@ -54,7 +55,7 @@ func _ready():
 	
 	blackboard.set_value("last_action", "")
 	blackboard.set_value("combo_streak", 0)
-	blackboard.set_value("phase", 1)
+	blackboard.set_value("phase", phase)
 	
 	behaviour_tree.setup(self, blackboard)
 	
@@ -79,7 +80,6 @@ func _physics_process(delta):
 	
 	update_perception()
 	behaviour_tree.run(delta)
-	
 	move_and_slide()
 	
 	blackboard.set_value("got_hit", false)
@@ -88,6 +88,10 @@ func _physics_process(delta):
 func update_animation():
 
 	if not is_on_floor():
+		
+		if state == States.AGGRESSIVE_DASH:
+			playback.travel("aggressive_dash")
+			return
 
 		if velocity.y < 0:
 			playback.travel("jump")
@@ -124,7 +128,8 @@ func update_animation():
 
 		States.DEATH:
 			playback.travel("death")
-
+		States.AGGRESSIVE_DASH:
+			playback.travel("aggressive_dash")
 
 func jump():
 
@@ -183,14 +188,14 @@ func trigger_moon():
 		moon,
 		"modulate",
 		Color(1, 0, 0, 1),
-		1.0
+		0.5
 	)
 
 	moon_tween.tween_property(
 		moon,
 		"modulate",
 		Color(1, 1, 1, 1),
-		1.0
+		0.5
 	)
 	
 func attack_started():

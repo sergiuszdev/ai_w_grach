@@ -33,6 +33,7 @@ position = Vector2(1168, 660)
 [node name="Moonkeeper" parent="." unique_id=1867670612 node_paths=PackedStringArray("moon") instance=ExtResource("2_yswmf")]
 position = Vector2(542, 638)
 moon = NodePath("../Moon")
+phase = 3
 
 [node name="StaticBody2D3" type="StaticBody2D" parent="." unique_id=63009034]
 position = Vector2(1944.9999, 780.99963)
@@ -55,5 +56,5 @@ position = Vector2(955.5, 793)
 shape = SubResource("RectangleShape2D_wxlb6")
 
 [node name="Moon" parent="." unique_id=419883926 instance=ExtResource("3_yswmf")]
-position = Vector2(999.0001, 330.00003)
+position = Vector2(999.0001, 410)
 scale = Vector2(5, 5)

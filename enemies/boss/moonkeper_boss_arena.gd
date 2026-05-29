@@ -2,7 +2,6 @@ extends Node2D
 
 @onready var doors = [$Terrain/Props/RightDoor, $Terrain/Props/LeftDoor]
 @onready var head = $Enemy/KeeperHead
-
 @export var boss_scene: PackedScene
 var boss_instance: Node2D = null
 var is_boss_alive := true
@@ -15,10 +14,10 @@ var is_boss_alive := true
 @onready var moon = $Enemy/moon
 @onready var upper_bound = $ArenaConstraints/Up
 
-
+@onready var player = $Player
 
 var phase2_active = false
-
+var action_memory := {}
 
 
 enum Phase {
@@ -31,6 +30,20 @@ enum Phase {
 @export var current_phase: Phase = Phase.NO_PHASE
 
 func _ready():
+	player.player_action.connect(_on_player_action)
+	action_memory = {
+		"ATTACK": 0,
+		"UP_ATTACK": 0,
+		"DOWN_ATTACK": 0,
+		"SLIDE": 0,
+		"JUMP": 0,
+		"WALL_JUMP": 0,
+		"PARRY": 0,
+		"HEAL": 0,
+		"HIT": 0
+	}
+	
+	
 	match current_phase:
 		Phase.NO_PHASE:
 			print("no phase")
@@ -43,17 +56,17 @@ func _ready():
 			
 
 		Phase.PHASE_3:
-			start_phase_three
+			start_phase_three()
 			
 	if not is_boss_alive:
 		head.visible = false
 
 func _process(delta):
-	
-	pass
+	decay_player_memory()
 
 func start_phase_three():
 	current_phase = Phase.PHASE_3
+	boss_instance.blackboard.set_value("phase", 3)
 	third_phase_animation()
 	
 func start_phase_two():
@@ -390,3 +403,14 @@ func _switch_phase(p):
 			start_phase_two()
 		Phase.PHASE_3:
 			start_phase_three()
+			
+func _on_player_action(action: String, context: Dictionary):
+	if not action_memory.has(action):
+		action_memory[action] = 0
+
+	action_memory[action] += 1
+	if boss_instance:
+		boss_instance.blackboard.set_value("player_action_memory", action_memory)
+func decay_player_memory():
+	for key in action_memory.keys():
+		action_memory[key] = max(0, action_memory[key] - 0.05)
