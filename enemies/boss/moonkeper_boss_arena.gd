@@ -61,7 +61,7 @@ func _ready():
 	if not is_boss_alive:
 		head.visible = false
 
-func _process(delta):
+func _process(_delta):
 	decay_player_memory()
 
 func start_phase_three():
@@ -404,7 +404,7 @@ func _switch_phase(p):
 		Phase.PHASE_3:
 			start_phase_three()
 			
-func _on_player_action(action: String, context: Dictionary):
+func _on_player_action(action: String, _context: Dictionary):
 	if not action_memory.has(action):
 		action_memory[action] = 0
 
