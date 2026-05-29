@@ -20,8 +20,8 @@ signal health_changed(current, max)
 @export var moon: CharacterBody2D
 enum States {
 	IDLE,
-	ATTACK_1,
-	ATTACK_2,
+	GROUND_ATTACK,
+	ANTI_AIR_ATTACK,
 	DASH,
 	DEATH,
 	HIT,
@@ -106,11 +106,11 @@ func update_animation():
 		States.RUN:
 			playback.travel("run")
 
-		States.ATTACK_1:
-			playback.travel("attack_1")
+		States.GROUND_ATTACK:
+			playback.travel("ground_attack")
 
-		States.ATTACK_2:
-			playback.travel("attack_2")
+		States.ANTI_AIR_ATTACK:
+			playback.travel("anti_air_attack")
 
 		States.DASH:
 			playback.travel("dash")
@@ -131,8 +131,8 @@ func ai_update(_delta):
 		return
 
 	if state in [
-		States.ATTACK_1,
-		States.ATTACK_2,
+		States.GROUND_ATTACK,
+		States.ANTI_AIR_ATTACK,
 		States.HIT,
 		States.DEATH,
 		States.DASH,
@@ -180,14 +180,14 @@ func dash(direction: float):
 	is_dashing = false
 
 
-func attack_1():
+func ground_attack():
 	
-	state = States.ATTACK_1
+	state = States.GROUND_ATTACK
 	velocity.x = 0
 
 #change it to anti airborne attack
-func attack_2():
-	state = States.ATTACK_2
+func anti_air_attack():
+	state = States.ANTI_AIR_ATTACK
 	velocity.x = 0
 
 
@@ -238,7 +238,6 @@ func trigger_moon():
 	)
 	
 func attack_started():
-	print("ATTACK_1 CALLED FROM:", get_stack())
 	is_attacking = true
 	
 func attack_ended():
