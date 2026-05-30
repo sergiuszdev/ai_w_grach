@@ -20,5 +20,6 @@ func on_update(delta: float) -> Status:
 	return Status.RUNNING
 
 func on_end():
-	agent.attack_ended()
+	if agent.is_attacking:
+		agent.attack_ended()
 	agent.state = agent.States.IDLE

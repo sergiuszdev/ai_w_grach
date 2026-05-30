@@ -15,7 +15,9 @@ func on_update(delta):
 		target.global_position.x - agent.global_position.x
 	)
 
-	if dir != 0:
+	if dir != 0 and agent.has_method("set_facing"):
+		agent.set_facing(dir < 0)
+	elif dir != 0:
 		agent.sprite.flip_h = dir < 0
 	if once:
 		return Status.SUCCESS

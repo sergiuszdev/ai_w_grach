@@ -6,6 +6,8 @@ var started := false
 
 
 func on_start():
+	
+	print(get_path())
 	pass
 
 func on_interrupt():

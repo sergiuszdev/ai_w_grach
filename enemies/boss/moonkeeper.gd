@@ -12,6 +12,8 @@ var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 @onready var is_attacking := false
 
 @onready var detection := $Attacks/PlayerDetection
+@onready var attacks := $Attacks
+@onready var attack_area := $Attacks/Area_1
 
 @onready var behaviour_tree := $AI/BehaviourTree
 var blackboard: Blackboard
@@ -43,6 +45,8 @@ var target_player: Node2D = null
 
 var paused := false
 var is_dashing := false
+var _current_anim := ""
+var _attack_hit_targets := {}
 
 func _ready():
 	state = States.IDLE
@@ -58,7 +62,8 @@ func _ready():
 	blackboard.set_value("phase", phase)
 	
 	behaviour_tree.setup(self, blackboard)
-	
+	attack_area.collision_mask = 1
+	attack_area.monitoring = false
 
 func _physics_process(delta):
 	
@@ -67,9 +72,8 @@ func _physics_process(delta):
 		return
 
 	if is_attacking:
-		for body in detection.get_overlapping_bodies():
-			if body.is_in_group("player") and "hit" in body:
-				body.hit(1, self)
+		_apply_attack_hits(detection)
+		_apply_attack_hits(attack_area)
 
 	if not is_on_floor():
 		velocity.y += (gravity / 2) * delta
@@ -86,50 +90,65 @@ func _physics_process(delta):
 
 
 func update_animation():
+	var anim_name := _get_anim_name()
+	if anim_name != _current_anim:
+		playback.travel(anim_name)
+		_current_anim = anim_name
 
+
+func _get_anim_name() -> String:
 	if not is_on_floor():
-		
 		if state == States.AGGRESSIVE_DASH:
-			playback.travel("aggressive_dash")
-			return
-
+			return "aggressive_dash"
 		if velocity.y < 0:
-			playback.travel("jump")
-		else:
-			playback.travel("jump_loop")
-
-		return
+			return "jump"
+		return "jump_loop"
 
 	match state:
-
 		States.IDLE:
-			playback.travel("idle")
-
+			return "idle"
 		States.WALK:
-			playback.travel("walk")
-
+			return "walk"
 		States.RUN:
-			playback.travel("run")
-
+			return "run"
 		States.GROUND_ATTACK:
-			playback.travel("ground_attack")
-
+			return "ground_attack"
 		States.ANTI_AIR_ATTACK:
-			playback.travel("anti_air_attack")
-
+			return "anti_air_attack"
 		States.DASH:
-			playback.travel("dash")
-
+			return "dash"
 		States.HIT:
-			playback.travel("hit")
-
+			return "hit"
 		States.LAND:
-			playback.travel("land")
-
+			return "land"
 		States.DEATH:
-			playback.travel("death")
+			return "death"
 		States.AGGRESSIVE_DASH:
-			playback.travel("aggressive_dash")
+			return "aggressive_dash"
+		_:
+			return "idle"
+
+
+func set_facing(face_left: bool) -> void:
+	sprite.flip_h = face_left
+	attacks.scale.x = -1.0 if face_left else 1.0
+
+
+func set_facing_toward(world_x: float) -> void:
+	var dir := signf(world_x - global_position.x)
+	if dir != 0.0:
+		set_facing(dir < 0.0)
+
+
+func _apply_attack_hits(area: Area2D) -> void:
+	for body in area.get_overlapping_bodies():
+		if not body.is_in_group("player"):
+			continue
+		if _attack_hit_targets.has(body):
+			continue
+		if body.has_method("hit"):
+			body.hit(1, self)
+			_attack_hit_targets[body] = true
 
 func jump():
 
@@ -200,9 +219,12 @@ func trigger_moon():
 	
 func attack_started():
 	is_attacking = true
-	
+	_attack_hit_targets.clear()
+	attack_area.monitoring = true
+
 func attack_ended():
 	is_attacking = false
+	attack_area.monitoring = false
 
 
 func update_perception():
