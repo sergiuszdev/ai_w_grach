@@ -11,9 +11,7 @@ func on_update(_delta):
 	if target == null:
 		return Status.FAILURE
 
-	var dist = abs(
-		target.global_position.x - agent.global_position.x
-	)
+	var dist = agent.global_position.distance_to(target.global_position)
 
 	if dist <= stop_distance:
 		agent.velocity.x = 0

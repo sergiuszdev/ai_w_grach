@@ -35,6 +35,9 @@ func on_start():
 		direction = Vector2.RIGHT if not agent.sprite.flip_h else Vector2.LEFT
 		target_distance = speed * max_duration
 
+	if agent.has_method("set_facing_toward"):
+		agent.set_facing_toward(target_position.x)
+
 	agent.state = agent.States.AGGRESSIVE_DASH
 	agent.velocity = Vector2.ZERO
 
@@ -90,7 +93,6 @@ func _check_hits():
 
 func on_end():
 	agent.velocity = Vector2.ZERO
-	agent.attack_ended()
 
 	if agent.is_on_floor():
 		agent.state = agent.States.IDLE

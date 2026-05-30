@@ -48,7 +48,9 @@ func on_update(delta):
 	agent.global_position.y = lerp(start_pos.y, target_pos.y, t) - height
 	agent.velocity = Vector2.ZERO
 
-	if target_pos.x != agent.global_position.x:
+	if agent.has_method("set_facing_toward"):
+		agent.set_facing_toward(target_pos.x)
+	elif target_pos.x != agent.global_position.x:
 		agent.sprite.flip_h = target_pos.x < agent.global_position.x
 
 	if t >= 1.0:
