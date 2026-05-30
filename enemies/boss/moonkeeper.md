@@ -20,3 +20,24 @@ or shoots lasers from moon
 
 with these many options moonkeeper will learn what player avoids less
 and abuse this attack with a random chance to behave differently
+
+
+
+-----
+counting up player actions
+and boss actions
+
+
+weighted selector:
+	
+	selector - w = 0.6:
+		if parry > hit by attack:
+			aggressive dash
+		if last few player actions were jumps:
+			use anti air attack few times
+		if player avoids not sword attacks:
+			go with ground_attack
+	randomselector - weight 0.4:
+		here change weights based on perception table in maybe action node? or leaf?
+		
+		rest attacks

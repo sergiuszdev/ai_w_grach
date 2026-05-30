@@ -130,6 +130,7 @@
 [ext_resource type="Script" uid="uid://ce26gogbkyyem" path="res://enemies/ai/behaviour_tree/succeeder.gd" id="127_85y5g"]
 [ext_resource type="Script" uid="uid://baaywcweosnoo" path="res://enemies/boss/aggressive_dash.gd" id="127_vgguk"]
 [ext_resource type="Script" uid="uid://s4iakked4qr3" path="res://enemies/ai/behaviour_tree/timeout.gd" id="127_wbl4p"]
+[ext_resource type="Script" uid="uid://boc604rk8ku5u" path="res://enemies/boss/black_aggressive_dash.gd" id="131_d2a4s"]
 [ext_resource type="Script" uid="uid://cwldova03jeou" path="res://enemies/boss/run_to_target.gd" id="132_4go6b"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_5vlhv"]
@@ -1153,6 +1154,10 @@ advance_mode = 2
 
 [sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_16re0"]
 
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_kck3f"]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_gry7i"]
+
 [sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_n8hj1"]
 states/End/position = Vector2(1283.5, 726.5)
 states/RESET/node = SubResource("AnimationNodeAnimation_2u5fi")
@@ -1182,8 +1187,8 @@ states/run/node = SubResource("AnimationNodeAnimation_nopt8")
 states/run/position = Vector2(381, -136.5)
 states/walk/node = SubResource("AnimationNodeAnimation_nh8o0")
 states/walk/position = Vector2(760, -118.5)
-transitions = ["Start", "RESET", SubResource("AnimationNodeStateMachineTransition_3gd03"), "idle", "walk", SubResource("AnimationNodeStateMachineTransition_fyfai"), "idle", "jump", SubResource("AnimationNodeStateMachineTransition_cn0qa"), "jump", "jump_loop", SubResource("AnimationNodeStateMachineTransition_p4yny"), "jump_loop", "land", SubResource("AnimationNodeStateMachineTransition_h0q4g"), "land", "idle", SubResource("AnimationNodeStateMachineTransition_6cwkf"), "walk", "idle", SubResource("AnimationNodeStateMachineTransition_2u5fi"), "idle", "hit", SubResource("AnimationNodeStateMachineTransition_10ns1"), "hit", "idle", SubResource("AnimationNodeStateMachineTransition_wdn54"), "hit", "death", SubResource("AnimationNodeStateMachineTransition_8lc7i"), "idle", "run", SubResource("AnimationNodeStateMachineTransition_l8mto"), "run", "idle", SubResource("AnimationNodeStateMachineTransition_7xfv0"), "idle", "dash", SubResource("AnimationNodeStateMachineTransition_j8eux"), "dash", "idle", SubResource("AnimationNodeStateMachineTransition_xj3dm"), "idle", "anti_air_attack", SubResource("AnimationNodeStateMachineTransition_fa4jy"), "anti_air_attack", "idle", SubResource("AnimationNodeStateMachineTransition_vgguk"), "ground_attack", "idle", SubResource("AnimationNodeStateMachineTransition_5vlhv"), "ground_attack", "jump_loop", SubResource("AnimationNodeStateMachineTransition_wbl4p"), "jump_loop", "ground_attack", SubResource("AnimationNodeStateMachineTransition_85y5g"), "idle", "ground_attack", SubResource("AnimationNodeStateMachineTransition_o0yto"), "jump", "hit", SubResource("AnimationNodeStateMachineTransition_2ksj2"), "ground_attack", "dash", SubResource("AnimationNodeStateMachineTransition_d2a4s"), "dash", "ground_attack", SubResource("AnimationNodeStateMachineTransition_4go6b"), "jump_loop", "aggressive_dash", SubResource("AnimationNodeStateMachineTransition_mbvdn"), "aggressive_dash", "jump_loop", SubResource("AnimationNodeStateMachineTransition_ef5fc"), "aggressive_dash", "idle", SubResource("AnimationNodeStateMachineTransition_ch5ga"), "idle", "aggressive_dash", SubResource("AnimationNodeStateMachineTransition_k7qym"), "RESET", "idle", SubResource("AnimationNodeStateMachineTransition_lusrx"), "jump", "aggressive_dash", SubResource("AnimationNodeStateMachineTransition_cdjjf"), "aggressive_dash", "jump", SubResource("AnimationNodeStateMachineTransition_8vcvb"), "land", "aggressive_dash", SubResource("AnimationNodeStateMachineTransition_kxjjd"), "aggressive_dash", "land", SubResource("AnimationNodeStateMachineTransition_16re0")]
-graph_offset = Vector2(24, 118)
+transitions = ["Start", "RESET", SubResource("AnimationNodeStateMachineTransition_3gd03"), "idle", "walk", SubResource("AnimationNodeStateMachineTransition_fyfai"), "idle", "jump", SubResource("AnimationNodeStateMachineTransition_cn0qa"), "jump", "jump_loop", SubResource("AnimationNodeStateMachineTransition_p4yny"), "jump_loop", "land", SubResource("AnimationNodeStateMachineTransition_h0q4g"), "land", "idle", SubResource("AnimationNodeStateMachineTransition_6cwkf"), "walk", "idle", SubResource("AnimationNodeStateMachineTransition_2u5fi"), "idle", "hit", SubResource("AnimationNodeStateMachineTransition_10ns1"), "hit", "idle", SubResource("AnimationNodeStateMachineTransition_wdn54"), "hit", "death", SubResource("AnimationNodeStateMachineTransition_8lc7i"), "idle", "run", SubResource("AnimationNodeStateMachineTransition_l8mto"), "run", "idle", SubResource("AnimationNodeStateMachineTransition_7xfv0"), "idle", "dash", SubResource("AnimationNodeStateMachineTransition_j8eux"), "dash", "idle", SubResource("AnimationNodeStateMachineTransition_xj3dm"), "idle", "anti_air_attack", SubResource("AnimationNodeStateMachineTransition_fa4jy"), "anti_air_attack", "idle", SubResource("AnimationNodeStateMachineTransition_vgguk"), "ground_attack", "idle", SubResource("AnimationNodeStateMachineTransition_5vlhv"), "ground_attack", "jump_loop", SubResource("AnimationNodeStateMachineTransition_wbl4p"), "jump_loop", "ground_attack", SubResource("AnimationNodeStateMachineTransition_85y5g"), "idle", "ground_attack", SubResource("AnimationNodeStateMachineTransition_o0yto"), "jump", "hit", SubResource("AnimationNodeStateMachineTransition_2ksj2"), "ground_attack", "dash", SubResource("AnimationNodeStateMachineTransition_d2a4s"), "dash", "ground_attack", SubResource("AnimationNodeStateMachineTransition_4go6b"), "jump_loop", "aggressive_dash", SubResource("AnimationNodeStateMachineTransition_mbvdn"), "aggressive_dash", "jump_loop", SubResource("AnimationNodeStateMachineTransition_ef5fc"), "aggressive_dash", "idle", SubResource("AnimationNodeStateMachineTransition_ch5ga"), "idle", "aggressive_dash", SubResource("AnimationNodeStateMachineTransition_k7qym"), "RESET", "idle", SubResource("AnimationNodeStateMachineTransition_lusrx"), "jump", "aggressive_dash", SubResource("AnimationNodeStateMachineTransition_cdjjf"), "aggressive_dash", "jump", SubResource("AnimationNodeStateMachineTransition_8vcvb"), "land", "aggressive_dash", SubResource("AnimationNodeStateMachineTransition_kxjjd"), "aggressive_dash", "land", SubResource("AnimationNodeStateMachineTransition_16re0"), "run", "ground_attack", SubResource("AnimationNodeStateMachineTransition_kck3f"), "ground_attack", "run", SubResource("AnimationNodeStateMachineTransition_gry7i")]
+graph_offset = Vector2(-218, -400)
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_2u5fi"]
 radius = 8.841946
@@ -1470,6 +1475,41 @@ script = ExtResource("112_o0yto")
 hit_duration = 0.2
 metadata/_custom_type_script = "uid://bwxqiollp6b1v"
 
+[node name="anti air punish" type="Node" parent="AI/BehaviourTree/Selector/PhaseThree/PhaseThreeLogic" unique_id=559440790]
+script = ExtResource("110_8lc7i")
+metadata/_custom_type_script = "uid://xydh8qo3tesg"
+
+[node name="is player in air" type="Node" parent="AI/BehaviourTree/Selector/PhaseThree/PhaseThreeLogic/anti air punish" unique_id=186716049]
+script = ExtResource("114_p4yny")
+metadata/_custom_type_script = "uid://dnraiggpni3rq"
+
+[node name="is player in distance" type="Node" parent="AI/BehaviourTree/Selector/PhaseThree/PhaseThreeLogic/anti air punish" unique_id=1580598782]
+script = ExtResource("118_p4yny")
+metadata/_custom_type_script = "uid://dnraiggpni3rq"
+
+[node name="cooldown" type="Node" parent="AI/BehaviourTree/Selector/PhaseThree/PhaseThreeLogic/anti air punish" unique_id=1670658885]
+script = ExtResource("111_7xfv0")
+cooldown = 0.3
+metadata/_custom_type_script = "uid://cl1myvdmmihw7"
+
+[node name="Interruptable" type="Node" parent="AI/BehaviourTree/Selector/PhaseThree/PhaseThreeLogic/anti air punish/cooldown" unique_id=1919578762]
+script = ExtResource("119_interruptable")
+interrupt_distance = 260.0
+metadata/_custom_type_script = "uid://cfpgsh1t8yecp"
+
+[node name="attack windup" type="Node" parent="AI/BehaviourTree/Selector/PhaseThree/PhaseThreeLogic/anti air punish/cooldown/Interruptable" unique_id=318338361]
+script = ExtResource("110_8lc7i")
+metadata/_custom_type_script = "uid://xydh8qo3tesg"
+
+[node name="Wait" type="Node" parent="AI/BehaviourTree/Selector/PhaseThree/PhaseThreeLogic/anti air punish/cooldown/Interruptable/attack windup" unique_id=1421321029]
+script = ExtResource("109_8lc7i")
+wait_time = 0.1
+metadata/_custom_type_script = "uid://c88wskwkhdj7i"
+
+[node name="anti air attack" type="Node" parent="AI/BehaviourTree/Selector/PhaseThree/PhaseThreeLogic/anti air punish/cooldown/Interruptable/attack windup" unique_id=1344563888]
+script = ExtResource("115_cn0qa")
+metadata/_custom_type_script = "uid://bwxqiollp6b1v"
+
 [node name="fast ground attack" type="Node" parent="AI/BehaviourTree/Selector/PhaseThree/PhaseThreeLogic" unique_id=1342794898]
 script = ExtResource("110_8lc7i")
 metadata/_custom_type_script = "uid://xydh8qo3tesg"
@@ -1574,6 +1614,14 @@ metadata/_custom_type_script = "uid://3yxdd3pk6gt1"
 script = ExtResource("132_4go6b")
 speed = 170.0
 stop_distance = 140.0
+metadata/_custom_type_script = "uid://bwxqiollp6b1v"
+
+[node name="not parrable aggressive dash" type="Node" parent="AI/BehaviourTree/Selector/PhaseThree/PhaseThreeLogic" unique_id=1422798041]
+script = ExtResource("110_8lc7i")
+metadata/_custom_type_script = "uid://xydh8qo3tesg"
+
+[node name="black dash" type="Node" parent="AI/BehaviourTree/Selector/PhaseThree/PhaseThreeLogic/not parrable aggressive dash" unique_id=543374100]
+script = ExtResource("131_d2a4s")
 metadata/_custom_type_script = "uid://bwxqiollp6b1v"
 
 [connection signal="body_entered" from="Attacks/PlayerDetection" to="." method="_on_player_detection_body_entered"]

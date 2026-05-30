@@ -1,5 +1,6 @@
 extends Action
-class_name RushWithAttack
+class_name BlackAggressiveDash
+
 
 @export var target_key := "player"
 @export var speed := 360.0
