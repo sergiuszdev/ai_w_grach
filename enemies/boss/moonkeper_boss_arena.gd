@@ -66,7 +66,14 @@ func _process(_delta):
 
 func start_phase_three():
 	current_phase = Phase.PHASE_3
-	boss_instance.blackboard.set_value("phase", 3)
+	if boss_instance:
+		boss_instance.blackboard.set_value("phase", Phase.PHASE_3)
+		boss_instance.blackboard.set_value("got_hit", false)
+		boss_instance.blackboard.set_value("moon", moon)
+		boss_instance.velocity = Vector2.ZERO
+		boss_instance.attack_ended()
+		boss_instance.state = boss_instance.States.IDLE
+		boss_instance.playback.travel("idle")
 	third_phase_animation()
 	
 func start_phase_two():
@@ -227,6 +234,7 @@ func second_phase_animation():
 	await tween.finished
 
 func third_phase_animation():
+	boss_instance.z_index = 150
 	upper_bound.disabled = true
 	moon.normal()
 	var moon_tween = create_tween()
@@ -378,7 +386,10 @@ func resume_boss():
 		return
 		
 	boss_instance.blackboard.set_value("boss_paused", false)
+	boss_instance.blackboard.set_value("got_hit", false)
 	boss_instance.velocity = Vector2.ZERO
+	boss_instance.attack_ended()
+	boss_instance.state = boss_instance.States.IDLE
 	boss_instance.set_physics_process(true)
 	
 func _on_boss_health_changed(hp, max_hp):
@@ -389,7 +400,7 @@ func _on_boss_health_changed(hp, max_hp):
 
 
 func _on_phase_2_timer_timeout():
-	start_phase_three()
+	_switch_phase(Phase.PHASE_3)
 	
 	
 func _switch_phase(p):
