@@ -133,7 +133,7 @@
 [ext_resource type="Script" uid="uid://d0q1cs0bjelma" path="res://enemies/ai/behaviour_tree/random_selector.gd" id="130_mbvdn"]
 [ext_resource type="Script" uid="uid://boc604rk8ku5u" path="res://enemies/boss/black_aggressive_dash.gd" id="131_d2a4s"]
 [ext_resource type="Script" uid="uid://cwldova03jeou" path="res://enemies/boss/run_to_target.gd" id="132_4go6b"]
-[ext_resource type="Script" uid="uid://brjo18soukaeu" path="res://enemies/boss/activate_moon_attack.gd" id="132_ef5fc"]
+[ext_resource type="Script" path="res://enemies/boss/activate_moon_attack.gd" id="132_ef5fc"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_5vlhv"]
 height = 61.0
@@ -1380,37 +1380,37 @@ metadata/_custom_type_script = "uid://3yxdd3pk6gt1"
 script = ExtResource("120_attack1")
 metadata/_custom_type_script = "uid://bwxqiollp6b1v"
 
-[node name="occasional dash" type="Node" parent="AI/BehaviourTree/Selector/PhaseOne/PhaseOneLogic" unique_id=365199408]
+[node name="dash behind attack" type="Node" parent="AI/BehaviourTree/Selector/PhaseOne/PhaseOneLogic" unique_id=365199408]
 script = ExtResource("110_8lc7i")
 metadata/_custom_type_script = "uid://xydh8qo3tesg"
 
-[node name="is player in dash range" type="Node" parent="AI/BehaviourTree/Selector/PhaseOne/PhaseOneLogic/occasional dash" unique_id=1710343043]
+[node name="is player in dash range" type="Node" parent="AI/BehaviourTree/Selector/PhaseOne/PhaseOneLogic/dash behind attack" unique_id=1710343043]
 script = ExtResource("118_p4yny")
 distance = 300.0
 metadata/_custom_type_script = "uid://dnraiggpni3rq"
 
-[node name="cooldown" type="Node" parent="AI/BehaviourTree/Selector/PhaseOne/PhaseOneLogic/occasional dash" unique_id=145182436]
+[node name="cooldown" type="Node" parent="AI/BehaviourTree/Selector/PhaseOne/PhaseOneLogic/dash behind attack" unique_id=145182436]
 script = ExtResource("111_7xfv0")
 cooldown = 5.0
 metadata/_custom_type_script = "uid://cl1myvdmmihw7"
 
-[node name="dash with facing" type="Node" parent="AI/BehaviourTree/Selector/PhaseOne/PhaseOneLogic/occasional dash/cooldown" unique_id=1025732530]
+[node name="dash with facing" type="Node" parent="AI/BehaviourTree/Selector/PhaseOne/PhaseOneLogic/dash behind attack/cooldown" unique_id=1025732530]
 script = ExtResource("110_8lc7i")
 metadata/_custom_type_script = "uid://xydh8qo3tesg"
 
-[node name="dash behind target" type="Node" parent="AI/BehaviourTree/Selector/PhaseOne/PhaseOneLogic/occasional dash/cooldown/dash with facing" unique_id=973493813]
+[node name="dash behind target" type="Node" parent="AI/BehaviourTree/Selector/PhaseOne/PhaseOneLogic/dash behind attack/cooldown/dash with facing" unique_id=973493813]
 script = ExtResource("121_dashbehind")
 speed = 250.0
 max_duration = 1.0
 arrival_distance = 50.0
 metadata/_custom_type_script = "uid://bwxqiollp6b1v"
 
-[node name="FaceTarget" type="Node" parent="AI/BehaviourTree/Selector/PhaseOne/PhaseOneLogic/occasional dash/cooldown/dash with facing" unique_id=1269759331]
+[node name="FaceTarget" type="Node" parent="AI/BehaviourTree/Selector/PhaseOne/PhaseOneLogic/dash behind attack/cooldown/dash with facing" unique_id=1269759331]
 script = ExtResource("118_xqbmj")
 once = true
 metadata/_custom_type_script = "uid://3yxdd3pk6gt1"
 
-[node name="attack_1" type="Node" parent="AI/BehaviourTree/Selector/PhaseOne/PhaseOneLogic/occasional dash/cooldown/dash with facing" unique_id=1391647314]
+[node name="attack_1" type="Node" parent="AI/BehaviourTree/Selector/PhaseOne/PhaseOneLogic/dash behind attack/cooldown/dash with facing" unique_id=1391647314]
 script = ExtResource("120_attack1")
 metadata/_custom_type_script = "uid://bwxqiollp6b1v"
 
@@ -1648,6 +1648,40 @@ metadata/_custom_type_script = "uid://xydh8qo3tesg"
 
 [node name="black dash" type="Node" parent="AI/BehaviourTree/Selector/PhaseThree/PhaseThreeLogic/RandomSelector/not parrable aggressive dash" unique_id=543374100]
 script = ExtResource("131_d2a4s")
+metadata/_custom_type_script = "uid://bwxqiollp6b1v"
+
+[node name="dash behind attack" type="Node" parent="AI/BehaviourTree/Selector/PhaseThree/PhaseThreeLogic/RandomSelector" unique_id=521631003]
+script = ExtResource("110_8lc7i")
+metadata/_custom_type_script = "uid://xydh8qo3tesg"
+
+[node name="is player in dash range" type="Node" parent="AI/BehaviourTree/Selector/PhaseThree/PhaseThreeLogic/RandomSelector/dash behind attack" unique_id=1284056506]
+script = ExtResource("118_p4yny")
+distance = 300.0
+metadata/_custom_type_script = "uid://dnraiggpni3rq"
+
+[node name="cooldown" type="Node" parent="AI/BehaviourTree/Selector/PhaseThree/PhaseThreeLogic/RandomSelector/dash behind attack" unique_id=1771504971]
+script = ExtResource("111_7xfv0")
+cooldown = 5.0
+metadata/_custom_type_script = "uid://cl1myvdmmihw7"
+
+[node name="dash with facing" type="Node" parent="AI/BehaviourTree/Selector/PhaseThree/PhaseThreeLogic/RandomSelector/dash behind attack/cooldown" unique_id=728031875]
+script = ExtResource("110_8lc7i")
+metadata/_custom_type_script = "uid://xydh8qo3tesg"
+
+[node name="dash behind target" type="Node" parent="AI/BehaviourTree/Selector/PhaseThree/PhaseThreeLogic/RandomSelector/dash behind attack/cooldown/dash with facing" unique_id=1318752295]
+script = ExtResource("121_dashbehind")
+speed = 250.0
+max_duration = 1.0
+arrival_distance = 50.0
+metadata/_custom_type_script = "uid://bwxqiollp6b1v"
+
+[node name="FaceTarget" type="Node" parent="AI/BehaviourTree/Selector/PhaseThree/PhaseThreeLogic/RandomSelector/dash behind attack/cooldown/dash with facing" unique_id=1017295068]
+script = ExtResource("118_xqbmj")
+once = true
+metadata/_custom_type_script = "uid://3yxdd3pk6gt1"
+
+[node name="attack_1" type="Node" parent="AI/BehaviourTree/Selector/PhaseThree/PhaseThreeLogic/RandomSelector/dash behind attack/cooldown/dash with facing" unique_id=624253542]
+script = ExtResource("120_attack1")
 metadata/_custom_type_script = "uid://bwxqiollp6b1v"
 
 [connection signal="body_entered" from="Attacks/PlayerDetection" to="." method="_on_player_detection_body_entered"]
