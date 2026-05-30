@@ -326,7 +326,7 @@ func parry(attacker):
 	is_sliding = false
 
 func hit(amount: int, attacker = null):
-
+	print("attacker ", attacker)
 	if is_dead():
 		return
 

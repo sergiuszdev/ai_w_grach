@@ -130,8 +130,10 @@
 [ext_resource type="Script" uid="uid://ce26gogbkyyem" path="res://enemies/ai/behaviour_tree/succeeder.gd" id="127_85y5g"]
 [ext_resource type="Script" uid="uid://baaywcweosnoo" path="res://enemies/boss/aggressive_dash.gd" id="127_vgguk"]
 [ext_resource type="Script" uid="uid://s4iakked4qr3" path="res://enemies/ai/behaviour_tree/timeout.gd" id="127_wbl4p"]
+[ext_resource type="Script" uid="uid://d0q1cs0bjelma" path="res://enemies/ai/behaviour_tree/random_selector.gd" id="130_mbvdn"]
 [ext_resource type="Script" uid="uid://boc604rk8ku5u" path="res://enemies/boss/black_aggressive_dash.gd" id="131_d2a4s"]
 [ext_resource type="Script" uid="uid://cwldova03jeou" path="res://enemies/boss/run_to_target.gd" id="132_4go6b"]
+[ext_resource type="Script" uid="uid://brjo18soukaeu" path="res://enemies/boss/activate_moon_attack.gd" id="132_ef5fc"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_5vlhv"]
 height = 61.0
@@ -1475,152 +1477,176 @@ script = ExtResource("112_o0yto")
 hit_duration = 0.2
 metadata/_custom_type_script = "uid://bwxqiollp6b1v"
 
-[node name="anti air punish" type="Node" parent="AI/BehaviourTree/Selector/PhaseThree/PhaseThreeLogic" unique_id=559440790]
+[node name="RandomSelector" type="Node" parent="AI/BehaviourTree/Selector/PhaseThree/PhaseThreeLogic" unique_id=512314217]
+script = ExtResource("130_mbvdn")
+metadata/_custom_type_script = "uid://d0q1cs0bjelma"
+
+[node name="anti air punish" type="Node" parent="AI/BehaviourTree/Selector/PhaseThree/PhaseThreeLogic/RandomSelector" unique_id=559440790]
 script = ExtResource("110_8lc7i")
+is_enabled = false
 metadata/_custom_type_script = "uid://xydh8qo3tesg"
 
-[node name="is player in air" type="Node" parent="AI/BehaviourTree/Selector/PhaseThree/PhaseThreeLogic/anti air punish" unique_id=186716049]
+[node name="is player in air" type="Node" parent="AI/BehaviourTree/Selector/PhaseThree/PhaseThreeLogic/RandomSelector/anti air punish" unique_id=186716049]
 script = ExtResource("114_p4yny")
 metadata/_custom_type_script = "uid://dnraiggpni3rq"
 
-[node name="is player in distance" type="Node" parent="AI/BehaviourTree/Selector/PhaseThree/PhaseThreeLogic/anti air punish" unique_id=1580598782]
+[node name="is player in distance" type="Node" parent="AI/BehaviourTree/Selector/PhaseThree/PhaseThreeLogic/RandomSelector/anti air punish" unique_id=1580598782]
 script = ExtResource("118_p4yny")
 metadata/_custom_type_script = "uid://dnraiggpni3rq"
 
-[node name="cooldown" type="Node" parent="AI/BehaviourTree/Selector/PhaseThree/PhaseThreeLogic/anti air punish" unique_id=1670658885]
+[node name="cooldown" type="Node" parent="AI/BehaviourTree/Selector/PhaseThree/PhaseThreeLogic/RandomSelector/anti air punish" unique_id=1670658885]
 script = ExtResource("111_7xfv0")
 cooldown = 0.3
 metadata/_custom_type_script = "uid://cl1myvdmmihw7"
 
-[node name="Interruptable" type="Node" parent="AI/BehaviourTree/Selector/PhaseThree/PhaseThreeLogic/anti air punish/cooldown" unique_id=1919578762]
+[node name="Interruptable" type="Node" parent="AI/BehaviourTree/Selector/PhaseThree/PhaseThreeLogic/RandomSelector/anti air punish/cooldown" unique_id=1919578762]
 script = ExtResource("119_interruptable")
 interrupt_distance = 260.0
 metadata/_custom_type_script = "uid://cfpgsh1t8yecp"
 
-[node name="attack windup" type="Node" parent="AI/BehaviourTree/Selector/PhaseThree/PhaseThreeLogic/anti air punish/cooldown/Interruptable" unique_id=318338361]
+[node name="attack windup" type="Node" parent="AI/BehaviourTree/Selector/PhaseThree/PhaseThreeLogic/RandomSelector/anti air punish/cooldown/Interruptable" unique_id=318338361]
 script = ExtResource("110_8lc7i")
 metadata/_custom_type_script = "uid://xydh8qo3tesg"
 
-[node name="Wait" type="Node" parent="AI/BehaviourTree/Selector/PhaseThree/PhaseThreeLogic/anti air punish/cooldown/Interruptable/attack windup" unique_id=1421321029]
+[node name="Wait" type="Node" parent="AI/BehaviourTree/Selector/PhaseThree/PhaseThreeLogic/RandomSelector/anti air punish/cooldown/Interruptable/attack windup" unique_id=1421321029]
 script = ExtResource("109_8lc7i")
 wait_time = 0.1
 metadata/_custom_type_script = "uid://c88wskwkhdj7i"
 
-[node name="anti air attack" type="Node" parent="AI/BehaviourTree/Selector/PhaseThree/PhaseThreeLogic/anti air punish/cooldown/Interruptable/attack windup" unique_id=1344563888]
+[node name="anti air attack" type="Node" parent="AI/BehaviourTree/Selector/PhaseThree/PhaseThreeLogic/RandomSelector/anti air punish/cooldown/Interruptable/attack windup" unique_id=1344563888]
 script = ExtResource("115_cn0qa")
 metadata/_custom_type_script = "uid://bwxqiollp6b1v"
 
-[node name="fast ground attack" type="Node" parent="AI/BehaviourTree/Selector/PhaseThree/PhaseThreeLogic" unique_id=1342794898]
+[node name="fast ground attack" type="Node" parent="AI/BehaviourTree/Selector/PhaseThree/PhaseThreeLogic/RandomSelector" unique_id=1342794898]
 script = ExtResource("110_8lc7i")
+is_enabled = false
 metadata/_custom_type_script = "uid://xydh8qo3tesg"
 
-[node name="is player in distance" type="Node" parent="AI/BehaviourTree/Selector/PhaseThree/PhaseThreeLogic/fast ground attack" unique_id=1334637138]
+[node name="is player in distance" type="Node" parent="AI/BehaviourTree/Selector/PhaseThree/PhaseThreeLogic/RandomSelector/fast ground attack" unique_id=1334637138]
 script = ExtResource("118_p4yny")
 distance = 150.0
 metadata/_custom_type_script = "uid://dnraiggpni3rq"
 
-[node name="cooldown" type="Node" parent="AI/BehaviourTree/Selector/PhaseThree/PhaseThreeLogic/fast ground attack" unique_id=1495443714]
+[node name="cooldown" type="Node" parent="AI/BehaviourTree/Selector/PhaseThree/PhaseThreeLogic/RandomSelector/fast ground attack" unique_id=1495443714]
 script = ExtResource("111_7xfv0")
 cooldown = 0.35
 metadata/_custom_type_script = "uid://cl1myvdmmihw7"
 
-[node name="Interruptable" type="Node" parent="AI/BehaviourTree/Selector/PhaseThree/PhaseThreeLogic/fast ground attack/cooldown" unique_id=121695151]
+[node name="Interruptable" type="Node" parent="AI/BehaviourTree/Selector/PhaseThree/PhaseThreeLogic/RandomSelector/fast ground attack/cooldown" unique_id=121695151]
 script = ExtResource("119_interruptable")
 metadata/_custom_type_script = "uid://cfpgsh1t8yecp"
 
-[node name="attack windup" type="Node" parent="AI/BehaviourTree/Selector/PhaseThree/PhaseThreeLogic/fast ground attack/cooldown/Interruptable" unique_id=1121368199]
+[node name="attack windup" type="Node" parent="AI/BehaviourTree/Selector/PhaseThree/PhaseThreeLogic/RandomSelector/fast ground attack/cooldown/Interruptable" unique_id=1121368199]
 script = ExtResource("110_8lc7i")
 metadata/_custom_type_script = "uid://xydh8qo3tesg"
 
-[node name="Succeeder" type="Node" parent="AI/BehaviourTree/Selector/PhaseThree/PhaseThreeLogic/fast ground attack/cooldown/Interruptable/attack windup" unique_id=1511208037]
+[node name="Succeeder" type="Node" parent="AI/BehaviourTree/Selector/PhaseThree/PhaseThreeLogic/RandomSelector/fast ground attack/cooldown/Interruptable/attack windup" unique_id=1511208037]
 script = ExtResource("127_85y5g")
 metadata/_custom_type_script = "uid://ce26gogbkyyem"
 
-[node name="Timeout" type="Node" parent="AI/BehaviourTree/Selector/PhaseThree/PhaseThreeLogic/fast ground attack/cooldown/Interruptable/attack windup/Succeeder" unique_id=123258680]
+[node name="Timeout" type="Node" parent="AI/BehaviourTree/Selector/PhaseThree/PhaseThreeLogic/RandomSelector/fast ground attack/cooldown/Interruptable/attack windup/Succeeder" unique_id=123258680]
 script = ExtResource("127_wbl4p")
 duration = 0.05
 metadata/_custom_type_script = "uid://s4iakked4qr3"
 
-[node name="FaceTarget" type="Node" parent="AI/BehaviourTree/Selector/PhaseThree/PhaseThreeLogic/fast ground attack/cooldown/Interruptable/attack windup/Succeeder/Timeout" unique_id=1029241325]
+[node name="FaceTarget" type="Node" parent="AI/BehaviourTree/Selector/PhaseThree/PhaseThreeLogic/RandomSelector/fast ground attack/cooldown/Interruptable/attack windup/Succeeder/Timeout" unique_id=1029241325]
 script = ExtResource("118_xqbmj")
 once = true
 metadata/_custom_type_script = "uid://3yxdd3pk6gt1"
 
-[node name="attack_1" type="Node" parent="AI/BehaviourTree/Selector/PhaseThree/PhaseThreeLogic/fast ground attack/cooldown/Interruptable/attack windup" unique_id=1275237377]
+[node name="attack_1" type="Node" parent="AI/BehaviourTree/Selector/PhaseThree/PhaseThreeLogic/RandomSelector/fast ground attack/cooldown/Interruptable/attack windup" unique_id=1275237377]
 script = ExtResource("120_attack1")
 metadata/_custom_type_script = "uid://bwxqiollp6b1v"
 
-[node name="jump moon attack cooldown" type="Node" parent="AI/BehaviourTree/Selector/PhaseThree/PhaseThreeLogic" unique_id=1432396615]
+[node name="jump moon attack cooldown" type="Node" parent="AI/BehaviourTree/Selector/PhaseThree/PhaseThreeLogic/RandomSelector" unique_id=1432396615]
 script = ExtResource("111_7xfv0")
-cooldown = 5.0
+cooldown = 1.0
 metadata/_custom_type_script = "uid://cl1myvdmmihw7"
 
-[node name="jump to moon and dash with attack" type="Node" parent="AI/BehaviourTree/Selector/PhaseThree/PhaseThreeLogic/jump moon attack cooldown" unique_id=2068919846]
+[node name="BTSequence" type="Node" parent="AI/BehaviourTree/Selector/PhaseThree/PhaseThreeLogic/RandomSelector/jump moon attack cooldown" unique_id=649442427]
 script = ExtResource("110_8lc7i")
 metadata/_custom_type_script = "uid://xydh8qo3tesg"
 
-[node name="Jump to moon" type="Node" parent="AI/BehaviourTree/Selector/PhaseThree/PhaseThreeLogic/jump moon attack cooldown/jump to moon and dash with attack" unique_id=868915410]
+[node name="Jump to moon" type="Node" parent="AI/BehaviourTree/Selector/PhaseThree/PhaseThreeLogic/RandomSelector/jump moon attack cooldown/BTSequence" unique_id=868915410]
 script = ExtResource("126_fa4jy")
 target_key = "moon"
 metadata/_custom_type_script = "uid://bwxqiollp6b1v"
 
-[node name="Succeeder" type="Node" parent="AI/BehaviourTree/Selector/PhaseThree/PhaseThreeLogic/jump moon attack cooldown/jump to moon and dash with attack" unique_id=1212736535]
+[node name="Succeeder" type="Node" parent="AI/BehaviourTree/Selector/PhaseThree/PhaseThreeLogic/RandomSelector/jump moon attack cooldown/BTSequence" unique_id=1212736535]
 script = ExtResource("127_85y5g")
 metadata/_custom_type_script = "uid://ce26gogbkyyem"
 
-[node name="Timeout" type="Node" parent="AI/BehaviourTree/Selector/PhaseThree/PhaseThreeLogic/jump moon attack cooldown/jump to moon and dash with attack/Succeeder" unique_id=904309109]
+[node name="Timeout" type="Node" parent="AI/BehaviourTree/Selector/PhaseThree/PhaseThreeLogic/RandomSelector/jump moon attack cooldown/BTSequence/Succeeder" unique_id=904309109]
 script = ExtResource("127_wbl4p")
 duration = 0.35
 metadata/_custom_type_script = "uid://s4iakked4qr3"
 
-[node name="float on moon" type="Node" parent="AI/BehaviourTree/Selector/PhaseThree/PhaseThreeLogic/jump moon attack cooldown/jump to moon and dash with attack/Succeeder/Timeout" unique_id=1626248879]
+[node name="float on moon" type="Node" parent="AI/BehaviourTree/Selector/PhaseThree/PhaseThreeLogic/RandomSelector/jump moon attack cooldown/BTSequence/Succeeder/Timeout" unique_id=1626248879]
 script = ExtResource("127_2ksj2")
 height = 1.0
 metadata/_custom_type_script = "uid://bwxqiollp6b1v"
 
-[node name="face before dash" type="Node" parent="AI/BehaviourTree/Selector/PhaseThree/PhaseThreeLogic/jump moon attack cooldown/jump to moon and dash with attack" unique_id=1932059340]
+[node name="RandomSelector" type="Node" parent="AI/BehaviourTree/Selector/PhaseThree/PhaseThreeLogic/RandomSelector/jump moon attack cooldown/BTSequence" unique_id=1957538830]
+script = ExtResource("130_mbvdn")
+metadata/_custom_type_script = "uid://d0q1cs0bjelma"
+
+[node name="jump to moon and dash with attack" type="Node" parent="AI/BehaviourTree/Selector/PhaseThree/PhaseThreeLogic/RandomSelector/jump moon attack cooldown/BTSequence/RandomSelector" unique_id=2068919846]
+script = ExtResource("110_8lc7i")
+metadata/_custom_type_script = "uid://xydh8qo3tesg"
+
+[node name="face before dash" type="Node" parent="AI/BehaviourTree/Selector/PhaseThree/PhaseThreeLogic/RandomSelector/jump moon attack cooldown/BTSequence/RandomSelector/jump to moon and dash with attack" unique_id=1932059340]
 script = ExtResource("118_xqbmj")
 once = true
 metadata/_custom_type_script = "uid://3yxdd3pk6gt1"
 
-[node name="aggressive dash" type="Node" parent="AI/BehaviourTree/Selector/PhaseThree/PhaseThreeLogic/jump moon attack cooldown/jump to moon and dash with attack" unique_id=530774324]
+[node name="aggressive dash" type="Node" parent="AI/BehaviourTree/Selector/PhaseThree/PhaseThreeLogic/RandomSelector/jump moon attack cooldown/BTSequence/RandomSelector/jump to moon and dash with attack" unique_id=530774324]
 script = ExtResource("127_vgguk")
 max_duration = 1.3
 hit_damage = 10
 metadata/_custom_type_script = "uid://bwxqiollp6b1v"
 
-[node name="approach player" type="Node" parent="AI/BehaviourTree/Selector/PhaseThree/PhaseThreeLogic" unique_id=777186016]
+[node name="laser attack" type="Node" parent="AI/BehaviourTree/Selector/PhaseThree/PhaseThreeLogic/RandomSelector/jump moon attack cooldown/BTSequence/RandomSelector" unique_id=1032464170]
 script = ExtResource("110_8lc7i")
 metadata/_custom_type_script = "uid://xydh8qo3tesg"
 
-[node name="Invert" type="Node" parent="AI/BehaviourTree/Selector/PhaseThree/PhaseThreeLogic/approach player" unique_id=2052987073]
+[node name="activate moon attack" type="Node" parent="AI/BehaviourTree/Selector/PhaseThree/PhaseThreeLogic/RandomSelector/jump moon attack cooldown/BTSequence/RandomSelector/laser attack" unique_id=2033553847]
+script = ExtResource("132_ef5fc")
+metadata/_custom_type_script = "uid://bwxqiollp6b1v"
+
+[node name="approach player" type="Node" parent="AI/BehaviourTree/Selector/PhaseThree/PhaseThreeLogic/RandomSelector" unique_id=777186016]
+script = ExtResource("110_8lc7i")
+is_enabled = false
+metadata/_custom_type_script = "uid://xydh8qo3tesg"
+
+[node name="Invert" type="Node" parent="AI/BehaviourTree/Selector/PhaseThree/PhaseThreeLogic/RandomSelector/approach player" unique_id=2052987073]
 script = ExtResource("110_xj3dm")
 metadata/_custom_type_script = "uid://catlqunj6cmld"
 
-[node name="is player in distance" type="Node" parent="AI/BehaviourTree/Selector/PhaseThree/PhaseThreeLogic/approach player/Invert" unique_id=1720966568]
+[node name="is player in distance" type="Node" parent="AI/BehaviourTree/Selector/PhaseThree/PhaseThreeLogic/RandomSelector/approach player/Invert" unique_id=1720966568]
 script = ExtResource("118_p4yny")
 distance = 150.0
 metadata/_custom_type_script = "uid://dnraiggpni3rq"
 
-[node name="face and run" type="Node" parent="AI/BehaviourTree/Selector/PhaseThree/PhaseThreeLogic/approach player" unique_id=1708881349]
+[node name="face and run" type="Node" parent="AI/BehaviourTree/Selector/PhaseThree/PhaseThreeLogic/RandomSelector/approach player" unique_id=1708881349]
 script = ExtResource("112_3gd03")
 metadata/_custom_type_script = "uid://6sxo1nnb4bi"
 
-[node name="FaceTarget" type="Node" parent="AI/BehaviourTree/Selector/PhaseThree/PhaseThreeLogic/approach player/face and run" unique_id=199404622]
+[node name="FaceTarget" type="Node" parent="AI/BehaviourTree/Selector/PhaseThree/PhaseThreeLogic/RandomSelector/approach player/face and run" unique_id=199404622]
 script = ExtResource("118_xqbmj")
 metadata/_custom_type_script = "uid://3yxdd3pk6gt1"
 
-[node name="RunToTarget" type="Node" parent="AI/BehaviourTree/Selector/PhaseThree/PhaseThreeLogic/approach player/face and run" unique_id=585063775]
+[node name="RunToTarget" type="Node" parent="AI/BehaviourTree/Selector/PhaseThree/PhaseThreeLogic/RandomSelector/approach player/face and run" unique_id=585063775]
 script = ExtResource("132_4go6b")
 speed = 170.0
 stop_distance = 140.0
 metadata/_custom_type_script = "uid://bwxqiollp6b1v"
 
-[node name="not parrable aggressive dash" type="Node" parent="AI/BehaviourTree/Selector/PhaseThree/PhaseThreeLogic" unique_id=1422798041]
+[node name="not parrable aggressive dash" type="Node" parent="AI/BehaviourTree/Selector/PhaseThree/PhaseThreeLogic/RandomSelector" unique_id=1422798041]
 script = ExtResource("110_8lc7i")
+is_enabled = false
 metadata/_custom_type_script = "uid://xydh8qo3tesg"
 
-[node name="black dash" type="Node" parent="AI/BehaviourTree/Selector/PhaseThree/PhaseThreeLogic/not parrable aggressive dash" unique_id=543374100]
+[node name="black dash" type="Node" parent="AI/BehaviourTree/Selector/PhaseThree/PhaseThreeLogic/RandomSelector/not parrable aggressive dash" unique_id=543374100]
 script = ExtResource("131_d2a4s")
 metadata/_custom_type_script = "uid://bwxqiollp6b1v"
 

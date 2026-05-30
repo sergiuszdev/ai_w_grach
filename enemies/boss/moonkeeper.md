@@ -24,6 +24,8 @@ and abuse this attack with a random chance to behave differently
 
 
 -----
+for phase three
+
 counting up player actions
 and boss actions
 

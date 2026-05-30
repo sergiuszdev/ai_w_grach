@@ -1,0 +1,57 @@
+[gd_scene format=3 uid="uid://dobropw36m14h"]
+
+[ext_resource type="PackedScene" uid="uid://daf2wm6fer2kl" path="res://player/Player.tscn" id="1_5s2qp"]
+[ext_resource type="Script" uid="uid://capvd0r1ielj5" path="res://enemies/test_moon_laser.gd" id="1_b6e8t"]
+[ext_resource type="PackedScene" uid="uid://bgep6lxq77ojk" path="res://enemies/boss/moon.tscn" id="2_b6e8t"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ijbe6"]
+size = Vector2(1931, 81)
+
+[node name="Test Moon Laser" type="Node2D" unique_id=1081875635]
+script = ExtResource("1_b6e8t")
+
+[node name="StaticBody2D2" type="StaticBody2D" parent="." unique_id=719655298]
+position = Vector2(-763.00006, 1287)
+rotation = -1.5689324
+collision_layer = 2
+collision_mask = 17
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D2" unique_id=2025047031]
+position = Vector2(955.5, 793)
+shape = SubResource("RectangleShape2D_ijbe6")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="." unique_id=1903848818]
+collision_layer = 2
+collision_mask = 17
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D" unique_id=1053113164]
+position = Vector2(955.5, 793)
+shape = SubResource("RectangleShape2D_ijbe6")
+
+[node name="Player" parent="." unique_id=1278280480 instance=ExtResource("1_5s2qp")]
+position = Vector2(1168, 660)
+
+[node name="StaticBody2D3" type="StaticBody2D" parent="." unique_id=1245151721]
+position = Vector2(1944.9999, 780.99963)
+rotation = -3.1378648
+collision_layer = 2
+collision_mask = 17
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D3" unique_id=1928804616]
+position = Vector2(955.5, 793)
+shape = SubResource("RectangleShape2D_ijbe6")
+
+[node name="StaticBody2D4" type="StaticBody2D" parent="." unique_id=1096814225]
+position = Vector2(1142, 1244)
+rotation = -1.5689324
+collision_layer = 2
+collision_mask = 17
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D4" unique_id=1947567913]
+position = Vector2(955.5, 793)
+shape = SubResource("RectangleShape2D_ijbe6")
+
+[node name="Moon" parent="." unique_id=419883926 instance=ExtResource("2_b6e8t")]
+position = Vector2(999.0001, 410)
+scale = Vector2(5, 5)
+laser_sweep_speed_ratio = 10.0
