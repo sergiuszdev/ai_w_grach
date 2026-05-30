@@ -90,3 +90,9 @@ func _check_hits():
 
 func on_end():
 	agent.velocity = Vector2.ZERO
+	agent.attack_ended()
+
+	if agent.is_on_floor():
+		agent.state = agent.States.IDLE
+	else:
+		agent.state = agent.States.JUMP_LOOP

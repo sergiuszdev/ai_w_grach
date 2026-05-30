@@ -1470,6 +1470,7 @@ metadata/_custom_type_script = "uid://ce26gogbkyyem"
 
 [node name="Timeout" type="Node" parent="AI/BehaviourTree/Selector/PhaseThree/Cooldown/jump to moon and dash with attack/Succeeder" unique_id=904309109]
 script = ExtResource("127_wbl4p")
+duration = 0.35
 metadata/_custom_type_script = "uid://s4iakked4qr3"
 
 [node name="float on moon" type="Node" parent="AI/BehaviourTree/Selector/PhaseThree/Cooldown/jump to moon and dash with attack/Succeeder/Timeout" unique_id=1626248879]
