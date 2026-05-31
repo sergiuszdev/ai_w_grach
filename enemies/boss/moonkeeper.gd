@@ -51,17 +51,26 @@ var _attack_hit_targets := {}
 func _ready():
 	state = States.IDLE
 	animation_tree.active = true
+
 	target_player = get_tree().get_first_node_in_group("player")
-	print("target_player", target_player)
+
 	blackboard = Blackboard.new()
+
 	blackboard.set_value("player", target_player)
 	blackboard.set_value("moon", moon)
-	
+
 	blackboard.set_value("last_action", "")
 	blackboard.set_value("combo_streak", 0)
 	blackboard.set_value("phase", phase)
-	
+
+	blackboard.set_value("player_actions", [])
+	blackboard.set_value("player_action_counts", {})
+
+	if target_player:
+		target_player.player_action.connect(_on_player_action)
+
 	behaviour_tree.setup(self, blackboard)
+
 	attack_area.collision_mask = 1
 	attack_area.monitoring = false
 
@@ -227,6 +236,26 @@ func attack_ended():
 	attack_area.monitoring = false
 
 
+func _on_player_action(action_name: String, context: Dictionary):
+
+	var history = blackboard.get_value("player_actions", [])
+
+	history.append(action_name)
+
+	if history.size() > 20:
+		history.pop_front()
+
+	blackboard.set_value("player_actions", history)
+
+	var counts = blackboard.get_value("player_action_counts", {})
+
+	counts[action_name] = counts.get(action_name, 0) + 1
+
+	blackboard.set_value("player_action_counts", counts)
+
+	print("Player action:", action_name)
+	print("History:", history)
+
 func update_perception():
 
 	var player = blackboard.get_value("player")
@@ -240,83 +269,3 @@ func update_perception():
 	blackboard.set_value("distance_to_player", dist)
 
 	blackboard.set_value("player_in_range", dist < 200.0)
-
-# methods for btree
-#todo remove
-#func dash_to_player():
-	#if target_player == null:
-		#return
-#
-	#is_dashing = true
-	#state = States.DASH
-#
-	#var dir = sign(target_player.global_position.x - global_position.x)
-	#if dir == 0:
-		#dir = 1
-#
-	#velocity.x = dir * dash_speed
-#
-	#await get_tree().create_timer(0.25).timeout
-	#is_dashing = false
-#
-#func dash_away_from_player():
-	#if target_player == null:
-		#return
-#
-	#is_dashing = true
-	#state = States.DASH
-#
-	#var dir = sign(global_position.x - target_player.global_position.x)
-	#if dir == 0:
-		#dir = -1
-#
-	#velocity.x = dir * dash_speed
-#
-	#await get_tree().create_timer(0.25).timeout
-	#is_dashing = false
-#
-#func walk_to_player():
-	#if target_player == null:
-		#return
-#
-	#var dir = sign(target_player.global_position.x - global_position.x)
-#
-	#if dir == 0:
-		#dir = 1
-#
-	#state = States.WALK
-#
-	#velocity.x = move_toward(
-		#velocity.x,
-		#dir * speed,
-		#speed * 5.0 * get_physics_process_delta_time()
-	#)
-#
-	#sprite.flip_h = velocity.x < 0
-# to remove
-#func dash_behind_player():
-	#if target_player == null:
-		#return
-#
-	#is_dashing = true
-	#state = States.DASH
-#
-	#var behind_offset := 80.0
-#
-	#var player_pos = target_player.global_position
-	#var dir = sign(global_position.x - player_pos.x)
-#
-	#if dir == 0:
-		#dir = 1
-#
-	#var target_x = player_pos.x + dir * behind_offset
-#
-	#var dash_dir = sign(target_x - global_position.x)
-	#if dash_dir == 0:
-		#dash_dir = dir
-#
-	#velocity.x = dash_dir * dash_speed
-	#sprite.flip_h = velocity.x < 0
-#
-	#await get_tree().create_timer(0.25).timeout
-	#is_dashing = false

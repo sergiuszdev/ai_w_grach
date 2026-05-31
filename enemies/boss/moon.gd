@@ -116,6 +116,7 @@ func perform_laser_attack(attack_direction = 1.0):
 	damage_area.monitoring = false
 
 	for laser in lasers:
+		laser.visible = true
 		laser.is_casting = true
 
 	var start_rotation := rotation
@@ -157,6 +158,7 @@ func cancel_laser_attack() -> void:
 
 func _disable_all_lasers() -> void:
 	for laser in lasers:
+		laser.visible = false
 		laser.is_casting = false
 
 

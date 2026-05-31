@@ -5,6 +5,7 @@ var current_child: BTNode = null
 
 
 func run(delta: float) -> Status:
+	print("weighted selector")
 
 	if not is_active():
 		return Status.FAILURE

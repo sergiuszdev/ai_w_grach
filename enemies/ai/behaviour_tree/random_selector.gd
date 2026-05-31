@@ -5,7 +5,7 @@ var last_index := -1
 
 
 func run(delta: float) -> Status:
-
+	print("random selector")
 	if not is_active():
 		return Status.FAILURE
 
