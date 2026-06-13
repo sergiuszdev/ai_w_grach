@@ -23,7 +23,7 @@ var attack_time := 1.0
 var protect_timer := 0.0
 var protect_time := 0.2
 var dmg := 10
-var hp := 40
+var hp := 500
 
 var target_player: Node2D = null
 

@@ -621,7 +621,7 @@ transitions = ["Start", "idle", SubResource("AnimationNodeStateMachineTransition
 graph_offset = Vector2(-6, 256.29288)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_q30jv"]
-size = Vector2(24, 48)
+size = Vector2(18, 38)
 
 [node name="SkeletonWarrior" type="CharacterBody2D" unique_id=847308812]
 visibility_layer = 2
@@ -663,7 +663,7 @@ collide_with_areas = true
 collision_layer = 0
 
 [node name="AttackShape" type="CollisionShape2D" parent="Attack/Area2D" unique_id=1292238314]
-position = Vector2(20, 36)
+position = Vector2(17, 41)
 shape = SubResource("RectangleShape2D_q30jv")
 disabled = true
 
