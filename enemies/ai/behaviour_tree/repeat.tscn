@@ -1,0 +1,7 @@
+[gd_scene format=3 uid="uid://pmqooq5unuxr"]
+
+[ext_resource type="Script" uid="uid://c5a74xggslcv4" path="res://enemies/ai/behaviour_tree/repeat.gd" id="1_kin1f"]
+
+[node name="Repeat" type="Node" unique_id=2110774826]
+script = ExtResource("1_kin1f")
+metadata/_custom_type_script = "uid://c4s14jwyxeutb"

@@ -12,16 +12,18 @@ var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 @onready var is_attacking := false
 
 @onready var detection := $Attacks/PlayerDetection
+@onready var attacks := $Attacks
+@onready var attack_area := $Attacks/Area_1
 
 @onready var behaviour_tree := $AI/BehaviourTree
 var blackboard: Blackboard
 
 signal health_changed(current, max)
-var moon: CharacterBody2D
+@export var moon: CharacterBody2D
 enum States {
 	IDLE,
-	ATTACK_1,
-	ATTACK_2,
+	GROUND_ATTACK,
+	ANTI_AIR_ATTACK,
 	DASH,
 	DEATH,
 	HIT,
@@ -29,7 +31,8 @@ enum States {
 	JUMP_LOOP,
 	LAND,
 	RUN,
-	WALK
+	WALK,
+	AGGRESSIVE_DASH
 }
 
 var state: States = States.IDLE
@@ -37,118 +40,124 @@ var state: States = States.IDLE
 @export var speed := 100.0
 @export var dash_speed := 450.0
 @export var jump_force := -500.0
-
+@export var phase := 1
 var target_player: Node2D = null
 
 var paused := false
 var is_dashing := false
+var _current_anim := ""
+var _attack_hit_targets := {}
 
 func _ready():
+	state = States.IDLE
 	animation_tree.active = true
+
 	target_player = get_tree().get_first_node_in_group("player")
-	print("target_player", target_player)
+
 	blackboard = Blackboard.new()
+
 	blackboard.set_value("player", target_player)
-	
+	blackboard.set_value("moon", moon)
+
+	blackboard.set_value("last_action", "")
+	blackboard.set_value("combo_streak", 0)
+	blackboard.set_value("phase", phase)
+
+	blackboard.set_value("player_actions", [])
+	blackboard.set_value("player_action_counts", {})
+
+	if target_player:
+		target_player.player_action.connect(_on_player_action)
+
 	behaviour_tree.setup(self, blackboard)
-	
+
+	attack_area.collision_mask = 1
+	attack_area.monitoring = false
 
 func _physics_process(delta):
-
+	
 	if paused:
 		velocity = Vector2.ZERO
 		return
 
 	if is_attacking:
-		for body in detection.get_overlapping_bodies():
-			if body.is_in_group("player") and "hit" in body:
-				body.hit(1, self)
+		_apply_attack_hits(detection)
+		_apply_attack_hits(attack_area)
 
 	if not is_on_floor():
-		velocity.y += (gravity / 4) * delta
+		velocity.y += (gravity / 2) * delta
 
 	#ai_update(delta)
 	update_animation()
 	
-	behaviour_tree.run(delta)
 	
+	update_perception()
+	behaviour_tree.run(delta)
 	move_and_slide()
+	
+	blackboard.set_value("got_hit", false)
 
 
 func update_animation():
+	var anim_name := _get_anim_name()
+	if anim_name != _current_anim:
+		playback.travel(anim_name)
+		_current_anim = anim_name
 
+
+func _get_anim_name() -> String:
 	if not is_on_floor():
-
+		if state == States.AGGRESSIVE_DASH:
+			return "aggressive_dash"
 		if velocity.y < 0:
-			playback.travel("jump")
-		else:
-			playback.travel("jump_loop")
-
-		return
+			return "jump"
+		return "jump_loop"
 
 	match state:
-
 		States.IDLE:
-			playback.travel("idle")
-
+			return "idle"
 		States.WALK:
-			playback.travel("walk")
-
+			return "walk"
 		States.RUN:
-			playback.travel("run")
-
-		States.ATTACK_1:
-			playback.travel("attack_1")
-
-		States.ATTACK_2:
-			playback.travel("attack_2")
-
+			return "run"
+		States.GROUND_ATTACK:
+			return "ground_attack"
+		States.ANTI_AIR_ATTACK:
+			return "anti_air_attack"
 		States.DASH:
-			playback.travel("dash")
-
+			return "dash"
 		States.HIT:
-			playback.travel("hit")
-
+			return "hit"
 		States.LAND:
-			playback.travel("land")
-
+			return "land"
 		States.DEATH:
-			playback.travel("death")
+			return "death"
+		States.AGGRESSIVE_DASH:
+			return "aggressive_dash"
+		_:
+			return "idle"
 
 
-func ai_update(_delta):
+func set_facing(face_left: bool) -> void:
+	sprite.flip_h = face_left
+	attacks.scale.x = -1.0 if face_left else 1.0
 
-	if is_dashing:
-		return
 
-	if state in [
-		States.ATTACK_1,
-		States.ATTACK_2,
-		States.HIT,
-		States.DEATH,
-		States.DASH,
-		States.JUMP,      # ← add this
-		States.JUMP_LOOP  # ← add this
-	]:
-		velocity.x = 0
-		return
+func set_facing_toward(world_x: float) -> void:
+	var dir := signf(world_x - global_position.x)
+	if dir != 0.0:
+		set_facing(dir < 0.0)
 
-	if target_player != null:
-		var dir = sign(target_player.global_position.x - global_position.x)
-		velocity.x = dir * speed
-		if abs(velocity.x) > 10:
-			state = States.RUN
-		else:
-			state = States.IDLE
-		sprite.flip_h = velocity.x < 0
-		
-		
-		
-	else:
-		velocity.x = move_toward(velocity.x, 0, 500 * get_physics_process_delta_time())
-		if abs(velocity.x) < 5:
-			state = States.IDLE
 
+func _apply_attack_hits(area: Area2D) -> void:
+	for body in area.get_overlapping_bodies():
+		if not body.is_in_group("player"):
+			continue
+		if _attack_hit_targets.has(body):
+			continue
+		if body.has_method("hit"):
+			body.hit(1, self)
+			_attack_hit_targets[body] = true
 
 func jump():
 
@@ -171,39 +180,19 @@ func dash(direction: float):
 	is_dashing = false
 
 
-func jump_to_pos_then_attack(moon_position: Vector2):
-	print("jump and attack")
-
-	var dir = sign(moon_position.x - global_position.x)
-
-	state = States.JUMP
-	velocity.x = dir * speed * 2.0
-	velocity.y = jump_force
+func ground_attack():
 	
-	await get_tree().create_timer(0.8).timeout
-
-	state = States.ATTACK_1
+	state = States.GROUND_ATTACK
 	velocity.x = 0
 
-	await get_tree().create_timer(0.3).timeout
-
-	var player_dir = sign(target_player.global_position.x - global_position.x)
-	await dash(player_dir)
-
-	state = States.IDLE
-
-
-func attack_1():
-	state = States.ATTACK_1
-	velocity.x = 0
-
-
-func attack_2():
-	state = States.ATTACK_2
+#change it to anti airborne attack
+func anti_air_attack():
+	state = States.ANTI_AIR_ATTACK
 	velocity.x = 0
 
 
 func hit(amount):
+	blackboard.set_value("got_hit", true)
 	state = States.HIT
 	current_hp -= amount
 	emit_signal("health_changed", current_hp, MAX_HEALTH)
@@ -211,17 +200,6 @@ func hit(amount):
 func die():
 	state = States.DEATH
 	velocity = Vector2.ZERO
-
-
-func pause():
-	paused = true
-	velocity = Vector2.ZERO
-	set_physics_process(false)
-
-
-func resume():
-	paused = false
-	set_physics_process(true)
 	
 func get_max_health():
 	return MAX_HEALTH
@@ -238,103 +216,56 @@ func trigger_moon():
 		moon,
 		"modulate",
 		Color(1, 0, 0, 1),
-		1.0
+		0.5
 	)
 
 	moon_tween.tween_property(
 		moon,
 		"modulate",
 		Color(1, 1, 1, 1),
-		1.0
+		0.5
 	)
 	
 func attack_started():
 	is_attacking = true
-	
+	_attack_hit_targets.clear()
+	attack_area.monitoring = true
+
 func attack_ended():
 	is_attacking = false
+	attack_area.monitoring = false
 
 
-#func _on_player_detection_body_entered(body):
-	#if body.is_in_group("player"):
-		#attack_1()
-	
-# methods for btree
-#todo dashing is to refactor i guess
-func dash_to_player():
-	if target_player == null:
+func _on_player_action(action_name: String, context: Dictionary):
+
+	var history = blackboard.get_value("player_actions", [])
+
+	history.append(action_name)
+
+	if history.size() > 20:
+		history.pop_front()
+
+	blackboard.set_value("player_actions", history)
+
+	var counts = blackboard.get_value("player_action_counts", {})
+
+	counts[action_name] = counts.get(action_name, 0) + 1
+
+	blackboard.set_value("player_action_counts", counts)
+
+	print("Player action:", action_name)
+	print("History:", history)
+
+func update_perception():
+
+	var player = blackboard.get_value("player")
+	if player == null:
 		return
 
-	is_dashing = true
-	state = States.DASH
+	blackboard.set_value("player_pos", player.global_position)
+	blackboard.set_value("player_velocity", player.velocity)
+	blackboard.set_value("player_in_air", player.global_position.y < global_position.y)
+	var dist = global_position.distance_to(player.global_position)
+	blackboard.set_value("distance_to_player", dist)
 
-	var dir = sign(target_player.global_position.x - global_position.x)
-	if dir == 0:
-		dir = 1
-
-	velocity.x = dir * dash_speed
-
-	await get_tree().create_timer(0.25).timeout
-	is_dashing = false
-
-func dash_away_from_player():
-	if target_player == null:
-		return
-
-	is_dashing = true
-	state = States.DASH
-
-	var dir = sign(global_position.x - target_player.global_position.x)
-	if dir == 0:
-		dir = -1
-
-	velocity.x = dir * dash_speed
-
-	await get_tree().create_timer(0.25).timeout
-	is_dashing = false
-
-func walk_to_player():
-	if target_player == null:
-		return
-
-	var dir = sign(target_player.global_position.x - global_position.x)
-
-	if dir == 0:
-		dir = 1
-
-	state = States.WALK
-
-	velocity.x = move_toward(
-		velocity.x,
-		dir * speed,
-		speed * 5.0 * get_physics_process_delta_time()
-	)
-
-	sprite.flip_h = velocity.x < 0
-
-func dash_behind_player():
-	if target_player == null:
-		return
-
-	is_dashing = true
-	state = States.DASH
-
-	var behind_offset := 80.0
-
-	var player_pos = target_player.global_positiona
-	var dir = sign(global_position.x - player_pos.x)
-
-	if dir == 0:
-		dir = 1
-
-	var target_x = player_pos.x + dir * behind_offset
-
-	var dash_dir = sign(target_x - global_position.x)
-	if dash_dir == 0:
-		dash_dir = dir
-
-	velocity.x = dash_dir * dash_speed
-	sprite.flip_h = velocity.x < 0
-
-	await get_tree().create_timer(0.25).timeout
-	is_dashing = false
+	blackboard.set_value("player_in_range", dist < 200.0)

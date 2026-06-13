@@ -1,0 +1,7 @@
+[gd_scene format=3 uid="uid://pnx2cpq726lt"]
+
+[ext_resource type="Script" uid="uid://bdxk2da2vtfi2" path="res://enemies/ai/behaviour_tree/repeat_until_failure.gd" id="1_a4kaa"]
+
+[node name="RepeatUntilFailure" type="Node" unique_id=488945257]
+script = ExtResource("1_a4kaa")
+metadata/_custom_type_script = "uid://c4s14jwyxeutb"

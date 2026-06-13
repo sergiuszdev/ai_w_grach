@@ -1,0 +1,7 @@
+[gd_scene format=3 uid="uid://dwdahh3ewe2hd"]
+
+[ext_resource type="Script" uid="uid://cyjn2q0aoexxb" path="res://enemies/ai/behaviour_tree/weighted_selector.gd" id="1_q63wr"]
+
+[node name="WeightedSelector" type="Node" unique_id=560767291]
+script = ExtResource("1_q63wr")
+metadata/_custom_type_script = "uid://nbgn6qhvgu33"

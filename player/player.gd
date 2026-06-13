@@ -1,5 +1,31 @@
 extends CharacterBody2D
 
+signal player_action(action_name: String, context: Dictionary)
+
+enum PlayerAction {
+	ATTACK,
+	UP_ATTACK,
+	DOWN_ATTACK,
+	SLIDE,
+	JUMP,
+	WALL_JUMP,
+	PARRY,
+	HEAL,
+	HIT
+}
+
+const PLAYER_ACTION_NAMES := [
+	"ATTACK",
+	"UP_ATTACK",
+	"DOWN_ATTACK",
+	"SLIDE",
+	"JUMP",
+	"WALL_JUMP",
+	"PARRY",
+	"HEAL",
+	"HIT"
+]
+
 @export var SPEED := 200.0
 @export var ACCELERATION := 800.0
 @export var FRICTION := 900.0
@@ -127,6 +153,7 @@ func slide():
 		return
 
 	is_sliding = true
+	emit_player_action(PlayerAction.SLIDE)
 
 	var slide_dir = sign(direction)
 
@@ -145,11 +172,14 @@ func attack():
 	attack_cooldown_timer.start(attack_cooldown_time)
 	if Input.is_action_pressed("up"):
 		do_upper_attack()
+		emit_player_action(PlayerAction.UP_ATTACK)
 
 	elif Input.is_action_pressed("down") and not is_on_floor():
 		do_lower_attack()
+		emit_player_action(PlayerAction.DOWN_ATTACK)
 	else:
 		do_normal_attack()
+		emit_player_action(PlayerAction.ATTACK)
 
 func do_upper_attack():
 	pass
@@ -192,9 +222,11 @@ func wall_jump():
 	if wall_jumps > 0:
 		jump()
 		wall_jumps -= 1
+		emit_player_action(PlayerAction.WALL_JUMP)
 func normal_jump():
 	jump()
 	jumps_remaining -= 1
+	emit_player_action(PlayerAction.JUMP)
 
 func jump():
 	velocity.y = JUMP_VELOCITY
@@ -232,14 +264,11 @@ func handle_attack_hitboxes():
 		lower_attack_area.visible = false
 
 func on_attack_start():
-	print("attack started")
+	is_attacking = true
 	
 
 func on_attack_ended():
-	print("attack ended")
 	is_attacking = false
-	#playback.travel("idle")
-	print(is_attacking)
 
 func on_start_slide():
 	$StandingCollision.disabled = true
@@ -255,9 +284,8 @@ func heal(amount):
 	playback.travel("heal")
 
 	Globals.players_health += amount
-	
-	if Globals.players_health > Globals.max_players_health:
-		Globals.players_health = Globals.max_players_health
+	Globals.players_health = min(Globals.players_health, Globals.max_players_health)
+	emit_player_action(PlayerAction.HEAL, {"amount": amount})
 	
 	print("players hp: ", Globals.players_health)
 
@@ -273,7 +301,7 @@ func parry(attacker):
 	if attacker == null:
 		return
 
-	print("parry")
+	emit_player_action(PlayerAction.PARRY, {"attacker": attacker})
 	
 
 	var dir = sign(global_position.x - attacker.global_position.x)
@@ -300,7 +328,7 @@ func parry(attacker):
 	is_sliding = false
 
 func hit(amount: int, attacker = null):
-
+	print("attacker ", attacker)
 	if is_dead():
 		return
 
@@ -322,7 +350,12 @@ func hit(amount: int, attacker = null):
 				await get_tree().create_timer(0.15).timeout
 				attacker.is_hostile = true
 			return
+	
 
+	emit_player_action(PlayerAction.HIT, {
+		"damage": amount,
+		"attacker": attacker
+	})
 
 	Globals.players_health -= amount
 	Globals.players_health = max(Globals.players_health, 0)
@@ -349,7 +382,14 @@ func hit(amount: int, attacker = null):
 		Color(1, 1, 1, 1),
 		0.15
 	)
-	
+	#if is_jumping():
+		#todo make player fall on back (or use dead animation with getting up animation)
+#		or crouch animation (looks even better)
+ 		
+
+func is_jumping():
+	return false
+
 func is_dead():
 	return Globals.players_health < 1
 func get_player_damage():
@@ -365,6 +405,12 @@ func take_damage(damage):
 		
 
 
+func emit_player_action(action: int, context: Dictionary = {}):
+	if action < 0 or action >= PLAYER_ACTION_NAMES.size():
+		return
+
+	player_action.emit(PLAYER_ACTION_NAMES[action], context)
+
+
 func _on_attack_cooldown_timeout():
-	print("attack ready")
 	is_attack_ready = true

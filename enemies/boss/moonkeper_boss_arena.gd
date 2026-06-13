@@ -2,10 +2,10 @@ extends Node2D
 
 @onready var doors = [$Terrain/Props/RightDoor, $Terrain/Props/LeftDoor]
 @onready var head = $Enemy/KeeperHead
-
 @export var boss_scene: PackedScene
 var boss_instance: Node2D = null
 var is_boss_alive := true
+
 
 @onready var debug_hp = $DebugHp
 @onready var night_background = $NightClouds
@@ -14,7 +14,12 @@ var is_boss_alive := true
 @onready var moon = $Enemy/moon
 @onready var upper_bound = $ArenaConstraints/Up
 
+@onready var player = $Player
+
 var phase2_active = false
+var action_memory := {}
+
+
 enum Phase {
 	NO_PHASE,
 	PHASE_1,
@@ -25,6 +30,20 @@ enum Phase {
 @export var current_phase: Phase = Phase.NO_PHASE
 
 func _ready():
+	player.player_action.connect(_on_player_action)
+	action_memory = {
+		"ATTACK": 0,
+		"UP_ATTACK": 0,
+		"DOWN_ATTACK": 0,
+		"SLIDE": 0,
+		"JUMP": 0,
+		"WALL_JUMP": 0,
+		"PARRY": 0,
+		"HEAL": 0,
+		"HIT": 0
+	}
+	
+	
 	match current_phase:
 		Phase.NO_PHASE:
 			print("no phase")
@@ -37,17 +56,24 @@ func _ready():
 			
 
 		Phase.PHASE_3:
-			start_phase_three
+			start_phase_three()
 			
 	if not is_boss_alive:
 		head.visible = false
 
-func _process(delta):
-	
-	pass
+func _process(_delta):
+	decay_player_memory()
 
 func start_phase_three():
 	current_phase = Phase.PHASE_3
+	if boss_instance:
+		boss_instance.blackboard.set_value("phase", Phase.PHASE_3)
+		boss_instance.blackboard.set_value("got_hit", false)
+		boss_instance.blackboard.set_value("moon", moon)
+		boss_instance.velocity = Vector2.ZERO
+		boss_instance.attack_ended()
+		boss_instance.state = boss_instance.States.IDLE
+		boss_instance.playback.travel("idle")
 	third_phase_animation()
 	
 func start_phase_two():
@@ -208,6 +234,7 @@ func second_phase_animation():
 	await tween.finished
 
 func third_phase_animation():
+	boss_instance.z_index = 150
 	upper_bound.disabled = true
 	moon.normal()
 	var moon_tween = create_tween()
@@ -309,7 +336,7 @@ func on_boss_dead():
 	await tween.finished
 
 func start_phase_one():
-	
+	current_phase = Phase.PHASE_1
 	trigger_area.set_deferred("monitoring", false)
 	trigger_area.set_deferred("monitorable", false)
 	trigger_area.set_deferred("collision_layer", 0)
@@ -325,7 +352,7 @@ func start_phase_one():
 
 	boss_instance = boss_scene.instantiate()
 	add_child(boss_instance)
-	current_phase = Phase.PHASE_1
+	boss_instance.blackboard.set_value("phase", current_phase)
 	boss_instance.global_position = $BossSpawnerPosition.global_position
 	boss_instance.moon = moon
 
@@ -348,31 +375,53 @@ func pause_boss():
 
 	if boss_instance == null:
 		return
-
-	boss_instance.state = boss_instance.States.IDLE
+	boss_instance.blackboard.set_value("boss_paused", true)
 	boss_instance.velocity = Vector2.ZERO
 	boss_instance.set_physics_process(false)
 
 func resume_boss():
+	
 
 	if boss_instance == null:
 		return
-
+		
+	boss_instance.blackboard.set_value("boss_paused", false)
+	boss_instance.blackboard.set_value("got_hit", false)
 	boss_instance.velocity = Vector2.ZERO
+	boss_instance.attack_ended()
+	boss_instance.state = boss_instance.States.IDLE
 	boss_instance.set_physics_process(true)
-	boss_instance.resume()
-	print("boss resumed")
 	
 func _on_boss_health_changed(hp, max_hp):
-	if current_phase == Phase.NO_PHASE:
-		return
+	var pct = float(hp) / float(max_hp) * 100.0
 
-	var perc := float(hp) / float(max_hp) * 100.0
-
-	if perc < 70.0 and current_phase == Phase.PHASE_1:
-		current_phase = Phase.PHASE_2
-		start_phase_two()
+	if pct < 70 and current_phase == Phase.PHASE_1:
+		_switch_phase(Phase.PHASE_2)
 
 
 func _on_phase_2_timer_timeout():
-	start_phase_three()
+	_switch_phase(Phase.PHASE_3)
+	
+	
+func _switch_phase(p):
+	current_phase = p
+
+	if boss_instance:
+		boss_instance.blackboard.set_value("phase", p)
+
+	match p:
+		Phase.PHASE_2:
+			start_phase_two()
+		Phase.PHASE_3:
+			start_phase_three()
+			
+func _on_player_action(action: String, _context: Dictionary):
+	if not action_memory.has(action):
+		action_memory[action] = 0
+
+	action_memory[action] += 1
+	if boss_instance:
+		boss_instance.blackboard.set_value("player_action_memory", action_memory)
+func decay_player_memory():
+	for key in action_memory.keys():
+		action_memory[key] = max(0, action_memory[key] - 0.05)

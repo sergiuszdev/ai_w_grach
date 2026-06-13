@@ -1,0 +1,7 @@
+[gd_scene format=3 uid="uid://dv66q7gw4uckl"]
+
+[ext_resource type="Script" uid="uid://dyp7xaqo5p285" path="res://enemies/ai/behaviour_tree/parallel.gd" id="1_h0byi"]
+
+[node name="Parallel" type="Node" unique_id=1412904801]
+script = ExtResource("1_h0byi")
+metadata/_custom_type_script = "uid://nbgn6qhvgu33"

@@ -1,0 +1,7 @@
+[gd_scene format=3 uid="uid://6uwjmki6l18q"]
+
+[ext_resource type="Script" uid="uid://uagppe5ilvy2" path="res://enemies/ai/behaviour_tree/attack_1.gd" id="1_ms1v1"]
+
+[node name="Attack_1" type="Node" unique_id=80717690]
+script = ExtResource("1_ms1v1")
+metadata/_custom_type_script = "uid://bwxqiollp6b1v"

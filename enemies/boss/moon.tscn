@@ -2,6 +2,7 @@
 
 [ext_resource type="Texture2D" uid="uid://btfm2jtkhxasy" path="res://assets/tiles/night_clouds/2.png" id="1_1ocv2"]
 [ext_resource type="Script" uid="uid://dimoib6pqr5ps" path="res://enemies/boss/moon.gd" id="1_r7mrm"]
+[ext_resource type="PackedScene" uid="uid://86pd3syxmswv" path="res://enemies/laser.tscn" id="3_lrvl5"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_1ocv2"]
 radius = 10.760851
@@ -36,5 +37,54 @@ z_index = 31
 scale = Vector2(1.9515185, 1.9515185)
 shape = SubResource("CircleShape2D_1ocv2")
 debug_color = Color(0.9291755, 3.3017695e-05, 0.66375375, 0.41960785)
+
+[node name="Lasers" type="Node2D" parent="." unique_id=244576293]
+
+[node name="RightDown" parent="Lasers" unique_id=224785490 instance=ExtResource("3_lrvl5")]
+rotation = 0.7853982
+enabled = false
+target_position = Vector2(1400, 50)
+start_distance = 0.0
+
+[node name="RightUp" parent="Lasers" unique_id=884213102 instance=ExtResource("3_lrvl5")]
+rotation = -0.7853982
+enabled = false
+target_position = Vector2(1400, 50)
+start_distance = 0.0
+
+[node name="Down" parent="Lasers" unique_id=1390429954 instance=ExtResource("3_lrvl5")]
+rotation = 1.5707964
+enabled = false
+target_position = Vector2(1400, 50)
+start_distance = 0.0
+
+[node name="Up" parent="Lasers" unique_id=1654383093 instance=ExtResource("3_lrvl5")]
+rotation = -1.5707964
+enabled = false
+target_position = Vector2(1400, 50)
+start_distance = 0.0
+
+[node name="LeftDown" parent="Lasers" unique_id=1005180411 instance=ExtResource("3_lrvl5")]
+rotation = 2.3561945
+enabled = false
+target_position = Vector2(1400, 50)
+start_distance = 0.0
+
+[node name="Right" parent="Lasers" unique_id=306442034 instance=ExtResource("3_lrvl5")]
+enabled = false
+target_position = Vector2(1400, 50)
+start_distance = 0.0
+
+[node name="Left" parent="Lasers" unique_id=1723911416 instance=ExtResource("3_lrvl5")]
+rotation = 3.1415927
+enabled = false
+target_position = Vector2(1400, 50)
+start_distance = 0.0
+
+[node name="LeftUp" parent="Lasers" unique_id=53056032 instance=ExtResource("3_lrvl5")]
+rotation = -2.3561945
+enabled = false
+target_position = Vector2(1400, 50)
+start_distance = 0.0
 
 [connection signal="body_entered" from="DamageArea" to="." method="_on_damage_area_body_entered"]
