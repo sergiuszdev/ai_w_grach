@@ -28,6 +28,8 @@ var direction := 0.0
 
 @onready var attack_cooldown_timer = $FlipGroup/Attacks/AttackCooldown
 
+var has_key = false
+
 
 
 func _ready():
