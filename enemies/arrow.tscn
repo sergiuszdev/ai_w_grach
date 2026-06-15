@@ -1,0 +1,19 @@
+[gd_scene format=3 uid="uid://jqq6h23molqc"]
+
+[ext_resource type="Script" uid="uid://dtklbjs1hov4f" path="res://enemies/arrow.gd" id="1_cctq0"]
+[ext_resource type="Texture2D" uid="uid://d28wp87srmyx" path="res://assets/enemies/skeleton/Skeleton_Archer/Arrow.png" id="1_pmhsu"]
+
+[sub_resource type="SegmentShape2D" id="SegmentShape2D_cctq0"]
+a = Vector2(-24, 0)
+b = Vector2(24, 0)
+
+[node name="Arrow" type="Area2D" unique_id=30106107]
+script = ExtResource("1_cctq0")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1320462726]
+shape = SubResource("SegmentShape2D_cctq0")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1548338513]
+texture = ExtResource("1_pmhsu")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

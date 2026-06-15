@@ -195,7 +195,7 @@ func do_lower_attack():
 		print(body.get_groups())
 
 		if body.has_method("hit"):
-			body.hit(get_player_damage())
+			body.hit(get_player_damage(), self)
 			pogo_jump()
 
 		if body.is_in_group("jumpable") and velocity.y >= 0:
@@ -210,7 +210,7 @@ func do_normal_attack():
 	
 	for body in vertical_attack_area.get_overlapping_bodies():
 		if body.has_method("hit"):
-			body.hit(get_player_damage())
+			body.hit(get_player_damage(), self)
 	
 
 func pogo_jump():

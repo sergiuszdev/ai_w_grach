@@ -604,7 +604,7 @@ advance_mode = 2
 [sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_3m0pe"]
 states/End/position = Vector2(1231.5, 27)
 states/attack/node = SubResource("AnimationNodeAnimation_3no1m")
-states/attack/position = Vector2(648, 324.9375)
+states/attack/position = Vector2(647, 325.21875)
 states/dead/node = SubResource("AnimationNodeAnimation_q30jv")
 states/dead/position = Vector2(617, 503)
 states/hurt/node = SubResource("AnimationNodeAnimation_0sy1u")
@@ -618,7 +618,7 @@ states/run/position = Vector2(469, 324.9375)
 states/walk/node = SubResource("AnimationNodeAnimation_bnodq")
 states/walk/position = Vector2(334.5, 323.25)
 transitions = ["Start", "idle", SubResource("AnimationNodeStateMachineTransition_wdl28"), "idle", "walk", SubResource("AnimationNodeStateMachineTransition_uerk0"), "walk", "run", SubResource("AnimationNodeStateMachineTransition_ifowp"), "run", "attack", SubResource("AnimationNodeStateMachineTransition_blt2d"), "attack", "protect", SubResource("AnimationNodeStateMachineTransition_s01bw"), "protect", "attack", SubResource("AnimationNodeStateMachineTransition_euch7"), "attack", "dead", SubResource("AnimationNodeStateMachineTransition_oqtp1"), "run", "dead", SubResource("AnimationNodeStateMachineTransition_7ddyk"), "hurt", "attack", SubResource("AnimationNodeStateMachineTransition_u1af2"), "attack", "hurt", SubResource("AnimationNodeStateMachineTransition_3iw0m"), "hurt", "protect", SubResource("AnimationNodeStateMachineTransition_7gvfh"), "protect", "hurt", SubResource("AnimationNodeStateMachineTransition_ewe47"), "protect", "dead", SubResource("AnimationNodeStateMachineTransition_uhvge"), "hurt", "dead", SubResource("AnimationNodeStateMachineTransition_hlqcc")]
-graph_offset = Vector2(-6, 256.29288)
+graph_offset = Vector2(-6, 246.85179)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_q30jv"]
 size = Vector2(18, 38)
@@ -650,6 +650,7 @@ anim_player = NodePath("../AnimationPlayer")
 
 [node name="Vision" parent="." unique_id=1749653016 instance=ExtResource("9_q30jv")]
 position = Vector2(5, 13)
+collision_layer = 5
 metadata/_edit_lock_ = true
 
 [node name="LedgeCheck" type="RayCast2D" parent="." unique_id=495894957]
