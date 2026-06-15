@@ -1,0 +1,8 @@
+[gd_scene format=3 uid="uid://blah06sb48yy0"]
+
+[ext_resource type="Script" uid="uid://b4wbhgpql623s" path="res://title_screen.gd" id="1_fnlyl"]
+
+[node name="TitleScreen" type="Control" unique_id=496324021]
+layout_mode = 3
+anchors_preset = 0
+script = ExtResource("1_fnlyl")

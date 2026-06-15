@@ -1,0 +1,11 @@
+[gd_scene format=3 uid="uid://ceehhmy5jbc1u"]
+
+[ext_resource type="PackedScene" uid="uid://dd8ljqwblgtmf" path="res://levels/globals/game_ui.tscn" id="1_1oj5k"]
+[ext_resource type="PackedScene" uid="uid://qhds5s681t7k" path="res://enemies/boss/moonkeper_boss_arena.tscn" id="2_yx7mw"]
+
+[node name="MainGame" type="Node" unique_id=890582998]
+
+[node name="MoonkeperBossArena" parent="." unique_id=242877213 instance=ExtResource("2_yx7mw")]
+
+[node name="GameUi" parent="." unique_id=1679860939 instance=ExtResource("1_1oj5k")]
+visible = false
