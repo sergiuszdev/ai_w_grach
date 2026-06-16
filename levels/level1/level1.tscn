@@ -1,6 +1,5 @@
 [gd_scene format=4 uid="uid://dyjpj1snum6tw"]
 
-[ext_resource type="Script" uid="uid://bfcdwr0blqjul" path="res://backgrounds/day_background.gd" id="1_ddtso"]
 [ext_resource type="Texture2D" uid="uid://c0yixi3p8k7h8" path="res://tiles/dungeon_merged.png" id="1_eq150"]
 [ext_resource type="PackedScene" uid="uid://ya1aqvse8aib" path="res://backgrounds/day_background.tscn" id="2_f7y8c"]
 [ext_resource type="PackedScene" uid="uid://daf2wm6fer2kl" path="res://player/Player.tscn" id="3_aatsp"]
@@ -900,7 +899,6 @@ animations = [{
 size = Vector2(32, 88)
 
 [node name="Level1" type="Node2D" unique_id=1477249840]
-script = ExtResource("1_ddtso")
 
 [node name="DayBackground" parent="." unique_id=425134530 instance=ExtResource("2_f7y8c")]
 

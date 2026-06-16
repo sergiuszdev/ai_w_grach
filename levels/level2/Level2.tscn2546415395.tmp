@@ -1,12 +1,12 @@
 [gd_scene format=4 uid="uid://odg6ix0rl1kw"]
 
+[ext_resource type="Script" uid="uid://dbr68x8b1gh4g" path="res://levels/level2/level_2.gd" id="1_i707j"]
 [ext_resource type="PackedScene" uid="uid://c4phox14wyv30" path="res://backgrounds/night_clouds.tscn" id="1_x7s5r"]
 [ext_resource type="PackedScene" uid="uid://daf2wm6fer2kl" path="res://player/Player.tscn" id="2_5soyf"]
 [ext_resource type="Texture2D" uid="uid://c0yixi3p8k7h8" path="res://tiles/dungeon_merged.png" id="3_g7e41"]
 [ext_resource type="Texture2D" uid="uid://by686x4gr68hc" path="res://tiles/lava_merged.png" id="4_5soyf"]
 [ext_resource type="PackedScene" uid="uid://bvf6o8xpsj5sa" path="res://levels/globals/in_game_ui.tscn" id="5_g7e41"]
 [ext_resource type="PackedScene" uid="uid://ccugfiuvi2x82" path="res://enemies/skeletor_archer.tscn" id="7_i707j"]
-[ext_resource type="PackedScene" uid="uid://3u5tmjhrmaf7" path="res://enemies/skeleton_warrior.tscn" id="8_pufu0"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_njj64"]
 texture = ExtResource("3_g7e41")
@@ -752,6 +752,7 @@ physics_layer_0/collision_mask = 0
 sources/0 = SubResource("TileSetAtlasSource_g7e41")
 
 [node name="Level2" type="Node2D" unique_id=304927823]
+script = ExtResource("1_i707j")
 
 [node name="NightClouds" parent="." unique_id=1088667855 instance=ExtResource("1_x7s5r")]
 
@@ -772,6 +773,3 @@ tile_set = SubResource("TileSet_njj64")
 
 [node name="SkeletorArcher" parent="." unique_id=2051401130 instance=ExtResource("7_i707j")]
 position = Vector2(3536, -64)
-
-[node name="SkeletonWarrior" parent="." unique_id=847308812 instance=ExtResource("8_pufu0")]
-position = Vector2(4640, -64)

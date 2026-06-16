@@ -576,15 +576,19 @@ shape = SubResource("CapsuleShape2D_hnex5")
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=434571394]
 sprite_frames = SubResource("SpriteFrames_jsy83")
 animation = &"Attack1"
-frame = 3
-frame_progress = 0.31495887
 
 [node name="Vision" parent="." unique_id=1749653016 instance=ExtResource("12_gp3ra")]
 position = Vector2(0, 8)
 
 [node name="LedgeCheck" type="RayCast2D" parent="." unique_id=703892341]
-position = Vector2(0, 48)
+position = Vector2(15, 48)
 target_position = Vector2(0, 24)
+collision_mask = 11
+
+[node name="LedgeCheck2" type="RayCast2D" parent="." unique_id=1804531620]
+position = Vector2(-15, 48)
+target_position = Vector2(0, 24)
+collision_mask = 11
 
 [node name="Attack" type="Node2D" parent="." unique_id=1975040357]
 

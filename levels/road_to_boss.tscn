@@ -75,23 +75,23 @@ scale = Vector2(5, 5)
 [node name="enemies" type="Node2D" parent="." unique_id=1590191679]
 
 [node name="SkeletonWarrior" parent="enemies" unique_id=847308812 instance=ExtResource("7_cdri0")]
-position = Vector2(41, -18)
+position = Vector2(101, -17)
 
 [node name="SkeletonWarrior2" parent="enemies" unique_id=1298153964 instance=ExtResource("7_cdri0")]
-position = Vector2(-562, 40)
+position = Vector2(-549, 45)
 
 [node name="SkeletonWarrior3" parent="enemies" unique_id=715514890 instance=ExtResource("7_cdri0")]
-position = Vector2(-305, 43)
+position = Vector2(-318, 44)
 facing = 0
 
 [node name="SkeletorArcher" parent="enemies" unique_id=2051401130 instance=ExtResource("8_rifks")]
-position = Vector2(-246, 10)
+position = Vector2(-198, 12)
 
 [node name="SkeletorArcher2" parent="enemies" unique_id=896372102 instance=ExtResource("8_rifks")]
 position = Vector2(-1258, -178)
 
 [node name="SkeletonWarrior4" parent="enemies" unique_id=1328793565 instance=ExtResource("7_cdri0")]
-position = Vector2(-1125, -174)
+position = Vector2(-1123, -176)
 
 [node name="SkeletonWarrior5" parent="enemies" unique_id=216606238 instance=ExtResource("7_cdri0")]
 position = Vector2(-2624, -71)
@@ -113,7 +113,7 @@ rotation = -2.6021402
 position = Vector2(-2295, 2.0000153)
 rotation = -2.6021402
 
-[connection signal="body_entered" from="GoToOtherLevels/Spawn" to="." method="_on_spawn_body_entered"]
 [connection signal="body_entered" from="GoToOtherLevels/Spawn" to="." method="_on_area_2d_body_entered"]
-[connection signal="body_entered" from="GoToOtherLevels/BossArea" to="." method="_on_boss_area_body_entered"]
+[connection signal="body_entered" from="GoToOtherLevels/Spawn" to="." method="_on_spawn_body_entered"]
 [connection signal="body_entered" from="GoToOtherLevels/BossArea" to="." method="_on_area_2d_body_entered"]
+[connection signal="body_entered" from="GoToOtherLevels/BossArea" to="." method="_on_boss_area_body_entered"]

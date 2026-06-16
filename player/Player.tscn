@@ -1168,7 +1168,7 @@ size = Vector2(45, 26.000002)
 [node name="Player" type="CharacterBody2D" unique_id=1278280480 groups=["player"]]
 texture_filter = 1
 scale = Vector2(1.5, 1.5)
-collision_mask = 2055
+collision_mask = 2071
 script = ExtResource("1_wnvi2")
 
 [node name="StandingCollision" type="CollisionShape2D" parent="." unique_id=40691261]

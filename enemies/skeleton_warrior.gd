@@ -25,6 +25,8 @@ var protect_time := 0.2
 var dmg := 10
 var hp := 500
 var protect = false
+var spawn_position := Vector2.ZERO
+
 
 var target_player: Node2D = null
 
@@ -39,97 +41,32 @@ func update_animation():
 		State.RUN:      playback.travel("run")
 
 func ai_update(delta):
-	
-	if not is_on_floor():
-		velocity.y += ProjectSettings.get_setting("physics/2d/default_gravity") * delta
-		state = State.IDLE
-		return
-
 	if not is_dead():
-		
-		if state == State.ATTACK:
-			attack_timer += delta
-			
-			if target_player != null:
-				var distance_x = abs(target_player.global_position.x - global_position.x)
-				if distance_x > 45.0: 
-					attack_timer = 0.0
-					state = State.RUN 
-					return 
-			
-			if attack_timer >= attack_time:
-				attack_timer = 0.0
-				state = State.IDLE
-			return
-			
-		# --- STAN OBRONY
-		elif state == State.PROTECT:
-			protect_timer += delta
-			var def = randi()%101 + 1
-			if def > 50:
-				protect = true
-			else:
-				protect = false
-			if protect_timer >= protect_time: 
-				protect_timer = 0.0
-				state = State.IDLE
-			return
-		# --- LOGIKA SLEDZENIA GRACZA
-		if target_player != null:
-			var dir_to_player = sign(target_player.global_position.x - global_position.x)
-			
-			if dir_to_player != 0:
-				# Odwracanie grafiki
-				sprite.flip_h = dir_to_player < 0
-				vision.scale.x = -1 if sprite.flip_h else 1
-				# Przesunięcie czujnika krawędzi przed szkieleta
-				ledge_check.position.x = 15.0 * dir_to_player
-				attack_shape.position.x = 24.0 * dir_to_player
-			
-			# POPRAWIONO: Mierzenie dystansu tylko na osi X (bardziej stabilne dla sidescrollera)
-			var distance_x = abs(target_player.global_position.x - global_position.x)
-			
-			# Zwiększyłem delikatnie zasięg do 35.0, żeby łatwiej trafiał z lewej strony
-			if distance_x <= 35.0:
-				velocity.x = 0
-				if target_player.is_attacking:
-					state = State.PROTECT
-				else:
-					state = State.ATTACK
-				return
-
-			# przepasc/sciana
-			if not ledge_check.is_colliding() or is_on_wall():
-				velocity.x = 0
-				state = State.IDLE
-				return
-
-			# Droga wolna – biegnij za graczem
-			state = State.RUN
-			velocity.x = dir_to_player * speed
-			return
-
-		# --- PATROLOWANIE (Wykona się tylko, gdy target_player == null)
-		elif state == State.IDLE:
+		if state == State.IDLE:
 			velocity.x = 0
 			idle_timer += delta
+			if player_spotted():
+				idle_timer = 0
+				state = State.RUN
 			if idle_timer >= idle_time:
-				idle_timer = 0.0
+				idle_timer = 0
 				state = State.WALK
-				if randf() < 0.5:
-					patrol_dir *= -1
-
+				
 		elif state == State.WALK:
+			if player_spotted():
+				idle_timer = 0
+				state = State.RUN
+				return
 			walk_timer += delta
 			
 			# Ustawiamy wzrok i czujnik w stronę marszu
-			sprite.flip_h = patrol_dir < 0
-			vision.scale.x = -1 if sprite.flip_h else 1
-			ledge_check.position.x = 15.0 * patrol_dir
-			attack_shape.position.x = 24.0 * patrol_dir
+			flip(patrol_dir)
+			
+			var distance_from_spawn = global_position.x - spawn_position.x
+			var reached_limit = (patrol_dir > 0 and distance_from_spawn >= 500) or(patrol_dir < 0 and distance_from_spawn <= -500.0)
 			
 			# Zawracanie przed przepaścią ALBO przed ścianą
-			if not ledge_check.is_colliding() or is_on_wall():
+			if not ledge_check.is_colliding() or is_on_wall() or reached_limit:
 				patrol_dir *= -1
 				walk_timer = 0.0
 				state = State.IDLE
@@ -142,8 +79,44 @@ func ai_update(delta):
 			if walk_timer >= walk_time:
 				walk_timer = 0.0
 				state = State.IDLE
+				
+		elif state == State.ATTACK:
+			attack_timer += delta
+			
+			if target_player != null:
+				var distance_x = abs(target_player.global_position.x - global_position.x)
+				if distance_x > 45.0: 
+					attack_timer = 0.0
+					state = State.WALK 
+					return 
+			
+			if attack_timer >= attack_time:
+				attack_timer = 0.0
+				state = State.IDLE
+			return
+		
+		elif state == State.RUN:
+
+			if target_player!=null:
+				var dir_to_player = sign(target_player.global_position.x - global_position.x)
+				flip(dir_to_player)
+				var distance_x = abs(target_player.global_position.x - global_position.x)
+				if distance_x <= 35.0:
+					velocity.x = 0
+					state = State.ATTACK
+				else:
+					if not ledge_check.is_colliding() or is_on_wall():
+						velocity.x = 0
+						state = State.IDLE
+						return
+					else:
+						velocity.x = dir_to_player * speed
+			
+				
+			
 	else:
 		delete_hitboxes()
+
 		
 
 # --- SYGNAŁY WZROKU ---
@@ -166,30 +139,26 @@ func _on_area_2d_body_entered(body: Node2D) -> void:
 		body.hit(dmg)
 		
 #dostawanie obrazen
-func hit(damage, attacker: Node2D = null):
+func hit(damage):
 	if protect == true:
 		damage /= 2
 	hp -= damage
 	print(hp)
 
-	if attacker != null and target_player == null:
-		var dir_to_attacker = sign(attacker.global_position.x - global_position.x)
-		if dir_to_attacker != 0:
-			patrol_dir = dir_to_attacker
-			sprite.flip_h = patrol_dir < 0
-			vision.scale.x = -1 if sprite.flip_h else 1
-			ledge_check.position.x = 15.0 * patrol_dir
-			attack_shape.position.x = 24.0 * patrol_dir
-			
+				
 	if is_dead():
 		state = State.DEAD
 		var new_key = key.instantiate()
 		new_key.global_position = self.global_position + Vector2(0, 40)
 		get_parent().add_child(new_key) 
+		
 
 	
 func is_dead():
 	return hp<1
+	
+func player_spotted():
+	return target_player != null
 	
 func delete_hitboxes():
 	hitbox.set_deferred("disabled", true)
@@ -197,3 +166,9 @@ func delete_hitboxes():
 	vision.set_deferred("disabled", true)
 	ledge_check.set_deferred("disabled", true)
 	set_physics_process(false)
+	
+func flip(dir):
+	sprite.flip_h = dir < 0
+	vision.scale.x = -1 if sprite.flip_h else 1
+	ledge_check.position.x = 15.0 * dir
+	attack_shape.position.x = 24.0 * dir
