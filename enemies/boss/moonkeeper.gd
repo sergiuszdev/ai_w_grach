@@ -2,7 +2,7 @@ extends CharacterBody2D
 class_name Moonkeeper
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 
-@onready var MAX_HEALTH := 500
+@onready var MAX_HEALTH := 1600
 @onready var current_hp := MAX_HEALTH
 
 @onready var sprite := $Animations/AnimatedSprite2D

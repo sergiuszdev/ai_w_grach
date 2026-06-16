@@ -11,6 +11,7 @@
 [ext_resource type="PackedScene" uid="uid://c4phox14wyv30" path="res://backgrounds/night_clouds.tscn" id="7_ynsis"]
 [ext_resource type="PackedScene" uid="uid://bgep6lxq77ojk" path="res://enemies/boss/moon.tscn" id="9_n1sau"]
 [ext_resource type="PackedScene" uid="uid://bvf6o8xpsj5sa" path="res://levels/globals/in_game_ui.tscn" id="11_b5n2f"]
+[ext_resource type="PackedScene" uid="uid://dd8ljqwblgtmf" path="res://levels/globals/game_ui.tscn" id="12_e4r05"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_2sjh2"]
 size = Vector2(876, 492.6667)
@@ -84,6 +85,7 @@ metadata/_edit_lock_ = true
 [node name="Player" parent="." unique_id=1278280480 instance=ExtResource("2_2sjh2")]
 z_index = 32
 position = Vector2(531, 109)
+collision_mask = 2055
 metadata/_edit_lock_ = true
 
 [node name="Terrain" type="Node2D" parent="." unique_id=1073154290]
@@ -198,6 +200,8 @@ position = Vector2(611.25, 127.25)
 shape = SubResource("RectangleShape2D_yknab")
 
 [node name="InGameUI" parent="." unique_id=1415448259 instance=ExtResource("11_b5n2f")]
+
+[node name="GameUi" parent="." unique_id=514189738 instance=ExtResource("12_e4r05")]
 
 [connection signal="area_entered" from="Cutscene/TriggerBoss" to="." method="_on_trigger_boss_area_entered"]
 [connection signal="body_entered" from="Cutscene/TriggerBoss" to="." method="_on_trigger_boss_body_entered"]

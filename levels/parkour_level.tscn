@@ -6,6 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://c6lbpufs81dn1" path="res://traps/saw_trap.tscn" id="2_54ht1"]
 [ext_resource type="PackedScene" uid="uid://bvf6o8xpsj5sa" path="res://levels/globals/in_game_ui.tscn" id="4_svma4"]
 [ext_resource type="PackedScene" uid="uid://ya1aqvse8aib" path="res://backgrounds/day_background.tscn" id="5_ospck"]
+[ext_resource type="PackedScene" uid="uid://dd8ljqwblgtmf" path="res://levels/globals/game_ui.tscn" id="7_2cqco"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ospck"]
 size = Vector2(20, 42.487843)
@@ -63,5 +64,7 @@ z_index = -500
 position = Vector2(-97, -48.78759)
 scale = Vector2(-7.4294276, 60.68916)
 shape = SubResource("RectangleShape2D_ospck")
+
+[node name="GameUi" parent="." unique_id=514189738 instance=ExtResource("7_2cqco")]
 
 [connection signal="body_entered" from="GoToSpawn" to="." method="_on_go_to_spawn_body_entered"]

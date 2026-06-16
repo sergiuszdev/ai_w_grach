@@ -90,8 +90,10 @@ func _physics_process(delta):
 	
 	if is_dead():
 		playback.travel("dead")
+		if Input.is_key_pressed(KEY_R):
+			respawn()
 		return
-
+	
 	get_input()
 	
 
@@ -413,3 +415,6 @@ func emit_player_action(action: int, context: Dictionary = {}):
 
 func _on_attack_cooldown_timeout():
 	is_attack_ready = true
+
+func respawn():
+	PlayerStats.players_health += 100

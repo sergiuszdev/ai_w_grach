@@ -23,15 +23,12 @@ func on_update(delta):
 
 	var target_pos: Vector2 = target.global_position
 
-	# desired floating position (above player + slight tracking)
 	var desired_x = target_pos.x
 	var desired_y = target_pos.y - hover_height
 
-	# smooth movement (IMPORTANT: no hard teleport)
 	agent.global_position.x = lerp(agent.global_position.x, desired_x, follow_speed * delta)
 	agent.global_position.y = lerp(agent.global_position.y, desired_y, follow_speed * delta)
 
-	# optional clamp so it doesn't drift too far
 	var offset_x = agent.global_position.x - target_pos.x
 	if abs(offset_x) > max_horizontal_offset:
 		agent.global_position.x = target_pos.x + sign(offset_x) * max_horizontal_offset

@@ -5,6 +5,7 @@
 [ext_resource type="PackedScene" uid="uid://daf2wm6fer2kl" path="res://player/Player.tscn" id="2_wgmui"]
 [ext_resource type="PackedScene" uid="uid://ya1aqvse8aib" path="res://backgrounds/day_background.tscn" id="3_8mwn1"]
 [ext_resource type="PackedScene" uid="uid://bvf6o8xpsj5sa" path="res://levels/globals/in_game_ui.tscn" id="4_6pvr7"]
+[ext_resource type="PackedScene" uid="uid://dd8ljqwblgtmf" path="res://levels/globals/game_ui.tscn" id="6_wrhrt"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_8mwn1"]
 size = Vector2(64, 131)
@@ -58,6 +59,8 @@ scale = Vector2(2.7841003, 3.5458648)
 shape = SubResource("RectangleShape2D_8mwn1")
 
 [node name="InGameUI" parent="." unique_id=1415448259 instance=ExtResource("4_6pvr7")]
+
+[node name="GameUi" parent="." unique_id=514189738 instance=ExtResource("6_wrhrt")]
 
 [connection signal="body_entered" from="Travel/LeftLevel" to="." method="_on_left_level_body_entered"]
 [connection signal="area_entered" from="Travel/RightLevel" to="." method="_on_right_level_area_entered"]
