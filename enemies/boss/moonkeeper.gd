@@ -2,7 +2,7 @@ extends CharacterBody2D
 class_name Moonkeeper
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 
-@onready var MAX_HEALTH := 1000
+@onready var MAX_HEALTH := 500
 @onready var current_hp := MAX_HEALTH
 
 @onready var sprite := $Animations/AnimatedSprite2D
@@ -75,6 +75,10 @@ func _ready():
 	attack_area.monitoring = false
 
 func _physics_process(delta):
+	
+	if state == States.DEATH:
+		update_animation()
+		return
 	
 	if paused:
 		velocity = Vector2.ZERO
@@ -156,7 +160,7 @@ func _apply_attack_hits(area: Area2D) -> void:
 		if _attack_hit_targets.has(body):
 			continue
 		if body.has_method("hit"):
-			body.hit(1, self)
+			body.hit(5, self)
 			_attack_hit_targets[body] = true
 
 func jump():
@@ -185,7 +189,6 @@ func ground_attack():
 	state = States.GROUND_ATTACK
 	velocity.x = 0
 
-#change it to anti airborne attack
 func anti_air_attack():
 	state = States.ANTI_AIR_ATTACK
 	velocity.x = 0

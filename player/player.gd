@@ -44,12 +44,11 @@ var is_healing := false
 var is_attacking := false
 var is_sliding := false
 var jumps_remaining := 2
-@export var MAX_JUMPS := 1
 var direction := 0.0
 @onready var wall_jumps = 1
 @onready var is_pogo := false
 
-@export var attack_cooldown_time := Globals.player_attack_cooldown
+@export var attack_cooldown_time := PlayerStats.player_attack_cooldown
 @onready var is_attack_ready := true
 
 @onready var attack_cooldown_timer = $FlipGroup/Attacks/AttackCooldown
@@ -105,7 +104,7 @@ func _physics_process(delta):
 		velocity.y += gravity * delta
 
 	if is_on_floor():
-		jumps_remaining = MAX_JUMPS
+		jumps_remaining = PlayerStats.max_jumps
 		wall_jumps = 1
 
 	if Input.is_action_just_pressed("jump") and jumps_remaining > 0:
@@ -216,7 +215,7 @@ func do_normal_attack():
 func pogo_jump():
 	is_pogo = true
 	jump()
-	jumps_remaining = MAX_JUMPS
+	jumps_remaining = PlayerStats.max_jumps
 	
 func wall_jump():
 	if wall_jumps > 0:
@@ -283,11 +282,11 @@ func heal(amount):
 	is_healing = true
 	playback.travel("heal")
 
-	Globals.players_health += amount
-	Globals.players_health = min(Globals.players_health, Globals.max_players_health)
+	PlayerStats.players_health += amount
+	PlayerStats.players_health = min(PlayerStats.players_health, PlayerStats.max_players_health)
 	emit_player_action(PlayerAction.HEAL, {"amount": amount})
 	
-	print("players hp: ", Globals.players_health)
+	print("players hp: ", PlayerStats.players_health)
 
 
 
@@ -357,8 +356,8 @@ func hit(amount: int, attacker = null):
 		"attacker": attacker
 	})
 
-	Globals.players_health -= amount
-	Globals.players_health = max(Globals.players_health, 0)
+	PlayerStats.players_health -= amount
+	PlayerStats.players_health = max(PlayerStats.players_health, 0)
 
 
 	is_attacking = false
@@ -391,17 +390,17 @@ func is_jumping():
 	return false
 
 func is_dead():
-	return Globals.players_health < 1
+	return PlayerStats.players_health < 1
 func get_player_damage():
-	return Globals.player_damage
+	return PlayerStats.player_damage
 func set_player_damage(amount):
-	Globals.player_damage = amount
+	PlayerStats.player_damage = amount
 
 func pogo_end():
 	is_pogo = false
 	
 func take_damage(damage):
-	Globals.players_health -= damage
+	PlayerStats.players_health -= damage
 		
 
 

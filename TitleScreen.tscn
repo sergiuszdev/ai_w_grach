@@ -1,8 +1,59 @@
 [gd_scene format=3 uid="uid://blah06sb48yy0"]
 
 [ext_resource type="Script" uid="uid://b4wbhgpql623s" path="res://title_screen.gd" id="1_fnlyl"]
+[ext_resource type="PackedScene" uid="uid://ya1aqvse8aib" path="res://backgrounds/day_background.tscn" id="2_pkhjh"]
+[ext_resource type="PackedScene" uid="uid://bp1bh18u3dvhw" path="res://enemies/keeper_head.tscn" id="3_1xr1c"]
 
-[node name="TitleScreen" type="Control" unique_id=496324021]
-layout_mode = 3
-anchors_preset = 0
+[node name="TitleScreen" type="Node" unique_id=825998426]
 script = ExtResource("1_fnlyl")
+
+[node name="DayBackground" parent="." unique_id=425134530 instance=ExtResource("2_pkhjh")]
+
+[node name="Control" type="Control" parent="." unique_id=1764488650]
+layout_mode = 3
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Control" unique_id=571809332]
+texture_filter = 3
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -46.5
+offset_top = -33.0
+offset_right = 46.5
+offset_bottom = 33.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="StartGame" type="Button" parent="Control/VBoxContainer" unique_id=1216198287]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+text = "Start game"
+
+[node name="Quit" type="Button" parent="Control/VBoxContainer" unique_id=1675902266]
+layout_mode = 2
+text = "Quit"
+
+[node name="KeeperHead" parent="." unique_id=1495594092 instance=ExtResource("3_1xr1c")]
+modulate = Color(1, 1, 1, 0.11100001)
+position = Vector2(269, 480.00006)
+scale = Vector2(7.8645806, 7.8645806)
+
+[connection signal="pressed" from="Control/VBoxContainer/StartGame" to="." method="_on_start_game_pressed"]
+[connection signal="pressed" from="Control/VBoxContainer/Quit" to="." method="_on_quit_pressed"]

@@ -4,8 +4,8 @@ extends Node2D
 @onready var head = $Enemy/KeeperHead
 @export var boss_scene: PackedScene
 var boss_instance: Node2D = null
-var is_boss_alive := true
-
+var is_boss_alive := Globals.is_moonkeeper_alive
+@onready var doors_closed := false
 
 @onready var debug_hp = $DebugHp
 @onready var night_background = $NightClouds
@@ -63,7 +63,37 @@ func _ready():
 
 func _process(_delta):
 	decay_player_memory()
+	
+	if boss_instance and is_boss_alive:
+		if boss_instance.current_hp <= 0:
+			is_boss_alive = false
+			Globals.is_moonkeeper_alive = false
 
+			boss_instance.die()
+			await on_defeat()
+
+func on_defeat():
+	doors_closed = false
+
+	for door in doors:
+		door.open_door()
+
+	if boss_instance:
+		boss_instance.die()
+
+		await get_tree().create_timer(2.0).timeout
+
+		boss_instance.queue_free()
+		boss_instance = null
+
+	head.visible = false
+	moon.visible = false
+
+	await on_boss_dead()
+
+	PlayerStats.max_jumps = 2
+	Globals.is_moonkeeper_alive = false
+	
 func start_phase_three():
 	current_phase = Phase.PHASE_3
 	if boss_instance:
@@ -344,6 +374,7 @@ func start_phase_one():
 	
 	for door in doors:
 		door.close_door()
+		doors_closed = true
 
 	await first_phase_animation()
 
@@ -402,7 +433,8 @@ func _on_boss_health_changed(hp, max_hp):
 func _on_phase_2_timer_timeout():
 	_switch_phase(Phase.PHASE_3)
 	
-	
+
+
 func _switch_phase(p):
 	current_phase = p
 
@@ -425,3 +457,9 @@ func _on_player_action(action: String, _context: Dictionary):
 func decay_player_memory():
 	for key in action_memory.keys():
 		action_memory[key] = max(0, action_memory[key] - 0.05)
+
+
+func _on_go_to_road_body_entered(body):
+	if not doors_closed:
+		if body.is_in_group("player"):
+			Globals.goto_scene("uid://eyghx6bknct")

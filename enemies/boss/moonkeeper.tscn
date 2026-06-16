@@ -134,7 +134,7 @@
 [ext_resource type="Script" uid="uid://d0q1cs0bjelma" path="res://enemies/ai/behaviour_tree/random_selector.gd" id="130_mbvdn"]
 [ext_resource type="Script" uid="uid://boc604rk8ku5u" path="res://enemies/boss/black_aggressive_dash.gd" id="131_d2a4s"]
 [ext_resource type="Script" uid="uid://cwldova03jeou" path="res://enemies/boss/run_to_target.gd" id="132_4go6b"]
-[ext_resource type="Script" path="res://enemies/boss/activate_moon_attack.gd" id="132_ef5fc"]
+[ext_resource type="Script" uid="uid://brjo18soukaeu" path="res://enemies/boss/activate_moon_attack.gd" id="132_ef5fc"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_5vlhv"]
 height = 61.0

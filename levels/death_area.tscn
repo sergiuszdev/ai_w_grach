@@ -1,0 +1,13 @@
+[gd_scene format=3 uid="uid://b8hmgxygjr8a0"]
+
+[ext_resource type="Script" uid="uid://btjbahfgwje27" path="res://levels/death_area.gd" id="1_qy8wa"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_3jypk"]
+
+[node name="DeathArea" type="Area2D" unique_id=314449144]
+script = ExtResource("1_qy8wa")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=394697567]
+shape = SubResource("RectangleShape2D_3jypk")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

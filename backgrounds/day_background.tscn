@@ -8,6 +8,7 @@
 
 [node name="DayBackground" type="Node2D" unique_id=425134530]
 texture_filter = 1
+scale = Vector2(5, 5)
 script = ExtResource("1_h8hxa")
 
 [node name="Parallax2D" type="Parallax2D" parent="." unique_id=382414168]
